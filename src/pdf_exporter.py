@@ -4,7 +4,7 @@ PDF 报告导出 (v3.0)
 设计:
 - 用 weasyprint 把 HTML 渲染成 PDF
 - 由于 weasyprint 不支持 Canvas, 我们用 SVG 重画雷达图与热力图
-- 移除可点击 tab, 改为线性铺开 (评委友好)
+- 移除可点击 tab, 改为线性铺开 (打印友好)
 - 会话原文限制只展示首会话, 但保留所有 quote 证据
 
 用法:

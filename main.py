@@ -17,7 +17,7 @@
     # 完整评测 (需 DEEPSEEK_API_KEY)
     python main.py -i config/sample_instructions/delivery_notification.json
     python main.py -i config/sample_instructions/rider_feimaotui.md
-    python main.py --excel "命题二：外呼任务对话模型指令示例.xlsx"
+    python main.py --excel your_instructions.xlsx
 
     # 调参
     python main.py -i task.json --personas cooperative,busy,red_team_l2 --sessions 3
@@ -420,7 +420,7 @@ def main():
   python main.py --demo                                            # Demo (无需 API)
   python main.py -i task.json                                      # 默认评测
   python main.py -i task.md --branch-test --self-consistency 3     # 强分支覆盖 + SC=3
-  python main.py --excel "命题二:外呼任务对话模型指令示例.xlsx"     # Excel 批量
+  python main.py --excel your_instructions.xlsx                  # Excel 批量
   python main.py -i task.json --mini                               # 快跑 (3画像×1次)
   python main.py -i task.json --full                               # 全跑 (全画像×3次+分支)
 """,

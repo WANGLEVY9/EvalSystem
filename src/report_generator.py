@@ -330,7 +330,7 @@ class ReportGenerator:
             json.dump(data, f, ensure_ascii=False, indent=2, default=str)
 
     def _gen_markdown(self, report: EvaluationReport, path: Path):
-        """1 页评委友好的 markdown 摘要"""
+        """1 页 markdown 摘要"""
         lines = []
         lines.append(f"# 评测报告: {report.task_name}")
         lines.append("")
