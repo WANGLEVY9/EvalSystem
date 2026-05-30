@@ -221,7 +221,7 @@ eval_system/
 │   ├── test_integration.py                  # 集成测试 (无 API)
 │   ├── calibration_set.json                 # ⭐ 8 case 人工标注集
 │   └── run_calibration.py                   # ⭐ 评估器可靠性回测
-└── output/                                  # 报告输出
+└── output/                                  # ⭐ 实测产出归档 (15+ 报告, 见 output/README.md)
 ```
 
 ---

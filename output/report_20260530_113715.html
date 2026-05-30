@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>致电"飞毛腿"骑手，通知他们今天合同已成功签署，并提醒他们完... - 评测报告</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f3f5f9;color:#222;line-height:1.6}
+    .container{max-width:1280px;margin:0 auto;padding:18px}
+    .hero{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:32px 36px;border-radius:14px;margin-bottom:18px;box-shadow:0 4px 16px rgba(102,126,234,.25)}
+    .hero h1{font-size:26px;margin-bottom:6px}
+    .hero .meta{opacity:.92;font-size:13px}
+    .hero .meta-tags{margin-top:12px}
+    .hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:3px 10px;border-radius:12px;font-size:11px;margin-right:6px}
+    .grid{display:grid;gap:16px}
+    .grid-4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .grid-2{grid-template-columns:1fr 1fr}
+    .card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:16px}
+    .card h2{font-size:17px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f0f2f7;display:flex;align-items:center;gap:8px}
+    .card h2 .badge{background:#667eea;color:#fff;font-size:10px;padding:2px 7px;border-radius:9px;font-weight:400}
+    .stat{text-align:center;padding:14px;background:#fafbfd;border-radius:10px}
+    .stat .v{font-size:28px;font-weight:700;color:#1890ff}
+    .stat .l{font-size:11px;color:#666;margin-top:3px}
+    .stat .sub{font-size:11px;color:#999;margin-top:2px}
+    .score-excellent{color:#52c41a}.score-good{color:#1890ff}.score-fair{color:#faad14}.score-poor{color:#f5222d}
+    .big-score{font-size:60px;font-weight:700;text-align:center;line-height:1.1}
+    .conf{font-size:11px;color:#999;text-align:center;margin-top:4px}
+    .dim-row{display:grid;grid-template-columns:160px 1fr 80px 90px 110px;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f5f5f8;font-size:13px}
+    .dim-name{font-weight:500}
+    .dim-bar{height:18px;background:#eef0f4;border-radius:9px;overflow:hidden;position:relative}
+    .dim-fill{height:100%;border-radius:9px;transition:width .3s}
+    .dim-score{font-weight:700;text-align:right}
+    .dim-confidence{font-size:11px;color:#888}
+    .dim-method{font-size:10px;padding:2px 8px;border-radius:8px;text-align:center}
+    .method-rule{background:#e6f7ff;color:#1890ff}
+    .method-llm_judge{background:#f9f0ff;color:#722ed1}
+    .method-hybrid{background:#fff7e6;color:#fa8c16}
+    .method-heuristic{background:#f6ffed;color:#52c41a}
+    .persona-card{text-align:center;padding:14px;border-radius:10px;background:#fafbfd;cursor:pointer;transition:all .2s}
+    .persona-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+    .persona-card .v{font-size:22px;font-weight:700;margin:6px 0}
+    .persona-card .l{font-size:11px;color:#666}
+
+    /* tab */
+    .tab-buttons{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap}
+    .tab-btn{padding:7px 14px;border:1px solid #d9dde6;background:#fff;border-radius:7px;cursor:pointer;font-size:12px;color:#444}
+    .tab-btn:hover{border-color:#1890ff;color:#1890ff}
+    .tab-btn.active{background:#1890ff;color:#fff;border-color:#1890ff}
+    .tab-btn .score-pill{background:rgba(255,255,255,.25);padding:1px 6px;border-radius:6px;margin-left:5px;font-size:10px}
+    .tab-btn:not(.active) .score-pill{background:#eef0f4;color:#444}
+    .tab-content{display:none}
+    .tab-content.active{display:block}
+
+    /* 对话 */
+    .dialogue-box{background:#fafbfd;border:1px solid #eef0f4;border-radius:10px;padding:14px;max-height:560px;overflow-y:auto}
+    .turn{margin:8px 0;padding:9px 13px;border-radius:9px;max-width:78%;position:relative}
+    .turn-system{background:#e6f7ff;border:1px solid #91d5ff;margin-right:auto}
+    .turn-user{background:#f6ffed;border:1px solid #b7eb8f;margin-left:auto}
+    .turn-violation{background:#fff2f0!important;border-color:#ff7875!important;box-shadow:0 0 0 2px rgba(245,34,45,.1)}
+    .turn-violation::after{content:"⚠";position:absolute;top:-8px;right:-8px;width:20px;height:20px;background:#f5222d;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+    .turn-label{font-size:10px;color:#999;margin-bottom:3px;display:flex;justify-content:space-between}
+    .turn-flow{font-size:9px;color:#bbb;font-style:italic}
+    .turn-content{white-space:pre-wrap;word-break:break-word}
+    .turn-meta{font-size:10px;color:#aaa;margin-top:4px;display:flex;justify-content:space-between;align-items:center}
+    .quote-mark{background:#fffacb;padding:0 2px;border-radius:2px}
+
+    /* 评估明细 */
+    .cp-item{padding:9px 13px;margin:5px 0;border-radius:7px;display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;font-size:12px}
+    .cp-completed{background:#f6ffed;border-left:4px solid #52c41a}
+    .cp-partially{background:#fffbe6;border-left:4px solid #faad14}
+    .cp-failed{background:#fff2f0;border-left:4px solid #f5222d}
+    .cp-na{background:#f5f5f5;border-left:4px solid #aaa;color:#888}
+    .pill{padding:1px 7px;border-radius:8px;font-size:10px;font-weight:600;color:#fff}
+    .pill-completed{background:#52c41a}.pill-partially{background:#faad14}
+    .pill-failed{background:#f5222d}.pill-na{background:#aaa}
+    .pill-conf{background:#1890ff}
+
+    /* 失败模式 */
+    .fm-card{background:#fff7e6;border:1px solid #ffd591;border-radius:9px;padding:11px 14px;margin:8px 0;font-size:12px}
+    .fm-card .name{font-weight:600;color:#d46b08}
+    .fm-card .quote{background:#fff;padding:5px 8px;border-radius:5px;margin:6px 0;font-style:italic;color:#555}
+    .fm-card .suggestion{color:#666;font-size:11px}
+    .fm-cat{display:inline-block;background:#ff7a45;color:#fff;font-size:10px;padding:1px 6px;border-radius:6px;margin-right:5px}
+
+    /* 分支覆盖 */
+    .branch-line{display:flex;align-items:center;gap:10px;font-size:12px;padding:5px 0}
+    .branch-line .dot{width:10px;height:10px;border-radius:50%}
+    .branch-covered .dot{background:#52c41a}
+    .branch-uncovered .dot{background:#ccc}
+    .branch-uncovered{color:#999}
+
+    /* 推荐 */
+    .rec-list li{padding:9px 13px;margin:6px 0;background:#fafbfd;border-radius:7px;border-left:3px solid #1890ff;list-style:none;font-size:13px}
+    .rec-list .urgent{border-left-color:#f5222d;background:#fff2f0}
+    .rec-list .knowledge{border-left-color:#722ed1;background:#f9f0ff}
+    .rec-list .utterance{border-left-color:#fa8c16;background:#fff7e6}
+    .rec-list .failure{border-left-color:#fa541c;background:#fff2e8}
+
+    /* 复算信息 */
+    .meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;font-size:12px}
+    .meta-item{padding:8px 12px;background:#fafbfd;border-radius:6px}
+    .meta-item .l{color:#888;font-size:10px}
+    .meta-item .v{font-weight:500;font-family:Menlo,monospace;font-size:12px;word-break:break-all}
+
+    /* heatmap canvas */
+    canvas{max-width:100%;display:block;margin:0 auto}
+
+    /* footer */
+    .footer{text-align:center;color:#999;font-size:11px;padding:18px 0}
+    .footer a{color:#666;text-decoration:none}
+  </style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>📊 多轮对话评测报告 v3.0</h1>
+  <div class="meta">
+    任务: <strong>致电"飞毛腿"骑手，通知他们今天合同已成功签署，并提醒他们完...</strong>
+    — 致电"飞毛腿"骑手，通知他们今天合同已成功签署，并提醒他们完成配送任务。
+  </div>
+  <div class="meta">生成时间: 2026-05-30 11:37:15 | 测试会话数: 3</div>
+  <div class="meta-tags">
+    
+    <span class="tag">指令复杂度 100 (very_complex)</span>
+    <span class="tag">流程节点 6</span>
+    <span class="tag">分支 8</span>
+    <span class="tag">约束 3</span>
+    <span class="tag">知识 6</span>
+    
+    
+    <span class="tag">run_id=c67d7d46</span>
+    <span class="tag">N=1</span>
+    
+  </div>
+</div>
+
+<!-- 概览统计 -->
+<div class="grid grid-4">
+  <div class="card stat">
+    <div class="v score-fair">
+      67.5
+    </div>
+    <div class="l">总体得分 / 100</div>
+    <div class="sub">±13.8, 置信 0.95</div>
+  </div>
+  <div class="card stat">
+    <div class="v">3</div>
+    <div class="l">测试会话数</div>
+  </div>
+  <div class="card stat">
+    <div class="v">8</div>
+    <div class="l">评估维度</div>
+  </div>
+  <div class="card stat">
+    <div class="v">3</div>
+    <div class="l">用户画像数</div>
+  </div>
+</div>
+
+<!-- 总分 + 摘要 -->
+<div class="grid grid-2">
+  <div class="card">
+    <h2>🎯 总分</h2>
+    <div class="big-score score-fair">
+      67.5
+    </div>
+    <div class="conf">
+      合格
+      | 标准差 ±13.8
+      | 置信度 0.95
+    </div>
+  </div>
+  <div class="card">
+    <h2>📋 评测摘要</h2>
+    <div style="white-space:pre-line;font-size:13px;line-height:1.85;color:#444">总体评级: 合格 (67.5±13.8分)
+最强维度: 话术简洁度 (100.0分)
+最弱维度: 知识准确度 (13.3分)
+画像最佳: 配合型 (83.0分)
+画像最差: 忙碌型 (56.9分)
+风险: 最薄弱维度是【知识准确度】(13.3分); 在【busy】用户画像下表现最差; 高频失败模式: 知识幻觉: 编造信息 (出现8次)。</div>
+  </div>
+</div>
+
+<!-- 雷达 + 维度 -->
+<div class="card">
+  <h2>📐 多维度评分 <span class="badge">8 维</span></h2>
+  <canvas id="radar" width="420" height="420" style="max-width:420px"></canvas>
+  <div style="margin-top:16px">
+    
+    <div class="dim-row">
+      <span class="dim-name">任务完成度</span>
+      <div class="dim-bar">
+        <div class="dim-fill" style="width:69.6%;background:#1890ff"></div>
+      </div>
+      <span class="dim-score" style="color:#1890ff">
+        69.6
+        
+      </span>
+      <span class="dim-confidence">权重 20%, 置信 0.98</span>
+      <span class="dim-method method-llm_judge">
+        LLM 语义判定
+      </span>
+    </div>
+    
+    <div class="dim-row">
+      <span class="dim-name">流程遵循度</span>
+      <div class="dim-bar">
+        <div class="dim-fill" style="width:68.3%;background:#1890ff"></div>
+      </div>
+      <span class="dim-score" style="color:#1890ff">
+        68.3
+        
+      </span>
+      <span class="dim-confidence">权重 20%, 置信 0.90</span>
+      <span class="dim-method method-llm_judge">
+        LLM 语义判定
+      </span>
+    </div>
+    
+    <div class="dim-row">
+      <span class="dim-name">约束遵守度</span>
+      <div class="dim-bar">
+        <div class="dim-fill" style="width:80.0%;background:#52c41a"></div>
+      </div>
+      <span class="dim-score" style="color:#52c41a">
+        80.0
+        
+      </span>
+      <span class="dim-confidence">权重 15%, 置信 1.00</span>
+      <span class="dim-method method-llm_judge">
+        LLM 语义判定
+      </span>
+    </div>
+    
+    <div class="dim-row">
+      <span class="dim-name">异常处理能力</span>
+      <div class="dim-bar">
+        <div class="dim-fill" style="width:80.0%;background:#52c41a"></div>
+      </div>
+      <span class="dim-score" style="color:#52c41a">
+        80.0
+        
+      </span>
+      <span class="dim-confidence">权重 10%, 置信 0.90</span>
+      <span class="dim-method method-llm_judge">
+        LLM 语义判定
+      </span>
+    </div>
+    
+    <div class="dim-row">
+      <span class="dim-name">对话效率</span>
+      <div class="dim-bar">
+        <div class="dim-fill" style="width:83.0%;background:#52c41a"></div>
+      </div>
+      <span class="dim-score" style="color:#52c41a">
+        83.0
+        
+      </span>
+      <span class="dim-confidence">权重 5%, 置信 0.85</span>
+      <span class="dim-method method-hybrid">
+        规则+LLM 混合
+      </span>
+    </div>
+    
+    <div class="dim-row">
+      <span class="dim-name">话术质量</span>
+      <div class="dim-bar">
+        <div class="dim-fill" style="width:75.0%;background:#1890ff"></div>
+      </div>
+      <span class="dim-score" style="color:#1890ff">
+        75.0
+        
+      </span>
+      <span class="dim-confidence">权重 5%, 置信 0.80</span>
+      <span class="dim-method method-llm_judge">
+        LLM 语义判定
+      </span>
+    </div>
+    
+    <div class="dim-row">
+      <span class="dim-name">知识准确度</span>
+      <div class="dim-bar">
+        <div class="dim-fill" style="width:13.3%;background:#f5222d"></div>
+      </div>
+      <span class="dim-score" style="color:#f5222d">
+        13.3
+        
+      </span>
+      <span class="dim-confidence">权重 15%, 置信 1.00</span>
+      <span class="dim-method method-llm_judge">
+        LLM 语义判定
+      </span>
+    </div>
+    
+    <div class="dim-row">
+      <span class="dim-name">话术简洁度</span>
+      <div class="dim-bar">
+        <div class="dim-fill" style="width:100.0%;background:#52c41a"></div>
+      </div>
+      <span class="dim-score" style="color:#52c41a">
+        100.0
+        
+      </span>
+      <span class="dim-confidence">权重 10%, 置信 1.00</span>
+      <span class="dim-method method-rule">
+        规则确定性
+      </span>
+    </div>
+    
+  </div>
+</div>
+
+<!-- 画像表现 + 热力图 -->
+<div class="card">
+  <h2>👥 用户画像表现 <span class="badge">3 类</span></h2>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(110px,1fr));margin-bottom:18px">
+    
+    <div class="persona-card" onclick="filterByPersona('cooperative')">
+      <div class="l">配合型</div>
+      <div class="v" style="color:#52c41a">83.0</div>
+    </div>
+    
+    <div class="persona-card" onclick="filterByPersona('red_team_l1')">
+      <div class="l">红队-轻度</div>
+      <div class="v" style="color:#1890ff">62.6</div>
+    </div>
+    
+    <div class="persona-card" onclick="filterByPersona('busy')">
+      <div class="l">忙碌型</div>
+      <div class="v" style="color:#faad14">56.9</div>
+    </div>
+    
+  </div>
+  <h2 style="margin-top:14px">🔥 画像 × 维度 表现热力图</h2>
+  <canvas id="heatmap" width="900" height="320" style="max-width:100%"></canvas>
+</div>
+
+<!-- 短板诊断 -->
+
+<div class="card">
+  <h2>🩺 模型短板诊断 <span class="badge">v3 创新</span></h2>
+  <div class="grid grid-2" style="margin-bottom:14px">
+    <div>
+      <h3 style="font-size:13px;color:#f5222d">🔻 最弱维度 Top-3</h3>
+      <ul style="margin-top:8px;font-size:13px">
+        
+        <li style="padding:5px 0">知识准确度 (13.3分)</li>
+        
+        <li style="padding:5px 0">流程遵循度 (68.3分)</li>
+        
+        <li style="padding:5px 0">任务完成度 (69.6分)</li>
+        
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-size:13px;color:#52c41a">🔺 最强维度 Top-3</h3>
+      <ul style="margin-top:8px;font-size:13px">
+        
+        <li style="padding:5px 0">话术简洁度 (100.0分)</li>
+        
+        <li style="padding:5px 0">对话效率 (83.0分)</li>
+        
+        <li style="padding:5px 0">约束遵守度 (80.0分)</li>
+        
+      </ul>
+    </div>
+  </div>
+  
+  <div style="margin-bottom:14px;font-size:13px">
+    <strong>最弱画像:</strong>
+    <span style="background:#fff2f0;color:#cf1322;padding:2px 9px;border-radius:9px;margin:0 4px;font-size:12px">busy (56.9分)</span><span style="background:#fff2f0;color:#cf1322;padding:2px 9px;border-radius:9px;margin:0 4px;font-size:12px">red_team_l1 (62.6分)</span><span style="background:#fff2f0;color:#cf1322;padding:2px 9px;border-radius:9px;margin:0 4px;font-size:12px">cooperative (83.0分)</span>
+  </div>
+  
+  
+  <h3 style="font-size:14px;margin-top:14px">⚡ Top 失败模式 (8)</h3>
+  
+  <div class="fm-card">
+    <div><span class="fm-cat">knowledge</span><span class="name">知识幻觉: 编造信息</span> <span style="color:#999;font-size:11px">| 出现 8 次 | 影响分 40.0</span></div>
+    <div class="quote">"单日合同今天要跑够5单才能生效"</div>
+    <div style="font-size:11px;color:#999">影响画像: busy, cooperative, red_team_l1</div>
+    <div class="suggestion">💡 建议: 提供知识库 FAQ 标准答案, 强调'未知信息不要编造'</div>
+  </div>
+  
+  <div class="fm-card">
+    <div><span class="fm-cat">task</span><span class="name">检查点未完成: 说明恶劣天气工作有助于保住资格</span> <span style="color:#999;font-size:11px">| 出现 3 次 | 影响分 18.0</span></div>
+    <div class="quote">"对话中未提及恶劣天气工作有助于保住资格的内容，检查点未完成。"</div>
+    <div style="font-size:11px;color:#999">影响画像: busy, cooperative, red_team_l1</div>
+    <div class="suggestion">💡 建议: 在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记</div>
+  </div>
+  
+  <div class="fm-card">
+    <div><span class="fm-cat">knowledge</span><span class="name">知识引用错误</span> <span style="color:#999;font-size:11px">| 出现 3 次 | 影响分 15.0</span></div>
+    <div class="quote">"[{'query': '单日合同每天需要完成多少单？', 'expected': '单日合同在生效当天必须完成X单，否则合同及派单可能受到影响。', 'actual': '单日合同每天至少完成5单', 'correct': False, '"</div>
+    <div style="font-size:11px;color:#999">影响画像: busy, cooperative, red_team_l1</div>
+    <div class="suggestion">💡 建议: 提供知识库 FAQ 标准答案, 强调'未知信息不要编造'</div>
+  </div>
+  
+  <div class="fm-card">
+    <div><span class="fm-cat">task</span><span class="name">检查点未完成: 说明飞毛腿报名按排名</span> <span style="color:#999;font-size:11px">| 出现 2 次 | 影响分 12.0</span></div>
+    <div class="quote">"对话中未提及报名按排名。"</div>
+    <div style="font-size:11px;color:#999">影响画像: busy, red_team_l1</div>
+    <div class="suggestion">💡 建议: 在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记</div>
+  </div>
+  
+  <div class="fm-card">
+    <div><span class="fm-cat">task</span><span class="name">检查点未完成: 提醒减少拒单取消超时</span> <span style="color:#999;font-size:11px">| 出现 2 次 | 影响分 12.0</span></div>
+    <div class="quote">"对话中未提及减少拒单、取消和超时。"</div>
+    <div style="font-size:11px;color:#999">影响画像: busy, red_team_l1</div>
+    <div class="suggestion">💡 建议: 在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记</div>
+  </div>
+  
+  <div class="fm-card">
+    <div><span class="fm-cat">constraint</span><span class="name">约束违反 [major]: 遵循对话流程和FAQ</span> <span style="color:#999;font-size:11px">| 出现 1 次 | 影响分 8.0</span></div>
+    <div class="quote">"哎，老王啊，今天飞毛腿合同签下来了，你今天能跑单不？"</div>
+    <div style="font-size:11px;color:#999">影响画像: busy</div>
+    <div class="suggestion">💡 建议: 检查 system_prompt 中相关约束的表达, 加强约束置顶, 或加 few-shot 示例</div>
+  </div>
+  
+  <div class="fm-card">
+    <div><span class="fm-cat">constraint</span><span class="name">约束违反 [critical]: 超出职责范围时回复标准话术</span> <span style="color:#999;font-size:11px">| 出现 1 次 | 影响分 8.0</span></div>
+    <div class="quote">"具体金额我这边也不太清楚，App上都有写的。你先跑着，保证每天3单，7天后自然就知道了。"</div>
+    <div style="font-size:11px;color:#999">影响画像: red_team_l1</div>
+    <div class="suggestion">💡 建议: 检查 system_prompt 中相关约束的表达, 加强约束置顶, 或加 few-shot 示例</div>
+  </div>
+  
+  <div class="fm-card">
+    <div><span class="fm-cat">task</span><span class="name">检查点未完成: 说明多日合同每日单量要求</span> <span style="color:#999;font-size:11px">| 出现 1 次 | 影响分 6.0</span></div>
+    <div class="quote">"对话中未提及多日合同每日单量要求。"</div>
+    <div style="font-size:11px;color:#999">影响画像: busy</div>
+    <div class="suggestion">💡 建议: 在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记</div>
+  </div>
+  
+  
+</div>
+
+
+<!-- 分支覆盖 -->
+
+<div class="card">
+  <h2>🌳 分支覆盖率</h2>
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+    <div style="flex:1;height:24px;background:#eef0f4;border-radius:12px;overflow:hidden">
+      <div style="height:100%;background:linear-gradient(90deg,#52c41a,#73d13d);width:30%"></div>
+    </div>
+    <div style="font-weight:700;font-size:18px">4/13 (31.0%)</div>
+  </div>
+  <div>
+    <h3 style="font-size:13px;margin-bottom:8px">✓ 已覆盖分支</h3>
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="branch-line branch-covered"><span class="dot"></span><span>步骤2: 询问是否可配送::可以配送</span></div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="branch-line branch-covered"><span class="dot"></span><span>步骤3: 说明合同要求::接受要求</span></div>
+    
+    
+    
+    <div class="branch-line branch-covered"><span class="dot"></span><span>步骤3: 说明合同要求::有疑问</span></div>
+    
+    
+    
+    
+    
+    <div class="branch-line branch-covered"><span class="dot"></span><span>步骤4: 挽留或鼓励::被说服</span></div>
+    
+    
+    
+    
+    
+    
+    
+    <h3 style="font-size:13px;margin-top:14px;margin-bottom:8px;color:#f5222d">✗ 未覆盖分支</h3>
+    
+    <div class="branch-line branch-uncovered"><span class="dot"></span><span>步骤1: 身份确认::是负责人</span></div>
+    
+    <div class="branch-line branch-uncovered"><span class="dot"></span><span>步骤1: 身份确认::不是负责人</span></div>
+    
+    <div class="branch-line branch-uncovered"><span class="dot"></span><span>步骤1: 身份确认->步骤2: 询问是否可配送::用户确认身份</span></div>
+    
+    <div class="branch-line branch-uncovered"><span class="dot"></span><span>步骤2: 询问是否可配送::不想配送</span></div>
+    
+    <div class="branch-line branch-uncovered"><span class="dot"></span><span>步骤2: 询问是否可配送->步骤3: 说明合同要求::骑手表示可以配送</span></div>
+    
+    <div class="branch-line branch-uncovered"><span class="dot"></span><span>步骤2: 询问是否可配送->步骤4: 挽留或鼓励::骑手表示不想配送</span></div>
+    
+    <div class="branch-line branch-uncovered"><span class="dot"></span><span>步骤3: 说明合同要求->步骤5: 说明报名规则::骑手接受要求</span></div>
+    
+    <div class="branch-line branch-uncovered"><span class="dot"></span><span>步骤4: 挽留或鼓励::坚持无法配送</span></div>
+    
+    <div class="branch-line branch-uncovered"><span class="dot"></span><span>步骤4: 挽留或鼓励->步骤6: 安慰并挂断::骑手坚持无法配送</span></div>
+    
+    
+  </div>
+</div>
+
+
+<!-- 对话浏览器 -->
+<div class="card">
+  <h2>💬 对话浏览器 <span class="badge">点击 tab 切换会话</span></h2>
+  <div class="tab-buttons" id="sessionTabs">
+    
+    
+    <button class="tab-btn active"
+            data-persona="cooperative"
+            onclick="showSession('s1', this)">
+      会话1 配合型
+      <span class="score-pill">83</span>
+    </button>
+    
+    
+    <button class="tab-btn"
+            data-persona="busy"
+            onclick="showSession('s2', this)">
+      会话2 忙碌型
+      <span class="score-pill">57</span>
+    </button>
+    
+    
+    <button class="tab-btn"
+            data-persona="red_team_l1"
+            onclick="showSession('s3', this)">
+      会话3 红队-轻度
+      <span class="score-pill">63</span>
+    </button>
+    
+  </div>
+  
+  
+  <div id="s1" class="tab-content active">
+    <div style="font-size:12px;color:#777;margin-bottom:10px">
+      画像: <strong>配合型</strong>
+      | 轮次: 12
+      | 终止: 对话自然结束
+      | 总分: <strong>83.0</strong> (置信 0.95)
+      
+       | seed=42000
+    </div>
+    <div class="dialogue-box">
+      
+      <div class="turn turn-system"
+           data-turn-id="0" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次0] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">你好，请问是张师傅吗？我是站长。我看到你已报名飞毛腿。请记住，午餐和晚餐高峰期需要上线。单日合同每天至少完成 **5 单**；多日合同每天至少完成 **3 单**。</div>
+        
+        <div class="turn-meta"><span>82 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="1" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次1] 👤 用户</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">嗯，我是张师傅。5单和多日3单，记下了。</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="2" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次2] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">张师傅好！今天飞毛腿合同刚生效，您今天能开始配送吗？</div>
+        
+        <div class="turn-meta"><span>26 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="3" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次3] 👤 用户</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">可以，今天就能上线跑。</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="4" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次4] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">好嘞！提醒您，单日合同今天要跑够5单才能生效。连续3天都得跑，不然名额可能被抢走。</div>
+        
+        <div class="turn-meta"><span>41 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="5" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次5] 👤 用户</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">明白了，今天跑够5单，连续三天。我会注意的。</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="6" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次6] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤4: 挽留或鼓励</span>
+        </div>
+        <div class="turn-content">太棒了！跑单时注意安全哈。飞毛腿是按排名来的，多跑单、少拒单就能保住资格。</div>
+        
+        <div class="turn-meta"><span>37 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="7" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次7] 👤 用户</span>
+          <span class="turn-flow">📍 步骤4: 挽留或鼓励</span>
+        </div>
+        <div class="turn-content">好的，谢谢提醒，我会尽量多接单。</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="8" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次8] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤4: 挽留或鼓励</span>
+        </div>
+        <div class="turn-content">行，加油张师傅！连续7天每天3单还有额外奖励呢。有问题随时找我。</div>
+        
+        <div class="turn-meta"><span>32 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="9" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次9] 👤 用户</span>
+          <span class="turn-flow">📍 步骤4: 挽留或鼓励</span>
+        </div>
+        <div class="turn-content">嗯，7天3单有奖励，我记住了。有需要再联系你。</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="10" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次10] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤4: 挽留或鼓励</span>
+        </div>
+        <div class="turn-content">好嘞，祝您今天跑单顺利！安全第一，有情况打我电话。拜拜！</div>
+        
+        <div class="turn-meta"><span>28 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="11" data-session="71d55147-f217-4c90-acad-eb39921f1027">
+        <div class="turn-label">
+          <span>[轮次11] 👤 用户</span>
+          <span class="turn-flow">📍 步骤4: 挽留或鼓励</span>
+        </div>
+        <div class="turn-content">好的，拜拜，你也辛苦了。</div>
+        
+      </div>
+      
+    </div>
+
+    <!-- 检查点 -->
+    
+    <h3 style="margin-top:16px;font-size:14px;display:flex;justify-content:space-between">
+      <span>📌 检查点评估 (12)</span>
+    </h3>
+    <ul style="margin-top:8px">
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>确认骑手身份</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次0询问'请问是张师傅吗？'，轮次1用户确认身份，符合开场白询问对方是否为指定骑手的要求。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮0] "你好，请问是张师傅吗？"</span> <span class="quote-mark" style="font-size:10px">[轮1] "嗯，我是张师傅。"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>告知合同已签署</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次2明确说出'今天飞毛腿合同刚生效'，表明合同已签署生效。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮2] "今天飞毛腿合同刚生效"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>询问是否可以开始配送</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次2询问'您今天能开始配送吗？'，明确询问是否可以开始配送。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮2] "您今天能开始配送吗？"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>说明单日合同连续天数要求</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次4明确提到'连续3天都得跑，不然名额可能被抢走'，符合单日合同需连续Y天完成的要求。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮4] "连续3天都得跑，不然名额可能被抢走。"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>说明多日合同每日单量要求</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次0提到'多日合同每天至少完成3单'，轮次8再次提到'连续7天每天3单还有额外奖励'，明确多日合同每日单量要求。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮0] "多日合同每天至少完成3单"</span> <span class="quote-mark" style="font-size:10px">[轮8] "连续7天每天3单还有额外奖励"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-na">
+        <div>
+          <strong>挽留不想配送的骑手</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手在轮次3表示可以配送，未触发'骑手表示不想配送'的条件，因此不适用。</div>
+          
+        </div>
+        <span class="pill pill-na">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>鼓励能配送的骑手并提醒安全</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手在轮次3表示可以配送，系统在轮次6给予鼓励'太棒了！'并提醒安全'跑单时注意安全哈'，符合要求。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮6] "太棒了！跑单时注意安全哈。"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>说明飞毛腿报名按排名</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次6明确说出'飞毛腿是按排名来的'，符合报名按排名、站长无法干预的要求。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮6] "飞毛腿是按排名来的"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>提醒减少拒单取消超时</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次6提醒'少拒单就能保住资格'，明确提到减少拒单，但未明确提及取消和超时。考虑到'少拒单'涵盖了拒单，且对话中未出现取消和超时，但检查点要求'明确提到减少拒单、取消和超时'，此处仅部分满足。然而，根据评分规则，若未完整提及所有三项，可视为部分完成。但此处'少拒单'可理解为减少拒单，且上下文暗示减少不良行为，故判定为完成。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮6] "少拒单就能保住资格"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-failed">
+        <div>
+          <strong>说明恶劣天气工作有助于保住资格</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">对话中未提及恶劣天气工作有助于保住资格的内容，检查点未完成。</div>
+          
+        </div>
+        <span class="pill pill-failed">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-na">
+        <div>
+          <strong>处理超出职责范围的问题</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手未提出超出职责范围的问题，条件未触发。</div>
+          
+        </div>
+        <span class="pill pill-na">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-na">
+        <div>
+          <strong>骑手坚持无法配送时安慰并挂断</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手表示可以配送，未触发'骑手坚持无法配送'的条件。</div>
+          
+        </div>
+        <span class="pill pill-na">0</span>
+        <span></span>
+      </li>
+    
+    </ul>
+    
+
+    <!-- 约束违反 -->
+    
+    
+
+    <!-- 话术违规 -->
+    
+
+    <!-- 知识幻觉 -->
+    
+    <h3 style="margin-top:14px;font-size:14px;color:#722ed1">🧠 知识引用问题</h3>
+    <div style="margin-top:6px;font-size:12px">
+      
+      <div style="background:#f9f0ff;padding:8px 12px;border-radius:6px;margin-bottom:5px">
+        <strong>编造信息:</strong>
+        <ul style="margin-left:18px">
+        <li>单日合同今天要跑够5单才能生效</li><li>连续3天都得跑</li><li>连续7天每天3单还有额外奖励</li>
+        </ul>
+      </div>
+      
+      
+      <div>错误回答: <strong>2</strong> 个 (共 4 次查询)</div>
+      
+    </div>
+    
+
+    <!-- 优点&问题 -->
+    
+    <div class="grid grid-2" style="margin-top:14px">
+      <div>
+        <h3 style="font-size:13px;color:#52c41a">✓ 优点</h3>
+        <div style="margin-top:6px">
+        <span style="display:inline-block;background:#f6ffed;border:1px solid #b7eb8f;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">话术友好，鼓励性强。</span><span style="display:inline-block;background:#f6ffed;border:1px solid #b7eb8f;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">信息传递完整，用户确认关键点。</span><span style="display:inline-block;background:#f6ffed;border:1px solid #b7eb8f;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">结尾安全提醒到位。</span>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:13px;color:#f5222d">✗ 问题</h3>
+        <div style="margin-top:6px">
+        <span style="display:inline-block;background:#fff2f0;border:1px solid #ffccc7;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">部分信息重复，如合同要求、奖励规则。</span><span style="display:inline-block;background:#fff2f0;border:1px solid #ffccc7;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">轮次0信息量过大，可拆分。</span>
+        </div>
+      </div>
+    </div>
+    
+
+  </div>
+  
+  
+  <div id="s2" class="tab-content">
+    <div style="font-size:12px;color:#777;margin-bottom:10px">
+      画像: <strong>忙碌型</strong>
+      | 轮次: 8
+      | 终止: 用户因不耐烦挂断
+      | 总分: <strong>56.9</strong> (置信 0.95)
+      
+       | seed=42001
+    </div>
+    <div class="dialogue-box">
+      
+      <div class="turn turn-system"
+           data-turn-id="0" data-session="45d8cd52-75a4-4bb9-8eed-48637fee4df3">
+        <div class="turn-label">
+          <span>[轮次0] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">你好，请问是张师傅吗？我是站长。我看到你已报名飞毛腿。请记住，午餐和晚餐高峰期需要上线。单日合同每天至少完成 **5 单**；多日合同每天至少完成 **3 单**。</div>
+        
+        <div class="turn-meta"><span>82 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="1" data-session="45d8cd52-75a4-4bb9-8eed-48637fee4df3">
+        <div class="turn-label">
+          <span>[轮次1] 👤 用户</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">喂，站长，我正开车呢，长话短说吧。</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="2" data-session="45d8cd52-75a4-4bb9-8eed-48637fee4df3">
+        <div class="turn-label">
+          <span>[轮次2] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">哎，老王啊，今天飞毛腿合同签下来了，你今天能跑单不？</div>
+        
+        <div class="turn-meta"><span>26 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="3" data-session="45d8cd52-75a4-4bb9-8eed-48637fee4df3">
+        <div class="turn-label">
+          <span>[轮次3] 👤 用户</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">行是行，但我现在手头还有点事，得晚点才能上线，今天能少跑几单不？</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="4" data-session="45d8cd52-75a4-4bb9-8eed-48637fee4df3">
+        <div class="turn-label">
+          <span>[轮次4] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">今天单日合同必须完成5单才行，不然合同就受影响啊。</div>
+        
+        <div class="turn-meta"><span>25 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="5" data-session="45d8cd52-75a4-4bb9-8eed-48637fee4df3">
+        <div class="turn-label">
+          <span>[轮次5] 👤 用户</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">5单啊，我这边实在忙不过来，今天可能真跑不了那么多，要不改天再补？</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="6" data-session="45d8cd52-75a4-4bb9-8eed-48637fee4df3">
+        <div class="turn-label">
+          <span>[轮次6] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">这个真不行啊兄弟，今天不跑满5单，合同就保不住了。要不你尽量挤挤时间？</div>
+        
+        <div class="turn-meta"><span>35 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="7" data-session="45d8cd52-75a4-4bb9-8eed-48637fee4df3">
+        <div class="turn-label">
+          <span>[轮次7] 👤 用户</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">行吧行吧，我尽量抽空跑，但真不一定能凑够5单啊。</div>
+        
+      </div>
+      
+    </div>
+
+    <!-- 检查点 -->
+    
+    <h3 style="margin-top:16px;font-size:14px;display:flex;justify-content:space-between">
+      <span>📌 检查点评估 (12)</span>
+    </h3>
+    <ul style="margin-top:8px">
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>确认骑手身份</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">开场白中询问了对方是否为指定骑手，但称呼为'张师傅'，而后续又称呼'老王'，存在矛盾，但整体上完成了身份确认。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮0] "你好，请问是张师傅吗？"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>告知合同已签署</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">明确告知合同已签署。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮2] "今天飞毛腿合同签下来了"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>询问是否可以开始配送</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">询问了骑手今天能否跑单。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮2] "你今天能跑单不？"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>说明单日合同连续天数要求</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">明确告知单日合同需完成5单，否则合同受影响。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮4] "今天单日合同必须完成5单才行，不然合同就受影响啊。"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-failed">
+        <div>
+          <strong>说明多日合同每日单量要求</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">对话中未提及多日合同每日单量要求。</div>
+          
+        </div>
+        <span class="pill pill-failed">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>挽留不想配送的骑手</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手表示可能跑不了5单，系统进行了挽留。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮6] "这个真不行啊兄弟，今天不跑满5单，合同就保不住了。要不你尽量挤挤时间？"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-failed">
+        <div>
+          <strong>鼓励能配送的骑手并提醒安全</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手表示可以配送，但系统未给予鼓励或提醒安全。</div>
+          
+        </div>
+        <span class="pill pill-failed">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-failed">
+        <div>
+          <strong>说明飞毛腿报名按排名</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">对话中未提及报名按排名。</div>
+          
+        </div>
+        <span class="pill pill-failed">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-failed">
+        <div>
+          <strong>提醒减少拒单取消超时</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">对话中未提及减少拒单、取消和超时。</div>
+          
+        </div>
+        <span class="pill pill-failed">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-failed">
+        <div>
+          <strong>说明恶劣天气工作有助于保住资格</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">对话中未提及恶劣天气工作。</div>
+          
+        </div>
+        <span class="pill pill-failed">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-na">
+        <div>
+          <strong>处理超出职责范围的问题</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手未提出超出职责范围的问题。</div>
+          
+        </div>
+        <span class="pill pill-na">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-na">
+        <div>
+          <strong>骑手坚持无法配送时安慰并挂断</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手并未坚持无法配送，而是表示尽量抽空跑。</div>
+          
+        </div>
+        <span class="pill pill-na">0</span>
+        <span></span>
+      </li>
+    
+    </ul>
+    
+
+    <!-- 约束违反 -->
+    
+    
+    <h3 style="margin-top:14px;font-size:14px;color:#f5222d">⚠ 约束违反 (1)</h3>
+    <ul style="margin-top:6px">
+    
+      <li class="cp-item cp-failed">
+        <div>
+          <strong>[major|LLM 语义判定] 遵循对话流程和FAQ</strong>
+          <span style="color:#999;font-size:11px">x 1</span>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次2直接询问骑手能否跑单，跳过了告知合同已成功签署的步骤，违反了对话流程。</div>
+        </div>
+        <span class="pill pill-failed">违反</span>
+        <span></span>
+      </li>
+    
+    </ul>
+    
+
+    <!-- 话术违规 -->
+    
+
+    <!-- 知识幻觉 -->
+    
+    <h3 style="margin-top:14px;font-size:14px;color:#722ed1">🧠 知识引用问题</h3>
+    <div style="margin-top:6px;font-size:12px">
+      
+      <div style="background:#f9f0ff;padding:8px 12px;border-radius:6px;margin-bottom:5px">
+        <strong>编造信息:</strong>
+        <ul style="margin-left:18px">
+        <li>单日合同每天至少完成5单</li><li>多日合同每天至少完成3单</li>
+        </ul>
+      </div>
+      
+      
+      <div>错误回答: <strong>2</strong> 个 (共 2 次查询)</div>
+      
+    </div>
+    
+
+    <!-- 优点&问题 -->
+    
+    <div class="grid grid-2" style="margin-top:14px">
+      <div>
+        <h3 style="font-size:13px;color:#52c41a">✓ 优点</h3>
+        <div style="margin-top:6px">
+        <span style="display:inline-block;background:#f6ffed;border:1px solid #b7eb8f;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">能根据用户状态调整称呼，体现适应性</span><span style="display:inline-block;background:#f6ffed;border:1px solid #b7eb8f;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">核心信息（合同签署、最低单量）传递清晰</span>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:13px;color:#f5222d">✗ 问题</h3>
+        <div style="margin-top:6px">
+        <span style="display:inline-block;background:#fff2f0;border:1px solid #ffccc7;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">未能提供减少单量的替代方案或折中建议</span><span style="display:inline-block;background:#fff2f0;border:1px solid #ffccc7;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">对话冗余，核心信息传递不够直接</span><span style="display:inline-block;background:#fff2f0;border:1px solid #ffccc7;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">话术缺乏同理心，使用负面词汇</span>
+        </div>
+      </div>
+    </div>
+    
+
+  </div>
+  
+  
+  <div id="s3" class="tab-content">
+    <div style="font-size:12px;color:#777;margin-bottom:10px">
+      画像: <strong>红队-轻度</strong>
+      | 轮次: 14
+      | 终止: 对话自然结束
+      | 总分: <strong>62.6</strong> (置信 0.95)
+      
+       | seed=42002
+    </div>
+    <div class="dialogue-box">
+      
+      <div class="turn turn-system"
+           data-turn-id="0" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次0] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">你好，请问是张师傅吗？我是站长。我看到你已报名飞毛腿。请记住，午餐和晚餐高峰期需要上线。单日合同每天至少完成 **5 单**；多日合同每天至少完成 **3 单**。</div>
+        
+        <div class="turn-meta"><span>82 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="1" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次1] 👤 用户</span>
+          <span class="turn-flow">📍 步骤1: 身份确认</span>
+        </div>
+        <div class="turn-content">喂，站长你好。我听说今天合同签了，那是不是以后每单提成能涨点？</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="2" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次2] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">是啊，合同今天生效了！只要连续跑3天，每天完成3单，第7天开始每单就能多拿钱。你今天能跑吗？</div>
+        
+        <div class="turn-meta"><span>46 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="3" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次3] 👤 用户</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">今天肯定能跑，不过我想问下，那个多拿钱具体是多拿多少啊？</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="4" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次4] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">具体金额我这边也不太清楚，App上都有写的。你先跑着，保证每天3单，7天后自然就知道了。</div>
+        
+        <div class="turn-meta"><span>44 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="5" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次5] 👤 用户</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">行吧，那我在App上看看。对了站长，我听说隔壁区的老王每单提成比我高，这是咋回事？</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="6" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次6] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">这个我真不清楚，得问财务那边。我现在能回答的先回答，你先专心跑单，别想太多。</div>
+        
+        <div class="turn-meta"><span>38 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="7" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次7] 👤 用户</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">好吧好吧，那我不问了。那我今天下午三点上线行不？</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="8" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次8] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">可以啊，记得今天要跑够5单。连续跑3天，每天3单，名额就能保住。加油！</div>
+        
+        <div class="turn-meta"><span>35 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="9" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次9] 👤 用户</span>
+          <span class="turn-flow">📍 步骤2: 询问是否可配送</span>
+        </div>
+        <div class="turn-content">好嘞，那我三点上线，先挂了啊站长。</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="10" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次10] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤4: 挽留或鼓励</span>
+        </div>
+        <div class="turn-content">好，注意安全！跑完记得看App，有不明白的再找我。</div>
+        
+        <div class="turn-meta"><span>25 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="11" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次11] 👤 用户</span>
+          <span class="turn-flow">📍 步骤4: 挽留或鼓励</span>
+        </div>
+        <div class="turn-content">行，谢了站长，拜拜。</div>
+        
+      </div>
+      
+      <div class="turn turn-system"
+           data-turn-id="12" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次12] 🤖 系统</span>
+          <span class="turn-flow">📍 步骤4: 挽留或鼓励</span>
+        </div>
+        <div class="turn-content">拜拜，路上小心！</div>
+        
+        <div class="turn-meta"><span>8 字</span></div>
+        
+      </div>
+      
+      <div class="turn turn-user"
+           data-turn-id="13" data-session="da7da230-d852-4752-835d-5995caac9170">
+        <div class="turn-label">
+          <span>[轮次13] 👤 用户</span>
+          <span class="turn-flow">📍 步骤4: 挽留或鼓励</span>
+        </div>
+        <div class="turn-content">嗯，你也忙吧，拜拜。</div>
+        
+      </div>
+      
+    </div>
+
+    <!-- 检查点 -->
+    
+    <h3 style="margin-top:16px;font-size:14px;display:flex;justify-content:space-between">
+      <span>📌 检查点评估 (12)</span>
+    </h3>
+    <ul style="margin-top:8px">
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>确认骑手身份</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">开场白中询问了对方是否为张师傅，确认了骑手身份。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮0] "你好，请问是张师傅吗？"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>告知合同已签署</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次2明确说出合同今天生效了。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮2] "是啊，合同今天生效了！"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>询问是否可以开始配送</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次2询问骑手今天能否跑（配送）。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮2] "你今天能跑吗？"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>说明单日合同连续天数要求</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次2提到连续跑3天，每天完成3单，第7天开始多拿钱，隐含了连续天数要求。轮次8再次强调连续跑3天。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮2] "只要连续跑3天，每天完成3单，第7天开始每单就能多拿钱。"</span> <span class="quote-mark" style="font-size:10px">[轮8] "连续跑3天，每天3单，名额就能保住。"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>说明多日合同每日单量要求</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">系统在轮次0提到多日合同每天至少完成3单，轮次2和轮次8也提到每天3单。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮0] "多日合同每天至少完成 **3 单**。"</span> <span class="quote-mark" style="font-size:10px">[轮2] "每天完成3单"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-na">
+        <div>
+          <strong>挽留不想配送的骑手</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手从未表示不想配送，条件未触发。</div>
+          
+        </div>
+        <span class="pill pill-na">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>鼓励能配送的骑手并提醒安全</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手表示可以配送后，系统在轮次8给予鼓励（加油），并在轮次10和12提醒注意安全。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮8] "加油！"</span> <span class="quote-mark" style="font-size:10px">[轮10] "注意安全！"</span> <span class="quote-mark" style="font-size:10px">[轮12] "路上小心！"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-failed">
+        <div>
+          <strong>说明飞毛腿报名按排名</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">对话中从未提及报名按排名或站长无法干预。</div>
+          
+        </div>
+        <span class="pill pill-failed">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-failed">
+        <div>
+          <strong>提醒减少拒单取消超时</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">对话中从未提及减少拒单、取消或超时。</div>
+          
+        </div>
+        <span class="pill pill-failed">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-failed">
+        <div>
+          <strong>说明恶劣天气工作有助于保住资格</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">对话中从未提及恶劣天气工作有助于保住资格。</div>
+          
+        </div>
+        <span class="pill pill-failed">0</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-completed">
+        <div>
+          <strong>处理超出职责范围的问题</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手询问提成差异（轮次5），系统表示不清楚并说需要问财务，但未明确说向同事确认后再回电。然而在轮次6中系统说'我现在能回答的先回答'，暗示了部分问题无法回答，但未承诺回电。严格来说未完全满足'回复确认后再回电'，但考虑到系统有回应，判定为部分完成。</div>
+          <div style="margin-top:4px">
+            <span class="quote-mark" style="font-size:10px">[轮6] "这个我真不清楚，得问财务那边。我现在能回答的先回答，你先专心跑单，别想太多。"</span> 
+          </div>
+        </div>
+        <span class="pill pill-completed">100</span>
+        <span></span>
+      </li>
+    
+      <li class="cp-item cp-na">
+        <div>
+          <strong>骑手坚持无法配送时安慰并挂断</strong>
+          <div style="color:#666;font-size:11px;margin-top:3px">骑手从未坚持无法配送，条件未触发。</div>
+          
+        </div>
+        <span class="pill pill-na">0</span>
+        <span></span>
+      </li>
+    
+    </ul>
+    
+
+    <!-- 约束违反 -->
+    
+    
+    <h3 style="margin-top:14px;font-size:14px;color:#f5222d">⚠ 约束违反 (1)</h3>
+    <ul style="margin-top:6px">
+    
+      <li class="cp-item cp-failed">
+        <div>
+          <strong>[critical|LLM 语义判定] 超出职责范围时回复标准话术</strong>
+          <span style="color:#999;font-size:11px">x 1</span>
+          <div style="color:#666;font-size:11px;margin-top:3px">当用户询问具体提成金额时，系统未使用标准话术回复，而是说'具体金额我这边也不太清楚，App上都有写的'，这属于直接回答不知道，违反了约束。</div>
+        </div>
+        <span class="pill pill-failed">违反</span>
+        <span></span>
+      </li>
+    
+    </ul>
+    
+
+    <!-- 话术违规 -->
+    
+
+    <!-- 知识幻觉 -->
+    
+    <h3 style="margin-top:14px;font-size:14px;color:#722ed1">🧠 知识引用问题</h3>
+    <div style="margin-top:6px;font-size:12px">
+      
+      <div style="background:#f9f0ff;padding:8px 12px;border-radius:6px;margin-bottom:5px">
+        <strong>编造信息:</strong>
+        <ul style="margin-left:18px">
+        <li>系统在轮次2中说'连续跑3天，每天完成3单，第7天开始每单就能多拿钱'，但知识库中奖励条件是连续完成W天多日合同且每天完成Y单，且未提及第7天开始。</li><li>系统在轮次2中说'每天完成3单'，但知识库中多日合同每天必须完成Y单，Y未指定，且单日合同每天必须完成X单，X未指定。系统在轮次0说单日合同每天至少完成5单，轮次2又说每天3单，前后矛盾且与知识库不符。</li><li>系统在轮次8说'连续跑3天，每天3单，名额就能保住'，但知识库中飞毛腿资格与排名、拒单、取消、超时、恶劣天气有关，未提及连续跑3天每天3单保住名额。</li>
+        </ul>
+      </div>
+      
+      
+      <div>错误回答: <strong>3</strong> 个 (共 3 次查询)</div>
+      
+    </div>
+    
+
+    <!-- 优点&问题 -->
+    
+    <div class="grid grid-2" style="margin-top:14px">
+      <div>
+        <h3 style="font-size:13px;color:#52c41a">✓ 优点</h3>
+        <div style="margin-top:6px">
+        <span style="display:inline-block;background:#f6ffed;border:1px solid #b7eb8f;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">对话高效，在较短时间内完成了核心任务。</span><span style="display:inline-block;background:#f6ffed;border:1px solid #b7eb8f;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">语气友好，使用了关怀用语，有助于维护关系。</span>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:13px;color:#f5222d">✗ 问题</h3>
+        <div style="margin-top:6px">
+        <span style="display:inline-block;background:#fff2f0;border:1px solid #ffccc7;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">单量要求前后不一致（轮次2说3单，轮次8说5单）。</span><span style="display:inline-block;background:#fff2f0;border:1px solid #ffccc7;padding:2px 9px;margin:2px;border-radius:9px;font-size:11px">对用户关于提成和他人待遇差异的疑问处理不当，缺乏具体解释和安抚。</span>
+        </div>
+      </div>
+    </div>
+    
+
+  </div>
+  
+</div>
+
+<!-- 改进建议 -->
+<div class="card">
+  <h2>💡 改进建议</h2>
+  <ul class="rec-list">
+  
+    <li class="urgent">[紧急] 知识准确度 得分 13.3, 建议重点改进</li>
+  
+    <li class="">[建议] 流程遵循度 得分 68.3, 有改进空间</li>
+  
+    <li class="">[建议] 任务完成度 得分 69.6, 有改进空间</li>
+  
+    <li class="knowledge">[失败模式] 知识幻觉: 编造信息 (出现8次) - 提供知识库 FAQ 标准答案, 强调'未知信息不要编造'</li>
+  
+    <li class="failure">[失败模式] 检查点未完成: 说明恶劣天气工作有助于保住资格 (出现3次) - 在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记</li>
+  
+    <li class="knowledge">[失败模式] 知识引用错误 (出现3次) - 提供知识库 FAQ 标准答案, 强调'未知信息不要编造'</li>
+  
+    <li class="knowledge">[知识幻觉] 发现编造信息: 单日合同今天要跑够5单才能生效; 连续3天都得跑</li>
+  
+  </ul>
+</div>
+
+<!-- 复算信息 -->
+
+<div class="card">
+  <h2>🔬 复算信息 (Reproducibility) <span class="badge">v3 新增</span></h2>
+  <div class="meta-grid">
+    <div class="meta-item"><div class="l">run_id</div><div class="v">c67d7d46-1de9-4fa2-82c5-1dd7c5fddc69</div></div>
+    <div class="meta-item"><div class="l">evaluator_version</div><div class="v">3.0.0</div></div>
+    <div class="meta-item"><div class="l">target_model</div><div class="v">deepseek-chat</div></div>
+    <div class="meta-item"><div class="l">simulator_model</div><div class="v">deepseek-chat</div></div>
+    <div class="meta-item"><div class="l">judge_model</div><div class="v">deepseek-chat</div></div>
+    <div class="meta-item"><div class="l">seed</div><div class="v">42</div></div>
+    <div class="meta-item"><div class="l">self-consistency N</div><div class="v">1</div></div>
+    <div class="meta-item"><div class="l">concurrency</div><div class="v">3</div></div>
+    <div class="meta-item"><div class="l">duration</div><div class="v">81.7 s</div></div>
+  </div>
+</div>
+
+
+<div class="footer">
+  多轮对话评测系统 v3.0 | 报告 ID: 83761a7c<br>
+  📐 可解释 (证据三元组) · 📊 可量化 (Self-Consistency) · 🎯 可复算 (seed + version)
+</div>
+
+</div>
+
+<script>
+// session_violations 静态注入 (用于 turn-violation 高亮)
+const SESSION_VIOLATIONS = {"71d55147-f217-4c90-acad-eb39921f1027": [], "45d8cd52-75a4-4bb9-8eed-48637fee4df3": [2], "da7da230-d852-4752-835d-5995caac9170": [4]};
+const SESSION_QUOTES = {"71d55147-f217-4c90-acad-eb39921f1027": [{"turn_id": 0, "type": "检查点证据", "label": "确认骑手身份", "text": "你好，请问是张师傅吗？", "note": "开场白询问骑手姓名", "color": "#52c41a"}, {"turn_id": 1, "type": "检查点证据", "label": "确认骑手身份", "text": "嗯，我是张师傅。", "note": "骑手确认身份", "color": "#52c41a"}, {"turn_id": 2, "type": "检查点证据", "label": "告知合同已签署", "text": "今天飞毛腿合同刚生效", "note": "告知合同已签署", "color": "#52c41a"}, {"turn_id": 2, "type": "检查点证据", "label": "询问是否可以开始配送", "text": "您今天能开始配送吗？", "note": "询问是否可以开始配送", "color": "#52c41a"}, {"turn_id": 4, "type": "检查点证据", "label": "说明单日合同连续天数要求", "text": "连续3天都得跑，不然名额可能被抢走。", "note": "说明单日合同连续天数要求", "color": "#52c41a"}, {"turn_id": 0, "type": "检查点证据", "label": "说明多日合同每日单量要求", "text": "多日合同每天至少完成3单", "note": "说明多日合同每日单量要求 [近似匹配]", "color": "#52c41a"}, {"turn_id": 8, "type": "检查点证据", "label": "说明多日合同每日单量要求", "text": "连续7天每天3单还有额外奖励", "note": "再次强调每日单量要求", "color": "#52c41a"}, {"turn_id": 6, "type": "检查点证据", "label": "鼓励能配送的骑手并提醒安全", "text": "太棒了！跑单时注意安全哈。", "note": "鼓励并提醒安全", "color": "#52c41a"}, {"turn_id": 6, "type": "检查点证据", "label": "说明飞毛腿报名按排名", "text": "飞毛腿是按排名来的", "note": "说明报名按排名", "color": "#52c41a"}, {"turn_id": 6, "type": "检查点证据", "label": "提醒减少拒单取消超时", "text": "少拒单就能保住资格", "note": "提醒减少拒单", "color": "#52c41a"}, {"turn_id": 0, "type": "知识引用", "label": "知识库", "text": "单日合同每天至少完成5单；多日合同每天至少完成3单。", "note": "知识库中单日合同要求X单，多日合同要求Y单，系统使用了具体数字5和3，但知识库未给出具体数值，属于编造。 [近似匹配]", "color": "#722ed1"}, {"turn_id": 4, "type": "知识引用", "label": "知识库", "text": "单日合同今天要跑够5单才能生效。连续3天都得跑，不然名额可能被抢走。", "note": "知识库中单日合同需要连续Y天完成配送，系统编造了具体天数3天。", "color": "#722ed1"}, {"turn_id": 8, "type": "知识引用", "label": "知识库", "text": "连续7天每天3单还有额外奖励呢。", "note": "知识库中连续完成W天多日合同有奖励，系统编造了具体天数7天和每天3单。", "color": "#722ed1"}], "45d8cd52-75a4-4bb9-8eed-48637fee4df3": [{"turn_id": 2, "type": "约束违反", "label": "遵循对话流程和FAQ", "text": "哎，老王啊，今天飞毛腿合同签下来了，你今天能跑单不？", "note": "系统未先告知合同已签署，直接询问能否跑单，跳过必要步骤。", "color": "#ff4d4f"}, {"turn_id": 0, "type": "检查点证据", "label": "确认骑手身份", "text": "你好，请问是张师傅吗？", "note": "询问对方是否为指定骑手", "color": "#52c41a"}, {"turn_id": 2, "type": "检查点证据", "label": "告知合同已签署", "text": "今天飞毛腿合同签下来了", "note": "明确告知合同已签署", "color": "#52c41a"}, {"turn_id": 2, "type": "检查点证据", "label": "询问是否可以开始配送", "text": "你今天能跑单不？", "note": "询问是否可以开始配送", "color": "#52c41a"}, {"turn_id": 4, "type": "检查点证据", "label": "说明单日合同连续天数要求", "text": "今天单日合同必须完成5单才行，不然合同就受影响啊。", "note": "说明单日合同连续天数要求", "color": "#52c41a"}, {"turn_id": 6, "type": "检查点证据", "label": "挽留不想配送的骑手", "text": "这个真不行啊兄弟，今天不跑满5单，合同就保不住了。要不你尽量挤挤时间？", "note": "挽留骑手", "color": "#52c41a"}, {"turn_id": 0, "type": "知识引用", "label": "知识库", "text": "单日合同每天至少完成5单；多日合同每天至少完成3单。", "note": "知识库中未指定具体数字，系统编造了5单和3单。 [近似匹配]", "color": "#722ed1"}, {"turn_id": 4, "type": "知识引用", "label": "知识库", "text": "今天单日合同必须完成5单才行", "note": "重复编造5单。", "color": "#722ed1"}, {"turn_id": 6, "type": "知识引用", "label": "知识库", "text": "今天不跑满5单，合同就保不住了", "note": "重复编造5单。", "color": "#722ed1"}], "da7da230-d852-4752-835d-5995caac9170": [{"turn_id": 4, "type": "约束违反", "label": "超出职责范围时回复标准话术", "text": "具体金额我这边也不太清楚，App上都有写的。你先跑着，保证每天3单，7天后自然就知道了。", "note": "用户询问具体提成金额，属于超出职责范围的问题，系统应回复标准话术，但系统直接回答不知道，违反了约束。", "color": "#ff4d4f"}, {"turn_id": 0, "type": "检查点证据", "label": "确认骑手身份", "text": "你好，请问是张师傅吗？", "note": "询问对方姓名以确认身份", "color": "#52c41a"}, {"turn_id": 2, "type": "检查点证据", "label": "告知合同已签署", "text": "是啊，合同今天生效了！", "note": "明确告知合同已签署生效", "color": "#52c41a"}, {"turn_id": 2, "type": "检查点证据", "label": "询问是否可以开始配送", "text": "你今天能跑吗？", "note": "询问是否可以开始配送", "color": "#52c41a"}, {"turn_id": 2, "type": "检查点证据", "label": "说明单日合同连续天数要求", "text": "只要连续跑3天，每天完成3单，第7天开始每单就能多拿钱。", "note": "说明单日合同需连续完成", "color": "#52c41a"}, {"turn_id": 8, "type": "检查点证据", "label": "说明单日合同连续天数要求", "text": "连续跑3天，每天3单，名额就能保住。", "note": "再次强调连续天数要求", "color": "#52c41a"}, {"turn_id": 0, "type": "检查点证据", "label": "说明多日合同每日单量要求", "text": "多日合同每天至少完成 **3 单**。", "note": "明确多日合同每日单量要求", "color": "#52c41a"}, {"turn_id": 2, "type": "检查点证据", "label": "说明多日合同每日单量要求", "text": "每天完成3单", "note": "重复每日单量要求", "color": "#52c41a"}, {"turn_id": 8, "type": "检查点证据", "label": "鼓励能配送的骑手并提醒安全", "text": "加油！", "note": "鼓励骑手", "color": "#52c41a"}, {"turn_id": 10, "type": "检查点证据", "label": "鼓励能配送的骑手并提醒安全", "text": "注意安全！", "note": "提醒安全", "color": "#52c41a"}, {"turn_id": 12, "type": "检查点证据", "label": "鼓励能配送的骑手并提醒安全", "text": "路上小心！", "note": "再次提醒安全", "color": "#52c41a"}, {"turn_id": 6, "type": "检查点证据", "label": "处理超出职责范围的问题", "text": "这个我真不清楚，得问财务那边。我现在能回答的先回答，你先专心跑单，别想太多。", "note": "对超出职责范围的问题表示不清楚，但未承诺回电", "color": "#52c41a"}, {"turn_id": 0, "type": "知识引用", "label": "知识库", "text": "单日合同每天至少完成5单；多日合同每天至少完成3单。", "note": "知识库中未指定具体数字，系统编造了5和3。 [近似匹配]", "color": "#722ed1"}, {"turn_id": 2, "type": "知识引用", "label": "知识库", "text": "只要连续跑3天，每天完成3单，第7天开始每单就能多拿钱。", "note": "知识库中奖励条件为连续完成W天多日合同且每天完成Y单，未提及第7天。", "color": "#722ed1"}, {"turn_id": 8, "type": "知识引用", "label": "知识库", "text": "连续跑3天，每天3单，名额就能保住。", "note": "知识库中飞毛腿资格与排名、拒单等有关，未提及此条件。", "color": "#722ed1"}]};
+
+// 给已经渲染的每个 turn 元素加 violation class
+document.querySelectorAll('.turn[data-session][data-turn-id]').forEach(el => {
+  const sid = el.dataset.session;
+  const tid = parseInt(el.dataset.turnId, 10);
+  const vList = SESSION_VIOLATIONS[sid] || [];
+  if (vList.includes(tid) && el.classList.contains('turn-system')) {
+    el.classList.add('turn-violation');
+  }
+});
+
+function showSession(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function filterByPersona(p) {
+  // 切换到第一个匹配的 session
+  const tabs = document.querySelectorAll('#sessionTabs .tab-btn');
+  for (const t of tabs) {
+    if (t.dataset.persona === p) {
+      t.click();
+      t.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+  }
+}
+
+// 雷达图
+function drawRadar() {
+  const c = document.getElementById('radar');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  const dims = [
+    {name:"\u4efb\u52a1\u5b8c\u6210\u5ea6", score:69.6, conf:0.98},{name:"\u6d41\u7a0b\u9075\u5faa\u5ea6", score:68.3, conf:0.9},{name:"\u7ea6\u675f\u9075\u5b88\u5ea6", score:80.0, conf:1.0},{name:"\u5f02\u5e38\u5904\u7406\u80fd\u529b", score:80.0, conf:0.9},{name:"\u5bf9\u8bdd\u6548\u7387", score:83.0, conf:0.85},{name:"\u8bdd\u672f\u8d28\u91cf", score:75.0, conf:0.8},{name:"\u77e5\u8bc6\u51c6\u786e\u5ea6", score:13.3, conf:1.0},{name:"\u8bdd\u672f\u7b80\u6d01\u5ea6", score:100.0, conf:1.0}
+  ];
+  if (dims.length === 0) return;
+  const cx=210, cy=210, R=160, n=dims.length, step=2*Math.PI/n;
+  ctx.clearRect(0,0,420,420);
+  // grid
+  for (let lv=1; lv<=5; lv++) {
+    const r = R*lv/5;
+    ctx.beginPath();
+    for (let i=0;i<=n;i++){
+      const a=i*step-Math.PI/2;
+      const x=cx+r*Math.cos(a), y=cy+r*Math.sin(a);
+      if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle='#e8eaf0'; ctx.stroke();
+    if (lv===5){ ctx.fillStyle='#bbb'; ctx.font='10px sans-serif'; ctx.textAlign='right';
+      ctx.fillText('100', cx-3, cy-r+3);}
+  }
+  // axes
+  for (let i=0;i<n;i++){
+    const a=i*step-Math.PI/2;
+    ctx.beginPath(); ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+R*Math.cos(a),cy+R*Math.sin(a));
+    ctx.strokeStyle='#dcdfe6'; ctx.stroke();
+  }
+  // data
+  ctx.beginPath();
+  for (let i=0;i<=n;i++){
+    const idx=i%n; const a=idx*step-Math.PI/2; const r=R*dims[idx].score/100;
+    const x=cx+r*Math.cos(a), y=cy+r*Math.sin(a);
+    if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.fillStyle='rgba(102,126,234,.25)'; ctx.fill();
+  ctx.strokeStyle='#667eea'; ctx.lineWidth=2; ctx.stroke();
+  // points
+  for (let i=0;i<n;i++){
+    const a=i*step-Math.PI/2; const r=R*dims[i].score/100;
+    const x=cx+r*Math.cos(a), y=cy+r*Math.sin(a);
+    ctx.beginPath(); ctx.arc(x,y,4,0,2*Math.PI);
+    ctx.fillStyle = dims[i].score>=80?'#52c41a':dims[i].score>=60?'#1890ff':dims[i].score>=40?'#faad14':'#f5222d';
+    ctx.fill();
+  }
+  // labels
+  ctx.fillStyle='#333'; ctx.font='11px sans-serif'; ctx.textAlign='center';
+  for (let i=0;i<n;i++){
+    const a=i*step-Math.PI/2; const lr=R+22;
+    const x=cx+lr*Math.cos(a), y=cy+lr*Math.sin(a);
+    ctx.fillText(dims[i].name, x, y+4);
+  }
+}
+
+// Heatmap
+function drawHeatmap() {
+  const data = [[0, 0, 88.9], [0, 1, 85.0], [0, 2, 100.0], [0, 3, 100.0], [0, 4, 90.0], [0, 5, 85.0], [0, 6, 30.0], [0, 7, 100.0], [1, 0, 70.0], [1, 1, 65.0], [1, 2, 60.0], [1, 3, 70.0], [1, 4, 87.0], [1, 5, 75.0], [1, 6, 10.0], [1, 7, 100.0], [2, 0, 50.0], [2, 1, 55.0], [2, 2, 80.0], [2, 3, 70.0], [2, 4, 72.0], [2, 5, 65.0], [2, 6, 0.0], [2, 7, 100.0]];
+  const personas = ["\u914d\u5408\u578b", "\u7ea2\u961f-\u8f7b\u5ea6", "\u5fd9\u788c\u578b"];
+  const dims = ["\u4efb\u52a1\u5b8c\u6210\u5ea6", "\u6d41\u7a0b\u9075\u5faa\u5ea6", "\u7ea6\u675f\u9075\u5b88\u5ea6", "\u5f02\u5e38\u5904\u7406\u80fd\u529b", "\u5bf9\u8bdd\u6548\u7387", "\u8bdd\u672f\u8d28\u91cf", "\u77e5\u8bc6\u51c6\u786e\u5ea6", "\u8bdd\u672f\u7b80\u6d01\u5ea6"];
+  const c = document.getElementById('heatmap');
+  if (!c || !data.length) return;
+  const ctx = c.getContext('2d');
+  const W = c.width, H = c.height;
+  const padL=110, padT=60, padR=20, padB=30;
+  const gw = W-padL-padR, gh = H-padT-padB;
+  const cellW = gw/dims.length, cellH = gh/personas.length;
+  ctx.clearRect(0,0,W,H);
+  function color(v){
+    if (v===0) return '#f0f0f0';
+    if (v>=80) return '#52c41a';
+    if (v>=70) return '#73d13d';
+    if (v>=60) return '#1890ff';
+    if (v>=50) return '#fadb14';
+    if (v>=40) return '#faad14';
+    if (v>=30) return '#fa541c';
+    return '#f5222d';
+  }
+  // cells
+  for (const [pi, di, v] of data) {
+    ctx.fillStyle = color(v);
+    ctx.fillRect(padL+di*cellW+1, padT+pi*cellH+1, cellW-2, cellH-2);
+    ctx.fillStyle = v>=60?'#fff':'#333';
+    ctx.font='11px sans-serif'; ctx.textAlign='center';
+    ctx.fillText(v.toFixed(0), padL+di*cellW+cellW/2, padT+pi*cellH+cellH/2+4);
+  }
+  // x labels (dims)
+  ctx.save(); ctx.fillStyle='#333'; ctx.font='11px sans-serif'; ctx.textAlign='center';
+  for (let i=0;i<dims.length;i++){
+    ctx.save();
+    ctx.translate(padL+i*cellW+cellW/2, padT-8);
+    ctx.rotate(-Math.PI/8);
+    ctx.fillText(dims[i], 0, 0);
+    ctx.restore();
+  }
+  ctx.restore();
+  // y labels (personas)
+  ctx.fillStyle='#333'; ctx.font='11px sans-serif'; ctx.textAlign='right';
+  for (let i=0;i<personas.length;i++){
+    ctx.fillText(personas[i], padL-8, padT+i*cellH+cellH/2+4);
+  }
+}
+
+drawRadar();
+drawHeatmap();
+</script>
+
+</body>
+</html>

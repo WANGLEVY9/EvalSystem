@@ -21,35 +21,14 @@ ENV/
 *.swp
 .DS_Store
 
-# Project specific
-output/.full_run.log
-output/.calibration.log
-output/.compare.log
-output/.dashboard.log
+# 后台任务运行日志 (临时文件)
+output/.*.log
 output/.codebuddy_*
-.codebuddy/_backup_v1/
-.codebuddy/jobs/
-.codebuddy/cache/
-
-# 默认不提交大批量产出报告 (保留 examples/ 作为代表性样例)
-output/report_*.html
-output/report_*.json
-output/report_*.md
-output/report_*.pdf
-output/calibration_*.html
-output/calibration_*.json
-output/comparison_*.html
-output/comparison_*.json
-output/test_report.pdf
 
 # Secrets
 .env
 *.key
 *_secret*
-
-# 赛题原始数据 (脱敏后仍建议本地保存, 不公开)
-命题二*.xlsx
-*.xlsx
 
 # 备份目录
 .codebuddy/

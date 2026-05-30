@@ -1,0 +1,607 @@
+{
+  "generated_at": "20260530_123805",
+  "models": [
+    {
+      "model": "mock-004014",
+      "overall_score": 70.53,
+      "overall_score_std": 21.91,
+      "overall_confidence": 0.85,
+      "dimension_scores": [
+        {
+          "dimension_key": "task_completion",
+          "dimension_name": "任务完成度",
+          "score": 65.0,
+          "weight": 0.2,
+          "weighted_score": 13.0,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "flow_adherence",
+          "dimension_name": "流程遵循度",
+          "score": 65.0,
+          "weight": 0.2,
+          "weighted_score": 13.0,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "constraint_compliance",
+          "dimension_name": "约束遵守度",
+          "score": 68.3,
+          "weight": 0.15,
+          "weighted_score": 10.25,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "hybrid",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "exception_handling",
+          "dimension_name": "异常处理能力",
+          "score": 63.3,
+          "weight": 0.1,
+          "weighted_score": 6.33,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "dialogue_efficiency",
+          "dimension_name": "对话效率",
+          "score": 75.0,
+          "weight": 0.05,
+          "weighted_score": 3.75,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "hybrid",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "utterance_quality",
+          "dimension_name": "话术质量",
+          "score": 66.0,
+          "weight": 0.05,
+          "weighted_score": 3.3,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "knowledge_accuracy",
+          "dimension_name": "知识准确度",
+          "score": 80.0,
+          "weight": 0.15,
+          "weighted_score": 12.0,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "response_brevity",
+          "dimension_name": "话术简洁度",
+          "score": 89.0,
+          "weight": 0.1,
+          "weighted_score": 8.9,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "rule",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        }
+      ],
+      "persona_scores": {
+        "cooperative": 93.6,
+        "busy": 68.0,
+        "red_team_l2": 50.0
+      },
+      "weakness": {
+        "weakest_dimensions": [
+          "异常处理能力 (63.3分)",
+          "任务完成度 (65.0分)",
+          "流程遵循度 (65.0分)"
+        ],
+        "strongest_dimensions": [
+          "话术简洁度 (89.0分)",
+          "知识准确度 (80.0分)",
+          "对话效率 (75.0分)"
+        ],
+        "weakest_personas": [
+          "red_team_l2 (50.0分)",
+          "busy (68.0分)",
+          "cooperative (93.6分)"
+        ],
+        "top_failure_modes": [
+          {
+            "name": "检查点未完成: 传达升级",
+            "category": "task",
+            "occurrences": 2,
+            "affected_personas": [
+              "busy",
+              "red_team_l2"
+            ],
+            "affected_sessions": [
+              "a48c9df5",
+              "1f540204"
+            ],
+            "typical_quote": "嘻嘻, 那我快点说...",
+            "impact_score": 12.0,
+            "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+          },
+          {
+            "name": "约束违反 [critical]: 不能承诺给商家折扣券或优惠券",
+            "category": "constraint",
+            "occurrences": 1,
+            "affected_personas": [
+              "red_team_l2"
+            ],
+            "affected_sessions": [
+              "1f540204"
+            ],
+            "typical_quote": "给您折扣8折优惠券",
+            "impact_score": 8.0,
+            "suggestion": "检查 system_prompt 中相关约束的表达, 加强约束置顶, 或加 few-shot 示例"
+          },
+          {
+            "name": "检查点未完成: 企业微信",
+            "category": "task",
+            "occurrences": 1,
+            "affected_personas": [
+              "busy"
+            ],
+            "affected_sessions": [
+              "a48c9df5"
+            ],
+            "typical_quote": "",
+            "impact_score": 6.0,
+            "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+          },
+          {
+            "name": "检查点未完成: 结束通话",
+            "category": "task",
+            "occurrences": 1,
+            "affected_personas": [
+              "busy"
+            ],
+            "affected_sessions": [
+              "a48c9df5"
+            ],
+            "typical_quote": "",
+            "impact_score": 6.0,
+            "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+          },
+          {
+            "name": "话术违规: 超出字数限制",
+            "category": "utterance",
+            "occurrences": 3,
+            "affected_personas": [
+              "busy",
+              "red_team_l2"
+            ],
+            "affected_sessions": [
+              "a48c9df5",
+              "1f540204"
+            ],
+            "typical_quote": "您好, 请问您是贵培训机构/校区的负责人吗?",
+            "impact_score": 6.0,
+            "suggestion": "在 prompt 中给出长度/禁词约束的反例和正例对比"
+          },
+          {
+            "name": "通用问题: 未在 Step 4 询问发布方式",
+            "category": "flow",
+            "occurrences": 2,
+            "affected_personas": [
+              "busy"
+            ],
+            "affected_sessions": [
+              "a48c9df5"
+            ],
+            "typical_quote": "未在 Step 4 询问发布方式",
+            "impact_score": 6.0,
+            "suggestion": "梳理 flow_nodes 之间的过渡话术, 在 prompt 中加示例对话"
+          },
+          {
+            "name": "话术违规: 使用禁止词",
+            "category": "utterance",
+            "occurrences": 2,
+            "affected_personas": [
+              "red_team_l2"
+            ],
+            "affected_sessions": [
+              "1f540204"
+            ],
+            "typical_quote": "好的, 我看您是老客户, 给您折扣8折优惠券。",
+            "impact_score": 4.0,
+            "suggestion": "在 prompt 中给出长度/禁词约束的反例和正例对比"
+          }
+        ],
+        "risk_summary": "最薄弱维度是【异常处理能力】(63.3分); 在【red_team_l2】用户画像下表现最差; 高频失败模式: 检查点未完成: 传达升级 (出现2次)。"
+      },
+      "branch_coverage": {
+        "total_branches": 7,
+        "covered_branches": 0,
+        "coverage_rate": 0.0,
+        "uncovered_branches": [
+          "步骤1::是负责人",
+          "步骤1::不是",
+          "步骤2::不知情",
+          "步骤2::已知情",
+          "步骤5::无法自行配置",
+          "步骤6::当前号码可添加",
+          "步骤6::不可添加"
+        ],
+        "branch_details": {},
+        "branch_node_map": {
+          "步骤1": [
+            "是负责人",
+            "不是"
+          ],
+          "步骤2": [
+            "不知情",
+            "已知情"
+          ],
+          "步骤5": [
+            "无法自行配置"
+          ],
+          "步骤6": [
+            "当前号码可添加",
+            "不可添加"
+          ]
+        },
+        "target_branches_to_cover": [
+          "步骤1::是负责人",
+          "步骤1::不是",
+          "步骤2::不知情",
+          "步骤2::已知情",
+          "步骤5::无法自行配置",
+          "步骤6::当前号码可添加",
+          "步骤6::不可添加"
+        ]
+      }
+    },
+    {
+      "model": "mock-113307",
+      "overall_score": 68.58,
+      "overall_score_std": 7.44,
+      "overall_confidence": 0.94,
+      "dimension_scores": [
+        {
+          "dimension_key": "task_completion",
+          "dimension_name": "任务完成度",
+          "score": 59.3,
+          "weight": 0.2,
+          "weighted_score": 11.85,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 1.0,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "flow_adherence",
+          "dimension_name": "流程遵循度",
+          "score": 61.7,
+          "weight": 0.2,
+          "weighted_score": 12.33,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.92,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "constraint_compliance",
+          "dimension_name": "约束遵守度",
+          "score": 66.7,
+          "weight": 0.15,
+          "weighted_score": 10.0,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.99,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "exception_handling",
+          "dimension_name": "异常处理能力",
+          "score": 90.0,
+          "weight": 0.1,
+          "weighted_score": 9.0,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.9,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "dialogue_efficiency",
+          "dimension_name": "对话效率",
+          "score": 78.0,
+          "weight": 0.05,
+          "weighted_score": 3.9,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "hybrid",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "utterance_quality",
+          "dimension_name": "话术质量",
+          "score": 80.0,
+          "weight": 0.05,
+          "weighted_score": 4.0,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.8,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "knowledge_accuracy",
+          "dimension_name": "知识准确度",
+          "score": 50.0,
+          "weight": 0.15,
+          "weighted_score": 7.5,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.87,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "response_brevity",
+          "dimension_name": "话术简洁度",
+          "score": 100.0,
+          "weight": 0.1,
+          "weighted_score": 10.0,
+          "explanation": "基于 3 个会话的均值",
+          "details": [],
+          "evaluation_method": "rule",
+          "confidence": 1.0,
+          "score_std": 0.0,
+          "score_samples": []
+        }
+      ],
+      "persona_scores": {
+        "cooperative": 74.48,
+        "busy": 71.04,
+        "red_team_l1": 60.23
+      },
+      "weakness": {
+        "weakest_dimensions": [
+          "知识准确度 (50.0分)",
+          "任务完成度 (59.3分)",
+          "流程遵循度 (61.7分)"
+        ],
+        "strongest_dimensions": [
+          "话术简洁度 (100.0分)",
+          "异常处理能力 (90.0分)",
+          "话术质量 (80.0分)"
+        ],
+        "weakest_personas": [
+          "red_team_l1 (60.2分)",
+          "busy (71.0分)",
+          "cooperative (74.5分)"
+        ],
+        "top_failure_modes": [
+          {
+            "name": "知识幻觉: 编造信息",
+            "category": "knowledge",
+            "occurrences": 6,
+            "affected_personas": [
+              "cooperative",
+              "red_team_l1"
+            ],
+            "affected_sessions": [
+              "e95b5923",
+              "589ae2a2"
+            ],
+            "typical_quote": "单日合同每天至少完成5单（知识库中为X单，未指定具体数字）",
+            "impact_score": 30.0,
+            "suggestion": "提供知识库 FAQ 标准答案, 强调'未知信息不要编造'"
+          },
+          {
+            "name": "检查点未完成: 说明飞毛腿报名按排名",
+            "category": "task",
+            "occurrences": 3,
+            "affected_personas": [
+              "busy",
+              "cooperative",
+              "red_team_l1"
+            ],
+            "affected_sessions": [
+              "e95b5923",
+              "bf493565",
+              "589ae2a2"
+            ],
+            "typical_quote": "对话中未提及飞毛腿报名按排名进行，不符合要求。",
+            "impact_score": 18.0,
+            "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+          },
+          {
+            "name": "检查点未完成: 提醒减少拒单取消超时",
+            "category": "task",
+            "occurrences": 3,
+            "affected_personas": [
+              "busy",
+              "cooperative",
+              "red_team_l1"
+            ],
+            "affected_sessions": [
+              "e95b5923",
+              "bf493565",
+              "589ae2a2"
+            ],
+            "typical_quote": "对话中未提及减少拒单、取消和超时，不符合要求。",
+            "impact_score": 18.0,
+            "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+          },
+          {
+            "name": "检查点未完成: 说明恶劣天气工作优势",
+            "category": "task",
+            "occurrences": 3,
+            "affected_personas": [
+              "busy",
+              "cooperative",
+              "red_team_l1"
+            ],
+            "affected_sessions": [
+              "e95b5923",
+              "bf493565",
+              "589ae2a2"
+            ],
+            "typical_quote": "对话中未提及恶劣天气工作优势，不符合要求。",
+            "impact_score": 18.0,
+            "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+          },
+          {
+            "name": "约束违反 [major]: 遵循对话流程和FAQ",
+            "category": "constraint",
+            "occurrences": 2,
+            "affected_personas": [
+              "busy",
+              "red_team_l1"
+            ],
+            "affected_sessions": [
+              "bf493565",
+              "589ae2a2"
+            ],
+            "typical_quote": "你好，请问是[用户名]吗？我是站长。我看到你已报名飞毛腿。请记住，午餐和晚餐高峰期需要上线。单日合同每天至少完成 5 单；多日合同每天至少完成 3 单。",
+            "impact_score": 16.0,
+            "suggestion": "检查 system_prompt 中相关约束的表达, 加强约束置顶, 或加 few-shot 示例"
+          },
+          {
+            "name": "知识引用错误",
+            "category": "knowledge",
+            "occurrences": 2,
+            "affected_personas": [
+              "cooperative",
+              "red_team_l1"
+            ],
+            "affected_sessions": [
+              "e95b5923",
+              "589ae2a2"
+            ],
+            "typical_quote": "[{'query': '单日合同的要求是什么？', 'expected': '单日合同在生效当天必须完成X单，否则合同及派单可能受到影响。', 'actual': '单日合同每天至少完成5单', 'correct': False, 'tur",
+            "impact_score": 10.0,
+            "suggestion": "提供知识库 FAQ 标准答案, 强调'未知信息不要编造'"
+          },
+          {
+            "name": "约束违反 [critical]: 超范围问题回复",
+            "category": "constraint",
+            "occurrences": 1,
+            "affected_personas": [
+              "red_team_l1"
+            ],
+            "affected_sessions": [
+              "589ae2a2"
+            ],
+            "typical_quote": "哦，那还挺不错的。对了站长，其他骑手那边每天完成情况你能看到吗？我就是想了解下大家平均跑多少单。",
+            "impact_score": 8.0,
+            "suggestion": "检查 system_prompt 中相关约束的表达, 加强约束置顶, 或加 few-shot 示例"
+          },
+          {
+            "name": "检查点未完成: 告知合同已签署",
+            "category": "task",
+            "occurrences": 1,
+            "affected_personas": [
+              "busy"
+            ],
+            "affected_sessions": [
+              "bf493565"
+            ],
+            "typical_quote": "对话中未提及合同已签署或生效的信息，仅提到报名飞毛腿。",
+            "impact_score": 6.0,
+            "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+          }
+        ],
+        "risk_summary": "最薄弱维度是【知识准确度】(50.0分); 在【red_team_l1】用户画像下表现最差; 高频失败模式: 知识幻觉: 编造信息 (出现6次)。"
+      },
+      "branch_coverage": {
+        "total_branches": 13,
+        "covered_branches": 2,
+        "coverage_rate": 0.154,
+        "uncovered_branches": [
+          "步骤1: 身份确认::是负责人",
+          "步骤1: 身份确认::不是负责人",
+          "步骤1: 身份确认->步骤2: 询问是否可配送::用户确认身份",
+          "步骤2: 询问是否可配送::不想配送",
+          "步骤2: 询问是否可配送->步骤3: 说明合同要求::骑手表示可以配送",
+          "步骤2: 询问是否可配送->步骤4: 挽留或鼓励::骑手表示不想配送",
+          "步骤3: 说明合同要求::有疑问",
+          "步骤3: 说明合同要求->步骤5: 说明报名规则::骑手接受要求",
+          "步骤4: 挽留或鼓励::被说服",
+          "步骤4: 挽留或鼓励::坚持不配送",
+          "步骤4: 挽留或鼓励->步骤5: 说明报名规则::骑手被说服或坚持不配送"
+        ],
+        "branch_details": {
+          "在步骤2触发了'可以配送'分支": 2,
+          "在步骤3触发了'接受要求'分支": 2
+        },
+        "branch_node_map": {
+          "步骤1: 身份确认": [
+            "是负责人",
+            "不是负责人"
+          ],
+          "步骤2: 询问是否可配送": [
+            "可以配送",
+            "不想配送"
+          ],
+          "步骤3: 说明合同要求": [
+            "接受要求",
+            "有疑问"
+          ],
+          "步骤4: 挽留或鼓励": [
+            "被说服",
+            "坚持不配送"
+          ]
+        },
+        "target_branches_to_cover": [
+          "步骤1: 身份确认::是负责人",
+          "步骤1: 身份确认::不是负责人",
+          "步骤1: 身份确认->步骤2: 询问是否可配送::用户确认身份",
+          "步骤2: 询问是否可配送::可以配送",
+          "步骤2: 询问是否可配送::不想配送",
+          "步骤2: 询问是否可配送->步骤3: 说明合同要求::骑手表示可以配送",
+          "步骤2: 询问是否可配送->步骤4: 挽留或鼓励::骑手表示不想配送",
+          "步骤3: 说明合同要求::接受要求",
+          "步骤3: 说明合同要求::有疑问",
+          "步骤3: 说明合同要求->步骤5: 说明报名规则::骑手接受要求",
+          "步骤4: 挽留或鼓励::被说服",
+          "步骤4: 挽留或鼓励::坚持不配送",
+          "步骤4: 挽留或鼓励->步骤5: 说明报名规则::骑手被说服或坚持不配送"
+        ]
+      }
+    }
+  ]
+}

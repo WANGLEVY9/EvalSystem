@@ -1,0 +1,1620 @@
+{
+  "report_id": "f1b93285-f1e9-40f2-98f9-7b9b7e469103",
+  "task_name": "致电\"飞毛腿\"骑手，通知他们今天合同已成功签署，并提醒他们完...",
+  "task_description": "致电\"飞毛腿\"骑手，通知他们今天合同已成功签署，并提醒他们完成配送任务。",
+  "generated_at": "2026-05-30T11:41:12.617986",
+  "total_sessions": 1,
+  "overall_score": 80.43,
+  "dimension_averages": [
+    {
+      "dimension_key": "task_completion",
+      "dimension_name": "任务完成度",
+      "score": 66.7,
+      "weight": 0.2,
+      "weighted_score": 13.34,
+      "explanation": "基于 1 个会话的均值",
+      "details": [],
+      "evaluation_method": "llm_judge",
+      "confidence": 1.0,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "flow_adherence",
+      "dimension_name": "流程遵循度",
+      "score": 85.0,
+      "weight": 0.2,
+      "weighted_score": 17.0,
+      "explanation": "基于 1 个会话的均值",
+      "details": [],
+      "evaluation_method": "llm_judge",
+      "confidence": 0.9,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "constraint_compliance",
+      "dimension_name": "约束遵守度",
+      "score": 100.0,
+      "weight": 0.15,
+      "weighted_score": 15.0,
+      "explanation": "基于 1 个会话的均值",
+      "details": [],
+      "evaluation_method": "llm_judge",
+      "confidence": 1.0,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "exception_handling",
+      "dimension_name": "异常处理能力",
+      "score": 100.0,
+      "weight": 0.1,
+      "weighted_score": 10.0,
+      "explanation": "基于 1 个会话的均值",
+      "details": [],
+      "evaluation_method": "llm_judge",
+      "confidence": 0.95,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "dialogue_efficiency",
+      "dimension_name": "对话效率",
+      "score": 72.0,
+      "weight": 0.05,
+      "weighted_score": 3.6,
+      "explanation": "基于 1 个会话的均值",
+      "details": [],
+      "evaluation_method": "hybrid",
+      "confidence": 0.85,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "utterance_quality",
+      "dimension_name": "话术质量",
+      "score": 80.0,
+      "weight": 0.05,
+      "weighted_score": 4.0,
+      "explanation": "基于 1 个会话的均值",
+      "details": [],
+      "evaluation_method": "llm_judge",
+      "confidence": 0.8,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "knowledge_accuracy",
+      "dimension_name": "知识准确度",
+      "score": 50.0,
+      "weight": 0.15,
+      "weighted_score": 7.5,
+      "explanation": "基于 1 个会话的均值",
+      "details": [],
+      "evaluation_method": "llm_judge",
+      "confidence": 1.0,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "response_brevity",
+      "dimension_name": "话术简洁度",
+      "score": 100.0,
+      "weight": 0.1,
+      "weighted_score": 10.0,
+      "explanation": "基于 1 个会话的均值",
+      "details": [],
+      "evaluation_method": "rule",
+      "confidence": 1.0,
+      "score_std": 0.0,
+      "score_samples": []
+    }
+  ],
+  "persona_scores": {
+    "cooperative": 80.43
+  },
+  "session_evaluations": [
+    {
+      "session_id": "1b74b78e-a53a-4d81-bd6c-c31e85315f5f",
+      "persona_type": "cooperative",
+      "total_score": 80.43,
+      "dimension_scores": [
+        {
+          "dimension_key": "task_completion",
+          "dimension_name": "任务完成度",
+          "score": 66.7,
+          "weight": 0.2,
+          "weighted_score": 13.33,
+          "explanation": "评估12个检查点, 有效9个",
+          "details": [
+            "确认骑手身份: completed(100分) - 开场白中系统询问对方是否为张师傅，并自报身份为站长，符合确认骑手身份的要求。",
+            "告知合同已签署: completed(100分) - 系统在轮次2明确告知合同生效，即合同已签署。",
+            "询问是否可以开始配送: completed(100分) - 系统在轮次2询问今天能否跑5单，即询问是否可以开始配送。",
+            "说明单日合同要求: completed(100分) - 系统在轮次0明确说明了单日合同每天至少完成5单，多日合同每天至少完成3单。",
+            "说明连续配送要求: completed(100分) - 系统在轮次4明确说明单日合同需要连续跑3天，否则名额可能被占。",
+            "挽留不想配送的骑手: n/a(0分) - 骑手未表示不想配送，条件未触发。",
+            "提醒注意安全: completed(100分) - 系统在轮次6和轮次10提醒注意安全。",
+            "说明飞毛腿报名按排名: failed(0分) - 对话中未提及飞毛腿报名按排名进行。"
+          ],
+          "evaluation_method": "llm_judge",
+          "confidence": 1.0,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "flow_adherence",
+          "dimension_name": "流程遵循度",
+          "score": 85.0,
+          "weight": 0.2,
+          "weighted_score": 17.0,
+          "explanation": "对话基本按照期望流程推进，但步骤1中系统未先确认身份就直接告知合同要求，且未处理'若不是负责人'的分支。步骤2询问是否可配送后，用户表示可以配送，进入步骤3说明合同要求，然后进入步骤5说明报名规则（步骤4被跳过，因为用户愿意配送）。整体流程合理，但步骤1的初始部分偏离了期望流程。",
+          "details": [
+            "步骤1中系统未先确认身份，而是直接告知合同要求，且未处理'若不是负责人'的分支"
+          ],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.9,
+          "score_std": 0.0,
+          "score_samples": [
+            85.0
+          ]
+        },
+        {
+          "dimension_key": "constraint_compliance",
+          "dimension_name": "约束遵守度",
+          "score": 100.0,
+          "weight": 0.15,
+          "weighted_score": 15.0,
+          "explanation": "共4个约束, 违反0个 (扣0分)",
+          "details": [
+            "[major|llm_judge] 遵循对话流程和FAQ: 遵守",
+            "[critical|llm_judge] 超出职责范围时回复指定话术: 遵守",
+            "[minor|llm_judge] 避免重复回复: 遵守",
+            "[major|llm_judge] 骑手坚持无法配送时安慰后挂断: 遵守"
+          ],
+          "evaluation_method": "llm_judge",
+          "confidence": 1.0,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "exception_handling",
+          "dimension_name": "异常处理能力",
+          "score": 100.0,
+          "weight": 0.1,
+          "weighted_score": 10.0,
+          "explanation": "对话中未出现异常情况，用户配合度高，系统处理顺畅。",
+          "details": [
+            "用户积极配合，无异常需要处理。"
+          ],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.95,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "dialogue_efficiency",
+          "dimension_name": "对话效率",
+          "score": 72.0,
+          "weight": 0.05,
+          "weighted_score": 3.6,
+          "explanation": "轮次=10, LLM评60, 启发90, 融合=72.0",
+          "details": [
+            "必要轮次=6",
+            "冗余轮次=14"
+          ],
+          "evaluation_method": "hybrid",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "utterance_quality",
+          "dimension_name": "话术质量",
+          "score": 80.0,
+          "weight": 0.05,
+          "weighted_score": 4.0,
+          "explanation": "话术清晰、礼貌，但部分内容重复，可更简洁。",
+          "details": [
+            "系统话术友好，但结尾部分多次重复告别，可精简。"
+          ],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.8,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "knowledge_accuracy",
+          "dimension_name": "知识准确度",
+          "score": 50.0,
+          "weight": 0.15,
+          "weighted_score": 7.5,
+          "explanation": "查询4次, 正确2次",
+          "details": [
+            "编造信息: 单日合同需要连续跑3天; 连续3天每天5单",
+            "错误回答 2 个"
+          ],
+          "evaluation_method": "llm_judge",
+          "confidence": 1.0,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "response_brevity",
+          "dimension_name": "话术简洁度",
+          "score": 100.0,
+          "weight": 0.1,
+          "weighted_score": 10.0,
+          "explanation": "系统发言10轮, 违反0轮 (违反率0.0%)",
+          "details": [],
+          "evaluation_method": "rule",
+          "confidence": 1.0,
+          "score_std": 0.0,
+          "score_samples": []
+        }
+      ],
+      "checkpoint_evaluations": [
+        {
+          "checkpoint_id": "27591edf",
+          "checkpoint_name": "确认骑手身份",
+          "status": "completed",
+          "score": 100.0,
+          "evidence": "开场白中系统询问对方是否为张师傅，并自报身份为站长，符合确认骑手身份的要求。",
+          "relevant_turns": [
+            0
+          ],
+          "quotes": [
+            {
+              "turn_id": 0,
+              "role": "system",
+              "text": "你好，请问是张师傅吗？我是站长。",
+              "note": "确认骑手姓名并自报身份"
+            }
+          ],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            100.0
+          ],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "991bc7c2",
+          "checkpoint_name": "告知合同已签署",
+          "status": "completed",
+          "score": 100.0,
+          "evidence": "系统在轮次2明确告知合同生效，即合同已签署。",
+          "relevant_turns": [
+            2
+          ],
+          "quotes": [
+            {
+              "turn_id": 2,
+              "role": "system",
+              "text": "张师傅，今天合同生效了，今天能跑5单不？",
+              "note": "告知合同已生效"
+            }
+          ],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            100.0
+          ],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "7786a3d3",
+          "checkpoint_name": "询问是否可以开始配送",
+          "status": "completed",
+          "score": 100.0,
+          "evidence": "系统在轮次2询问今天能否跑5单，即询问是否可以开始配送。",
+          "relevant_turns": [
+            2
+          ],
+          "quotes": [
+            {
+              "turn_id": 2,
+              "role": "system",
+              "text": "今天能跑5单不？",
+              "note": "询问是否可以开始配送"
+            }
+          ],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            100.0
+          ],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "6177e354",
+          "checkpoint_name": "说明单日合同要求",
+          "status": "completed",
+          "score": 100.0,
+          "evidence": "系统在轮次0明确说明了单日合同每天至少完成5单，多日合同每天至少完成3单。",
+          "relevant_turns": [
+            0
+          ],
+          "quotes": [
+            {
+              "turn_id": 0,
+              "role": "system",
+              "text": "单日合同每天至少完成 **5 单**；多日合同每天至少完成 **3 单**。",
+              "note": "说明单日和多日合同的最低单量要求"
+            }
+          ],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            100.0
+          ],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "ad229349",
+          "checkpoint_name": "说明连续配送要求",
+          "status": "completed",
+          "score": 100.0,
+          "evidence": "系统在轮次4明确说明单日合同需要连续跑3天，否则名额可能被占。",
+          "relevant_turns": [
+            4
+          ],
+          "quotes": [
+            {
+              "turn_id": 4,
+              "role": "system",
+              "text": "不过提醒你，单日合同得连续跑3天，不然名额可能被占。",
+              "note": "说明连续配送天数和未完成的后果"
+            }
+          ],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            100.0
+          ],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "0fb16983",
+          "checkpoint_name": "挽留不想配送的骑手",
+          "status": "n/a",
+          "score": 0.0,
+          "evidence": "骑手未表示不想配送，条件未触发。",
+          "relevant_turns": [],
+          "quotes": [],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            0.0
+          ],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "66ff23c8",
+          "checkpoint_name": "提醒注意安全",
+          "status": "completed",
+          "score": 100.0,
+          "evidence": "系统在轮次6和轮次10提醒注意安全。",
+          "relevant_turns": [
+            6,
+            10
+          ],
+          "quotes": [
+            {
+              "turn_id": 6,
+              "role": "system",
+              "text": "加油张师傅，注意安全啊！",
+              "note": "提醒注意安全"
+            },
+            {
+              "turn_id": 10,
+              "role": "system",
+              "text": "记得安全第一，跑完5单稳了！",
+              "note": "再次提醒安全"
+            }
+          ],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            100.0
+          ],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "8efc16b8",
+          "checkpoint_name": "说明飞毛腿报名按排名",
+          "status": "failed",
+          "score": 0.0,
+          "evidence": "对话中未提及飞毛腿报名按排名进行。",
+          "relevant_turns": [],
+          "quotes": [],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            0.0
+          ],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "96f4db1c",
+          "checkpoint_name": "建议减少拒单等行为",
+          "status": "failed",
+          "score": 0.0,
+          "evidence": "对话中未提及减少拒单、取消和超时等行为。",
+          "relevant_turns": [],
+          "quotes": [],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            0.0
+          ],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "96b2dbbc",
+          "checkpoint_name": "提及恶劣天气工作优势",
+          "status": "failed",
+          "score": 0.0,
+          "evidence": "对话中未提及恶劣天气工作的好处。",
+          "relevant_turns": [],
+          "quotes": [],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            0.0
+          ],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "7a5488e5",
+          "checkpoint_name": "处理超出职责问题",
+          "status": "n/a",
+          "score": 0.0,
+          "evidence": "骑手未提出超出职责范围的问题，条件未触发。",
+          "relevant_turns": [],
+          "quotes": [],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            0.0
+          ],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "a4b46d46",
+          "checkpoint_name": "骑手坚持无法配送时安慰并挂断",
+          "status": "n/a",
+          "score": 0.0,
+          "evidence": "骑手未坚持无法配送，条件未触发。",
+          "relevant_turns": [],
+          "quotes": [],
+          "confidence": 1.0,
+          "evaluation_method": "llm_judge",
+          "score_samples": [
+            0.0
+          ],
+          "score_std": 0.0
+        }
+      ],
+      "constraint_evaluations": [
+        {
+          "constraint_id": "e57babee",
+          "constraint_name": "遵循对话流程和FAQ",
+          "violated": false,
+          "violation_count": 0,
+          "violation_details": [],
+          "relevant_turns": [],
+          "severity": "major",
+          "quotes": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 1.0
+        },
+        {
+          "constraint_id": "679b83b0",
+          "constraint_name": "超出职责范围时回复指定话术",
+          "violated": false,
+          "violation_count": 0,
+          "violation_details": [],
+          "relevant_turns": [],
+          "severity": "critical",
+          "quotes": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 1.0
+        },
+        {
+          "constraint_id": "4274ed3b",
+          "constraint_name": "避免重复回复",
+          "violated": false,
+          "violation_count": 0,
+          "violation_details": [],
+          "relevant_turns": [],
+          "severity": "minor",
+          "quotes": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 1.0
+        },
+        {
+          "constraint_id": "75100f9b",
+          "constraint_name": "骑手坚持无法配送时安慰后挂断",
+          "violated": false,
+          "violation_count": 0,
+          "violation_details": [],
+          "relevant_turns": [],
+          "severity": "major",
+          "quotes": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 1.0
+        }
+      ],
+      "utterance_constraint_eval": {
+        "total_system_turns": 10,
+        "violated_turns": 0,
+        "violation_rate": 0.0,
+        "violations": [],
+        "score": 100.0
+      },
+      "knowledge_accuracy_eval": {
+        "total_knowledge_queries": 4,
+        "correct_answers": 2,
+        "incorrect_answers": 2,
+        "fabricated_info": [
+          "单日合同需要连续跑3天",
+          "连续3天每天5单"
+        ],
+        "score": 50.0,
+        "details": [
+          {
+            "query": "单日合同每天需要完成多少单？",
+            "expected": "单日合同在生效当天必须完成X单，否则合同及派单可能受到影响。",
+            "actual": "单日合同每天至少完成5单",
+            "correct": true,
+            "turn_id": 0
+          },
+          {
+            "query": "多日合同每天需要完成多少单？",
+            "expected": "多日合同每天必须完成Y单，否则后续合同及派单可能受到影响。",
+            "actual": "多日合同每天至少完成3单",
+            "correct": true,
+            "turn_id": 0
+          },
+          {
+            "query": "飞毛腿合同生效后需要连续配送多少天？",
+            "expected": "单日飞毛腿合同需要连续Y天完成配送；否则合同将受到影响。",
+            "actual": "单日合同得连续跑3天",
+            "correct": false,
+            "turn_id": 4
+          },
+          {
+            "query": "连续完成多日合同有什么奖励？",
+            "expected": "连续完成W天多日合同，且每天完成Y单，将获得额外奖励（例如，与单日合同相比每单多+$元）。",
+            "actual": "连续3天每天5单",
+            "correct": false,
+            "turn_id": 6
+          }
+        ],
+        "quotes": [
+          {
+            "turn_id": 0,
+            "role": "system",
+            "text": "单日合同每天至少完成5单；多日合同每天至少完成3单。",
+            "note": "系统正确替换了占位符X和Y，与知识库一致。 [近似匹配]"
+          },
+          {
+            "turn_id": 4,
+            "role": "system",
+            "text": "单日合同得连续跑3天，不然名额可能被占。",
+            "note": "知识库中单日合同需要连续Y天，但Y是占位符，系统具体化为3天，但知识库并未给出具体数字，且与多日合同混淆，属于编造。"
+          },
+          {
+            "turn_id": 6,
+            "role": "system",
+            "text": "连续3天每天5单。",
+            "note": "知识库中连续完成多日合同有奖励，但未提及具体天数，系统编造了3天。"
+          }
+        ]
+      },
+      "flow_analysis": "对话基本按照期望流程推进，但步骤1中系统未先确认身份就直接告知合同要求，且未处理'若不是负责人'的分支。步骤2询问是否可配送后，用户表示可以配送，进入步骤3说明合同要求，然后进入步骤5说明报名规则（步骤4被跳过，因为用户愿意配送）。整体流程合理，但步骤1的初始部分偏离了期望流程。",
+      "branch_coverage": [
+        "步骤2中用户表示可以配送，触发进入步骤3"
+      ],
+      "overall_comment": "对话完成了通知和提醒任务，用户配合良好，但效率较低，结尾寒暄过多。",
+      "issues": [
+        "对话轮次过多，冗余寒暄占比较高。"
+      ],
+      "strengths": [
+        "话术礼貌友好，用户配合度高，核心信息传达清晰。"
+      ],
+      "overall_confidence": 0.96,
+      "total_score_std": 0.0
+    }
+  ],
+  "dialogue_sessions": [
+    {
+      "session_id": "1b74b78e-a53a-4d81-bd6c-c31e85315f5f",
+      "task_instruction": {
+        "task_id": "0162a9ae",
+        "task_name": "致电\"飞毛腿\"骑手，通知他们今天合同已成功签署，并提醒他们完...",
+        "task_description": "致电\"飞毛腿\"骑手，通知他们今天合同已成功签署，并提醒他们完成配送任务。",
+        "system_prompt": "## 角色\n你是美团外卖骑手的站长。\n\n## 任务\n致电\"飞毛腿\"骑手，通知他们今天合同已成功签署，并提醒他们完成配送任务。\n\n## 知识库\n- 目前，许多骑手正在申请飞毛腿。如果你无法连续配送 **3 天**，你的名额可能会被他人占用。\n- 单日合同：在生效当天必须完成 **5 单**，否则合同及派单可能受到影响。\n- 多日合同：每天必须完成 **3 单**，否则后续合同及派单可能受到影响。\n- 如需退出飞毛腿，必须在前一天 **20 点之前**在 App 的\"飞毛腿报名\"中取消；次日生效。\n- 连续完成 **7 天**多日合同，且每天完成 **3 单**，将获得额外奖励（例如，与单日合同相比每单多 +$ 元）。\n\n## 约束规则\n- 遵循对话流程和常见问题解答。\n- 如被问及超出职责范围的问题，回复：\"我向同事确认后再回电给你。我现在能回答的先回答。\"\n- 保持语气随意，像打电话一样自然。\n- 每次回复控制在**约 30 个字以内**。\n- 避免重复回复；如需重申，请换种方式礼貌表达。\n- 如果骑手坚持确实无法配送，安慰他们后挂断电话。\n\n## 对话流程\n# Call Flow\n1. 告知骑手今天飞毛腿合同已生效，并询问他们是否可以开始配送。\n2. 说明单日飞毛腿合同需要**连续 3 天**完成配送；否则合同将受到影响。\n3. 尽量挽留不想配送的骑手，鼓励能配送的骑手，并提醒他们注意安全。\n4. 说明飞毛腿报名是按排名进行的，并非站长干预。骑手应减少拒单、取消和超时。在恶劣天气下工作、订单量更高，有助于保住飞毛腿资格。",
+        "context_info": {},
+        "checkpoints": [
+          {
+            "id": "27591edf",
+            "name": "确认骑手身份",
+            "description": "在开场白中确认骑手姓名，确保联系到正确的骑手。",
+            "type": "must_do",
+            "keywords": [
+              "请问是",
+              "吗",
+              "我是站长"
+            ],
+            "evaluation_criteria": "开场白包含询问对方是否为指定骑手姓名，并自报身份。",
+            "order": 1,
+            "condition": "",
+            "at_flow_step": "开场白",
+            "derived_from_flow": false
+          },
+          {
+            "id": "991bc7c2",
+            "name": "告知合同已签署",
+            "description": "通知骑手今天飞毛腿合同已成功签署。",
+            "type": "must_do",
+            "keywords": [
+              "合同已签署",
+              "已生效",
+              "飞毛腿"
+            ],
+            "evaluation_criteria": "在对话中明确告知骑手合同已签署或已生效。",
+            "order": 2,
+            "condition": "",
+            "at_flow_step": "步骤1",
+            "derived_from_flow": false
+          },
+          {
+            "id": "7786a3d3",
+            "name": "询问是否可以开始配送",
+            "description": "询问骑手是否可以开始配送任务。",
+            "type": "must_do",
+            "keywords": [
+              "可以开始配送吗",
+              "能否配送",
+              "开始配送"
+            ],
+            "evaluation_criteria": "明确询问骑手是否能够开始配送。",
+            "order": 3,
+            "condition": "",
+            "at_flow_step": "步骤1",
+            "derived_from_flow": false
+          },
+          {
+            "id": "6177e354",
+            "name": "说明单日合同要求",
+            "description": "告知单日合同每天至少完成5单，多日合同每天至少完成3单。",
+            "type": "must_do",
+            "keywords": [
+              "单日合同",
+              "X单",
+              "多日合同",
+              "Y单"
+            ],
+            "evaluation_criteria": "在对话中提及单日合同和多日合同的最低单量要求。",
+            "order": 4,
+            "condition": "",
+            "at_flow_step": "开场白或步骤2",
+            "derived_from_flow": false
+          },
+          {
+            "id": "ad229349",
+            "name": "说明连续配送要求",
+            "description": "告知单日飞毛腿合同需要连续3天完成配送，否则合同受影响。",
+            "type": "must_do",
+            "keywords": [
+              "连续",
+              "Y天",
+              "合同受影响"
+            ],
+            "evaluation_criteria": "明确说明连续配送天数和未完成的后果。",
+            "order": 5,
+            "condition": "",
+            "at_flow_step": "步骤2",
+            "derived_from_flow": false
+          },
+          {
+            "id": "0fb16983",
+            "name": "挽留不想配送的骑手",
+            "description": "尽量挽留表示不想配送的骑手，鼓励他们配送。",
+            "type": "must_do",
+            "keywords": [
+              "挽留",
+              "鼓励",
+              "坚持一下"
+            ],
+            "evaluation_criteria": "当骑手表示不想配送时，进行劝说和鼓励。",
+            "order": 6,
+            "condition": "骑手表示不想配送",
+            "at_flow_step": "步骤3",
+            "derived_from_flow": false
+          },
+          {
+            "id": "66ff23c8",
+            "name": "提醒注意安全",
+            "description": "提醒骑手注意配送安全。",
+            "type": "should_do",
+            "keywords": [
+              "注意安全",
+              "安全第一"
+            ],
+            "evaluation_criteria": "在对话中包含安全提醒。",
+            "order": 7,
+            "condition": "",
+            "at_flow_step": "步骤3",
+            "derived_from_flow": false
+          },
+          {
+            "id": "8efc16b8",
+            "name": "说明飞毛腿报名按排名",
+            "description": "告知骑手飞毛腿报名是按排名进行的，并非站长干预。",
+            "type": "must_do",
+            "keywords": [
+              "排名",
+              "按排名",
+              "并非站长干预"
+            ],
+            "evaluation_criteria": "明确说明报名机制是基于排名。",
+            "order": 8,
+            "condition": "",
+            "at_flow_step": "步骤4",
+            "derived_from_flow": false
+          },
+          {
+            "id": "96f4db1c",
+            "name": "建议减少拒单等行为",
+            "description": "建议骑手减少拒单、取消和超时，以保住资格。",
+            "type": "should_do",
+            "keywords": [
+              "减少拒单",
+              "取消",
+              "超时"
+            ],
+            "evaluation_criteria": "在对话中提及减少不良行为。",
+            "order": 9,
+            "condition": "",
+            "at_flow_step": "步骤4",
+            "derived_from_flow": false
+          },
+          {
+            "id": "96b2dbbc",
+            "name": "提及恶劣天气工作优势",
+            "description": "说明恶劣天气下工作、订单量更高，有助于保住飞毛腿资格。",
+            "type": "optional",
+            "keywords": [
+              "恶劣天气",
+              "订单量更高",
+              "保住资格"
+            ],
+            "evaluation_criteria": "在对话中提及恶劣天气工作的好处。",
+            "order": 10,
+            "condition": "",
+            "at_flow_step": "步骤4",
+            "derived_from_flow": false
+          },
+          {
+            "id": "7a5488e5",
+            "name": "处理超出职责问题",
+            "description": "当被问及超出职责范围的问题时，回复标准话术。",
+            "type": "must_do",
+            "keywords": [
+              "向同事确认",
+              "再回电",
+              "我现在能回答的先回答"
+            ],
+            "evaluation_criteria": "当骑手提出超出职责的问题时，使用指定话术回应。",
+            "order": 11,
+            "condition": "骑手提出超出职责范围的问题",
+            "at_flow_step": "任何步骤",
+            "derived_from_flow": false
+          },
+          {
+            "id": "a4b46d46",
+            "name": "骑手坚持无法配送时安慰并挂断",
+            "description": "如果骑手坚持确实无法配送，安慰他们后挂断电话。",
+            "type": "must_do",
+            "keywords": [
+              "安慰",
+              "没关系",
+              "挂断"
+            ],
+            "evaluation_criteria": "当骑手坚持无法配送时，进行安慰并结束通话。",
+            "order": 12,
+            "condition": "骑手坚持无法配送",
+            "at_flow_step": "步骤3或之后",
+            "derived_from_flow": false
+          }
+        ],
+        "constraints": [
+          {
+            "id": "e57babee",
+            "name": "遵循对话流程和FAQ",
+            "description": "必须按照Call Flow和Knowledge Points中的内容进行对话，不能偏离或遗漏关键信息。",
+            "severity": "major",
+            "violation_examples": [
+              "未告知骑手合同生效",
+              "未说明连续天数要求"
+            ],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "679b83b0",
+            "name": "超出职责范围时回复指定话术",
+            "description": "如果被问及超出职责范围的问题，必须回复：'我向同事确认后再回电给你。我现在能回答的先回答。'",
+            "severity": "critical",
+            "violation_examples": [
+              "直接回答超出职责的问题",
+              "说'我不知道'"
+            ],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "4274ed3b",
+            "name": "避免重复回复",
+            "description": "如需重申，请换种方式礼貌表达，不能原样重复。",
+            "severity": "minor",
+            "violation_examples": [
+              "连续两次说'请完成配送任务'"
+            ],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "75100f9b",
+            "name": "骑手坚持无法配送时安慰后挂断",
+            "description": "如果骑手坚持确实无法配送，安慰他们后挂断电话，不得继续劝说。",
+            "severity": "major",
+            "violation_examples": [
+              "继续劝说骑手配送",
+              "威胁骑手"
+            ],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          }
+        ],
+        "flow_nodes": [
+          {
+            "id": "9f4bd6e0",
+            "name": "步骤1: 身份确认",
+            "description": "确认骑手身份，并告知合同已签署。",
+            "next_nodes": [
+              "步骤2: 询问是否可配送"
+            ],
+            "is_start": true,
+            "is_end": false,
+            "conditions": {
+              "步骤2: 询问是否可配送": "用户确认身份"
+            },
+            "branches": [
+              {
+                "id": "adc5b1c2",
+                "condition": "是负责人",
+                "condition_keywords": [
+                  "是",
+                  "对",
+                  "我是"
+                ],
+                "action": "进入步骤2",
+                "next_node": "步骤2: 询问是否可配送",
+                "is_default": false
+              },
+              {
+                "id": "736682db",
+                "condition": "不是负责人",
+                "condition_keywords": [
+                  "不是",
+                  "其他人"
+                ],
+                "action": "请其转达后进入步骤2",
+                "next_node": "步骤2: 询问是否可配送",
+                "is_default": false
+              }
+            ],
+            "step_number": 1,
+            "reference_script": "你好，请问是${rider_name}吗？我是站长。我看到你已报名飞毛腿。请记住，午餐和晚餐高峰期需要上线。单日合同每天至少完成 X 单；多日合同每天至少完成 Y 单。",
+            "sub_steps": []
+          },
+          {
+            "id": "32cd9a36",
+            "name": "步骤2: 询问是否可配送",
+            "description": "告知骑手今天飞毛腿合同已生效，并询问他们是否可以开始配送。",
+            "next_nodes": [
+              "步骤3: 说明合同要求",
+              "步骤4: 挽留与鼓励"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {
+              "步骤3: 说明合同要求": "骑手表示可以配送",
+              "步骤4: 挽留与鼓励": "骑手表示不想配送"
+            },
+            "branches": [
+              {
+                "id": "6409b58e",
+                "condition": "可以配送",
+                "condition_keywords": [
+                  "可以",
+                  "能",
+                  "好"
+                ],
+                "action": "进入步骤3",
+                "next_node": "步骤3: 说明合同要求",
+                "is_default": false
+              },
+              {
+                "id": "941e8860",
+                "condition": "不想配送",
+                "condition_keywords": [
+                  "不想",
+                  "不能",
+                  "不行"
+                ],
+                "action": "进入步骤4",
+                "next_node": "步骤4: 挽留与鼓励",
+                "is_default": true
+              }
+            ],
+            "step_number": 2,
+            "reference_script": "告知骑手今天飞毛腿合同已生效，并询问他们是否可以开始配送。",
+            "sub_steps": []
+          },
+          {
+            "id": "b219823b",
+            "name": "步骤3: 说明合同要求",
+            "description": "说明单日飞毛腿合同需要连续 Y 天完成配送；否则合同将受到影响。",
+            "next_nodes": [
+              "步骤5: 说明报名规则"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [],
+            "step_number": 3,
+            "reference_script": "说明单日飞毛腿合同需要连续 Y 天完成配送；否则合同将受到影响。",
+            "sub_steps": []
+          },
+          {
+            "id": "abb89abf",
+            "name": "步骤4: 挽留与鼓励",
+            "description": "尽量挽留不想配送的骑手，鼓励能配送的骑手，并提醒他们注意安全。",
+            "next_nodes": [
+              "步骤5: 说明报名规则"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "7e2b7a46",
+                "condition": "坚持无法配送",
+                "condition_keywords": [
+                  "真的不行",
+                  "实在不能"
+                ],
+                "action": "安慰后挂断",
+                "next_node": "",
+                "is_default": false
+              },
+              {
+                "id": "8c5f5eae",
+                "condition": "被说服配送",
+                "condition_keywords": [
+                  "好吧",
+                  "那我试试"
+                ],
+                "action": "进入步骤5",
+                "next_node": "步骤5: 说明报名规则",
+                "is_default": true
+              }
+            ],
+            "step_number": 4,
+            "reference_script": "尽量挽留不想配送的骑手，鼓励能配送的骑手，并提醒他们注意安全。",
+            "sub_steps": []
+          },
+          {
+            "id": "d64c1de3",
+            "name": "步骤5: 说明报名规则",
+            "description": "说明飞毛腿报名是按排名进行的，并非站长干预。骑手应减少拒单、取消和超时。在恶劣天气下工作、订单量更高，有助于保住飞毛腿资格。",
+            "next_nodes": [],
+            "is_start": false,
+            "is_end": true,
+            "conditions": {},
+            "branches": [],
+            "step_number": 5,
+            "reference_script": "说明飞毛腿报名是按排名进行的，并非站长干预。骑手应减少拒单、取消和超时。在恶劣天气下工作、订单量更高，有助于保住飞毛腿资格。",
+            "sub_steps": []
+          }
+        ],
+        "exception_rules": [
+          {
+            "id": "742016fc",
+            "trigger": "被问及超出职责范围的问题",
+            "expected_behavior": "回复：'我向同事确认后再回电给你。我现在能回答的先回答。'",
+            "forbidden_behavior": "乱编或直接回答超出职责的问题"
+          },
+          {
+            "id": "07d0d69f",
+            "trigger": "骑手坚持确实无法配送",
+            "expected_behavior": "安慰骑手后挂断电话",
+            "forbidden_behavior": "继续强行挽留或纠缠"
+          }
+        ],
+        "opening_line": "你好，请问是张师傅吗？我是站长。我看到你已报名飞毛腿。请记住，午餐和晚餐高峰期需要上线。单日合同每天至少完成 **5 单**；多日合同每天至少完成 **3 单**。",
+        "knowledge_base": [
+          {
+            "id": "4f2e0e53",
+            "question": "飞毛腿合同生效后需要连续配送多少天？",
+            "answer": "单日飞毛腿合同需要连续3天完成配送；否则合同将受到影响。",
+            "keywords": [
+              "连续",
+              "Y天",
+              "合同"
+            ],
+            "category": "general",
+            "priority": 1
+          },
+          {
+            "id": "fa6a19d5",
+            "question": "单日合同每天需要完成多少单？",
+            "answer": "单日合同在生效当天必须完成5单，否则合同及派单可能受到影响。",
+            "keywords": [
+              "单日合同",
+              "X单",
+              "完成"
+            ],
+            "category": "general",
+            "priority": 1
+          },
+          {
+            "id": "acee222b",
+            "question": "多日合同每天需要完成多少单？",
+            "answer": "多日合同每天必须完成3单，否则后续合同及派单可能受到影响。",
+            "keywords": [
+              "多日合同",
+              "Y单",
+              "完成"
+            ],
+            "category": "general",
+            "priority": 1
+          },
+          {
+            "id": "c45ae7d9",
+            "question": "如何退出飞毛腿？",
+            "answer": "如需退出飞毛腿，必须在前一天20点之前在App的'飞毛腿报名'中取消；次日生效。",
+            "keywords": [
+              "退出",
+              "取消",
+              "Z点"
+            ],
+            "category": "general",
+            "priority": 1
+          },
+          {
+            "id": "0c091c3d",
+            "question": "连续完成多日合同有什么奖励？",
+            "answer": "连续完成7天多日合同，且每天完成3单，将获得额外奖励（例如，与单日合同相比每单多+$元）。",
+            "keywords": [
+              "连续",
+              "W天",
+              "奖励"
+            ],
+            "category": "general",
+            "priority": 1
+          },
+          {
+            "id": "2a75e075",
+            "question": "飞毛腿报名是如何进行的？",
+            "answer": "飞毛腿报名是按排名进行的，并非站长干预。骑手应减少拒单、取消和超时。在恶劣天气下工作、订单量更高，有助于保住飞毛腿资格。",
+            "keywords": [
+              "排名",
+              "拒单",
+              "取消",
+              "超时",
+              "恶劣天气"
+            ],
+            "category": "general",
+            "priority": 1
+          }
+        ],
+        "variables": [
+          {
+            "name": "rider_name",
+            "description": "骑手姓名",
+            "sample_values": [
+              "张三",
+              "李四"
+            ],
+            "default_value": "张师傅",
+            "placeholder": "${rider_name}"
+          },
+          {
+            "name": "X",
+            "description": "单日合同每天最低完成单数",
+            "sample_values": [
+              "5",
+              "10"
+            ],
+            "default_value": "5",
+            "placeholder": "X"
+          },
+          {
+            "name": "Y",
+            "description": "多日合同每天最低完成单数，以及单日合同连续天数",
+            "sample_values": [
+              "3",
+              "7"
+            ],
+            "default_value": "3",
+            "placeholder": "Y"
+          },
+          {
+            "name": "Z",
+            "description": "退出飞毛腿的截止时间（点）",
+            "sample_values": [
+              "20",
+              "22"
+            ],
+            "default_value": "20",
+            "placeholder": "Z"
+          },
+          {
+            "name": "W",
+            "description": "获得奖励所需连续完成多日合同的天数",
+            "sample_values": [
+              "7",
+              "14"
+            ],
+            "default_value": "7",
+            "placeholder": "W"
+          }
+        ],
+        "utterance_constraints": [
+          {
+            "id": "f2ba29b1",
+            "name": "每次回复字数限制",
+            "max_chars": 30,
+            "min_chars": null,
+            "forbidden_words": [],
+            "required_tone": "随意",
+            "applies_to": "all",
+            "description": "每次回复控制在约30个字以内，保持自然随意。"
+          },
+          {
+            "id": "daa3054f",
+            "name": "语气随意自然",
+            "max_chars": null,
+            "min_chars": null,
+            "forbidden_words": [],
+            "required_tone": "随意",
+            "applies_to": "all",
+            "description": "像打电话一样自然，避免正式或机械。"
+          }
+        ],
+        "scenario_triggers": [
+          {
+            "id": "89a92bc5",
+            "trigger_condition": "用户说在开车",
+            "trigger_keywords": [
+              "在开车",
+              "开车"
+            ],
+            "expected_system_action": "礼貌说稍后再打并挂断",
+            "forbidden_system_action": "继续推销",
+            "should_end_conversation": true,
+            "at_flow_step": ""
+          }
+        ],
+        "instruction_format": "markdown",
+        "role_description": "你是美团外卖骑手的站长。",
+        "raw_instruction": "# Role\n你是美团外卖骑手的站长。\n\n# Task\n致电\"飞毛腿\"骑手，通知他们今天合同已成功签署，并提醒他们完成配送任务。\n\n# Opening Line\n你好，请问是${rider_name}吗？我是站长。我看到你已报名飞毛腿。请记住，午餐和晚餐高峰期需要上线。单日合同每天至少完成 **X 单**；多日合同每天至少完成 **Y 单**。\n\n# Call Flow\n1. 告知骑手今天飞毛腿合同已生效，并询问他们是否可以开始配送。\n2. 说明单日飞毛腿合同需要**连续 Y 天**完成配送；否则合同将受到影响。\n3. 尽量挽留不想配送的骑手，鼓励能配送的骑手，并提醒他们注意安全。\n4. 说明飞毛腿报名是按排名进行的，并非站长干预。骑手应减少拒单、取消和超时。在恶劣天气下工作、订单量更高，有助于保住飞毛腿资格。\n\n# Knowledge Points (FAQ)\n- 目前，许多骑手正在申请飞毛腿。如果你无法连续配送 **Y 天**，你的名额可能会被他人占用。\n- 单日合同：在生效当天必须完成 **X 单**，否则合同及派单可能受到影响。\n- 多日合同：每天必须完成 **Y 单**，否则后续合同及派单可能受到影响。\n- 如需退出飞毛腿，必须在前一天 **Z 点之前**在 App 的\"飞毛腿报名\"中取消；次日生效。\n- 连续完成 **W 天**多日合同，且每天完成 **Y 单**，将获得额外奖励（例如，与单日合同相比每单多 +$ 元）。\n\n# Constraints\n- 遵循对话流程和常见问题解答。\n- 如被问及超出职责范围的问题，回复：\"我向同事确认后再回电给你。我现在能回答的先回答。\"\n- 保持语气随意，像打电话一样自然。\n- 每次回复控制在**约 30 个字以内**。\n- 避免重复回复；如需重申，请换种方式礼貌表达。\n- 如果骑手坚持确实无法配送，安慰他们后挂断电话。\n",
+        "complexity": {
+          "n_checkpoints": 12,
+          "n_constraints": 4,
+          "n_flow_nodes": 5,
+          "n_branches": 6,
+          "n_knowledge_entries": 6,
+          "n_utterance_constraints": 2,
+          "n_scenario_triggers": 1,
+          "n_variables": 5,
+          "max_branch_depth": 2,
+          "raw_chars": 799,
+          "complexity_score": 100.0,
+          "complexity_level": "very_complex"
+        }
+      },
+      "persona_type": "cooperative",
+      "turns": [
+        {
+          "turn_id": 0,
+          "role": "system",
+          "content": "你好，请问是张师傅吗？我是站长。我看到你已报名飞毛腿。请记住，午餐和晚餐高峰期需要上线。单日合同每天至少完成 **5 单**；多日合同每天至少完成 **3 单**。",
+          "timestamp": "2026-05-30T11:40:38.683654",
+          "metadata": {
+            "type": "opening"
+          },
+          "char_count": 82,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤1: 身份确认"
+        },
+        {
+          "turn_id": 1,
+          "role": "user",
+          "content": "嗯，我是张师傅。5单和多日3单，记下了。",
+          "timestamp": "2026-05-30T11:40:39.582513",
+          "metadata": {},
+          "char_count": 20,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤1: 身份确认"
+        },
+        {
+          "turn_id": 2,
+          "role": "system",
+          "content": "张师傅，今天合同生效了，今天能跑5单不？",
+          "timestamp": "2026-05-30T11:40:40.629392",
+          "metadata": {},
+          "char_count": 20,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤2: 询问是否可配送"
+        },
+        {
+          "turn_id": 3,
+          "role": "user",
+          "content": "今天应该没问题，我尽量跑够5单。",
+          "timestamp": "2026-05-30T11:40:41.414869",
+          "metadata": {},
+          "char_count": 16,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤2: 询问是否可配送"
+        },
+        {
+          "turn_id": 4,
+          "role": "system",
+          "content": "好嘞！不过提醒你，单日合同得连续跑3天，不然名额可能被占。",
+          "timestamp": "2026-05-30T11:40:42.306528",
+          "metadata": {},
+          "char_count": 29,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤2: 询问是否可配送"
+        },
+        {
+          "turn_id": 5,
+          "role": "user",
+          "content": "连续3天是吧，明白了，我会注意的。",
+          "timestamp": "2026-05-30T11:40:43.189443",
+          "metadata": {},
+          "char_count": 17,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤2: 询问是否可配送"
+        },
+        {
+          "turn_id": 6,
+          "role": "system",
+          "content": "对，连续3天每天5单。加油张师傅，注意安全啊！",
+          "timestamp": "2026-05-30T11:40:43.986122",
+          "metadata": {},
+          "char_count": 23,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 7,
+          "role": "user",
+          "content": "好的，谢谢提醒，那我先去忙了。",
+          "timestamp": "2026-05-30T11:40:44.587901",
+          "metadata": {},
+          "char_count": 15,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 8,
+          "role": "system",
+          "content": "行，张师傅辛苦了，有什么问题随时找我啊！",
+          "timestamp": "2026-05-30T11:40:45.390424",
+          "metadata": {},
+          "char_count": 20,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 9,
+          "role": "user",
+          "content": "好的，那我先上线了，回头见。",
+          "timestamp": "2026-05-30T11:40:46.212670",
+          "metadata": {},
+          "char_count": 14,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 10,
+          "role": "system",
+          "content": "好嘞，回头见！记得安全第一，跑完5单稳了！",
+          "timestamp": "2026-05-30T11:40:47.042934",
+          "metadata": {},
+          "char_count": 21,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 11,
+          "role": "user",
+          "content": "嗯，收到，放心吧。",
+          "timestamp": "2026-05-30T11:40:47.932751",
+          "metadata": {},
+          "char_count": 9,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 12,
+          "role": "system",
+          "content": "好，那我不打扰了，祝你今天顺利跑完！",
+          "timestamp": "2026-05-30T11:40:48.875500",
+          "metadata": {},
+          "char_count": 18,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 13,
+          "role": "user",
+          "content": "好嘞，谢谢，挂了。",
+          "timestamp": "2026-05-30T11:40:49.534632",
+          "metadata": {},
+          "char_count": 9,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 14,
+          "role": "system",
+          "content": "好，挂了张师傅，明天再联系！",
+          "timestamp": "2026-05-30T11:40:50.322029",
+          "metadata": {},
+          "char_count": 14,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 15,
+          "role": "user",
+          "content": "好的，明天见。",
+          "timestamp": "2026-05-30T11:40:50.886804",
+          "metadata": {},
+          "char_count": 7,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 16,
+          "role": "system",
+          "content": "明天见，张师傅！加油！",
+          "timestamp": "2026-05-30T11:40:51.736190",
+          "metadata": {},
+          "char_count": 11,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 17,
+          "role": "user",
+          "content": "嗯，加油。",
+          "timestamp": "2026-05-30T11:40:52.447507",
+          "metadata": {},
+          "char_count": 5,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 18,
+          "role": "system",
+          "content": "好，拜拜！",
+          "timestamp": "2026-05-30T11:40:53.119653",
+          "metadata": {},
+          "char_count": 5,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        },
+        {
+          "turn_id": 19,
+          "role": "user",
+          "content": "拜拜。",
+          "timestamp": "2026-05-30T11:40:53.670943",
+          "metadata": {},
+          "char_count": 3,
+          "constraint_violations": [],
+          "inferred_flow_node": "步骤4: 挽留与鼓励"
+        }
+      ],
+      "start_time": "2026-05-30T11:40:38.682740",
+      "end_time": "2026-05-30T11:40:53.671108",
+      "terminated_reason": "对话自然结束",
+      "metadata": {},
+      "branch_path": [],
+      "triggered_scenarios": [],
+      "seed": 42000,
+      "target_model_version": "deepseek-chat",
+      "simulator_model_version": "deepseek-chat"
+    }
+  ],
+  "branch_coverage": {
+    "total_branches": 9,
+    "covered_branches": 1,
+    "coverage_rate": 0.111,
+    "uncovered_branches": [
+      "步骤1: 身份确认::是负责人",
+      "步骤1: 身份确认::不是负责人",
+      "步骤1: 身份确认->步骤2: 询问是否可配送::用户确认身份",
+      "步骤2: 询问是否可配送::不想配送",
+      "步骤2: 询问是否可配送->步骤3: 说明合同要求::骑手表示可以配送",
+      "步骤2: 询问是否可配送->步骤4: 挽留与鼓励::骑手表示不想配送",
+      "步骤4: 挽留与鼓励::坚持无法配送",
+      "步骤4: 挽留与鼓励::被说服配送"
+    ],
+    "branch_details": {
+      "步骤2中用户表示可以配送，触发进入步骤3": 1
+    },
+    "branch_node_map": {
+      "步骤1: 身份确认": [
+        "是负责人",
+        "不是负责人"
+      ],
+      "步骤2: 询问是否可配送": [
+        "可以配送",
+        "不想配送"
+      ],
+      "步骤4: 挽留与鼓励": [
+        "坚持无法配送",
+        "被说服配送"
+      ]
+    },
+    "target_branches_to_cover": [
+      "步骤1: 身份确认::是负责人",
+      "步骤1: 身份确认::不是负责人",
+      "步骤1: 身份确认->步骤2: 询问是否可配送::用户确认身份",
+      "步骤2: 询问是否可配送::可以配送",
+      "步骤2: 询问是否可配送::不想配送",
+      "步骤2: 询问是否可配送->步骤3: 说明合同要求::骑手表示可以配送",
+      "步骤2: 询问是否可配送->步骤4: 挽留与鼓励::骑手表示不想配送",
+      "步骤4: 挽留与鼓励::坚持无法配送",
+      "步骤4: 挽留与鼓励::被说服配送"
+    ]
+  },
+  "summary": "总体评级: 良好 (80.4±0.0分)\n最强维度: 约束遵守度 (100.0分)\n最弱维度: 知识准确度 (50.0分)\n画像最佳: 配合型 (80.4分)\n画像最差: 配合型 (80.4分)\n风险: 最薄弱维度是【知识准确度】(50.0分); 在【cooperative】用户画像下表现最差; 高频失败模式: 知识幻觉: 编造信息 (出现2次)。",
+  "recommendations": [
+    "[紧急] 知识准确度 得分 50.0, 建议重点改进",
+    "[建议] 任务完成度 得分 66.7, 有改进空间",
+    "[建议] 对话效率 得分 72.0, 有改进空间",
+    "[失败模式] 知识幻觉: 编造信息 (出现2次) - 提供知识库 FAQ 标准答案, 强调'未知信息不要编造'",
+    "[失败模式] 检查点未完成: 说明飞毛腿报名按排名 (出现1次) - 在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记",
+    "[失败模式] 检查点未完成: 建议减少拒单等行为 (出现1次) - 在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记",
+    "[知识幻觉] 发现编造信息: 单日合同需要连续跑3天; 连续3天每天5单"
+  ],
+  "instruction_complexity": {
+    "n_checkpoints": 12,
+    "n_constraints": 4,
+    "n_flow_nodes": 5,
+    "n_branches": 6,
+    "n_knowledge_entries": 6,
+    "n_utterance_constraints": 2,
+    "n_scenario_triggers": 1,
+    "n_variables": 5,
+    "max_branch_depth": 2,
+    "raw_chars": 799,
+    "complexity_score": 100.0,
+    "complexity_level": "very_complex"
+  },
+  "weakness_profile": {
+    "weakest_dimensions": [
+      "知识准确度 (50.0分)",
+      "任务完成度 (66.7分)",
+      "对话效率 (72.0分)"
+    ],
+    "strongest_dimensions": [
+      "约束遵守度 (100.0分)",
+      "异常处理能力 (100.0分)",
+      "话术简洁度 (100.0分)"
+    ],
+    "weakest_personas": [
+      "cooperative (80.4分)"
+    ],
+    "top_failure_modes": [
+      {
+        "name": "知识幻觉: 编造信息",
+        "category": "knowledge",
+        "occurrences": 2,
+        "affected_personas": [
+          "cooperative"
+        ],
+        "affected_sessions": [
+          "1b74b78e"
+        ],
+        "typical_quote": "单日合同需要连续跑3天",
+        "impact_score": 10.0,
+        "suggestion": "提供知识库 FAQ 标准答案, 强调'未知信息不要编造'"
+      },
+      {
+        "name": "检查点未完成: 说明飞毛腿报名按排名",
+        "category": "task",
+        "occurrences": 1,
+        "affected_personas": [
+          "cooperative"
+        ],
+        "affected_sessions": [
+          "1b74b78e"
+        ],
+        "typical_quote": "对话中未提及飞毛腿报名按排名进行。",
+        "impact_score": 6.0,
+        "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+      },
+      {
+        "name": "检查点未完成: 建议减少拒单等行为",
+        "category": "task",
+        "occurrences": 1,
+        "affected_personas": [
+          "cooperative"
+        ],
+        "affected_sessions": [
+          "1b74b78e"
+        ],
+        "typical_quote": "对话中未提及减少拒单、取消和超时等行为。",
+        "impact_score": 6.0,
+        "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+      },
+      {
+        "name": "检查点未完成: 提及恶劣天气工作优势",
+        "category": "task",
+        "occurrences": 1,
+        "affected_personas": [
+          "cooperative"
+        ],
+        "affected_sessions": [
+          "1b74b78e"
+        ],
+        "typical_quote": "对话中未提及恶劣天气工作的好处。",
+        "impact_score": 6.0,
+        "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+      },
+      {
+        "name": "知识引用错误",
+        "category": "knowledge",
+        "occurrences": 1,
+        "affected_personas": [
+          "cooperative"
+        ],
+        "affected_sessions": [
+          "1b74b78e"
+        ],
+        "typical_quote": "[{'query': '单日合同每天需要完成多少单？', 'expected': '单日合同在生效当天必须完成X单，否则合同及派单可能受到影响。', 'actual': '单日合同每天至少完成5单', 'correct': True, 't",
+        "impact_score": 5.0,
+        "suggestion": "提供知识库 FAQ 标准答案, 强调'未知信息不要编造'"
+      }
+    ],
+    "risk_summary": "最薄弱维度是【知识准确度】(50.0分); 在【cooperative】用户画像下表现最差; 高频失败模式: 知识幻觉: 编造信息 (出现2次)。"
+  },
+  "calibration": null,
+  "run_metadata": {
+    "run_id": "2af43d8e-4824-44a8-a56c-c5681fc8519f",
+    "started_at": "2026-05-30T11:41:12.617148",
+    "finished_at": "2026-05-30T11:41:12.617128",
+    "seed": 42,
+    "evaluator_version": "3.0.0",
+    "target_model_id": "deepseek-chat",
+    "simulator_model_id": "deepseek-chat",
+    "judge_model_id": "deepseek-chat",
+    "self_consistency_n": 1,
+    "concurrency": 1,
+    "duration_seconds": 33.94
+  },
+  "overall_score_std": 0.0,
+  "overall_confidence": 0.96
+}

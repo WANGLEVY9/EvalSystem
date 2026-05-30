@@ -1,0 +1,2610 @@
+{
+  "report_id": "c43ff9cf-c5fa-4c44-839c-778d2ecc24d6",
+  "task_name": "告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"...",
+  "task_description": "告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"两个独立选项。当需要实时互动时，鼓励选择低延迟直播。",
+  "generated_at": "2026-05-30T12:38:57.182434",
+  "total_sessions": 3,
+  "overall_score": 70.53,
+  "dimension_averages": [
+    {
+      "dimension_key": "task_completion",
+      "dimension_name": "任务完成度",
+      "score": 65.0,
+      "weight": 0.2,
+      "weighted_score": 13.0,
+      "explanation": "基于 3 个会话的均值",
+      "details": [],
+      "evaluation_method": "llm_judge",
+      "confidence": 0.85,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "flow_adherence",
+      "dimension_name": "流程遵循度",
+      "score": 65.0,
+      "weight": 0.2,
+      "weighted_score": 13.0,
+      "explanation": "基于 3 个会话的均值",
+      "details": [],
+      "evaluation_method": "llm_judge",
+      "confidence": 0.85,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "constraint_compliance",
+      "dimension_name": "约束遵守度",
+      "score": 68.3,
+      "weight": 0.15,
+      "weighted_score": 10.25,
+      "explanation": "基于 3 个会话的均值",
+      "details": [],
+      "evaluation_method": "hybrid",
+      "confidence": 0.85,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "exception_handling",
+      "dimension_name": "异常处理能力",
+      "score": 63.3,
+      "weight": 0.1,
+      "weighted_score": 6.33,
+      "explanation": "基于 3 个会话的均值",
+      "details": [],
+      "evaluation_method": "llm_judge",
+      "confidence": 0.85,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "dialogue_efficiency",
+      "dimension_name": "对话效率",
+      "score": 75.0,
+      "weight": 0.05,
+      "weighted_score": 3.75,
+      "explanation": "基于 3 个会话的均值",
+      "details": [],
+      "evaluation_method": "hybrid",
+      "confidence": 0.85,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "utterance_quality",
+      "dimension_name": "话术质量",
+      "score": 66.0,
+      "weight": 0.05,
+      "weighted_score": 3.3,
+      "explanation": "基于 3 个会话的均值",
+      "details": [],
+      "evaluation_method": "llm_judge",
+      "confidence": 0.85,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "knowledge_accuracy",
+      "dimension_name": "知识准确度",
+      "score": 80.0,
+      "weight": 0.15,
+      "weighted_score": 12.0,
+      "explanation": "基于 3 个会话的均值",
+      "details": [],
+      "evaluation_method": "llm_judge",
+      "confidence": 0.85,
+      "score_std": 0.0,
+      "score_samples": []
+    },
+    {
+      "dimension_key": "response_brevity",
+      "dimension_name": "话术简洁度",
+      "score": 89.0,
+      "weight": 0.1,
+      "weighted_score": 8.9,
+      "explanation": "基于 3 个会话的均值",
+      "details": [],
+      "evaluation_method": "rule",
+      "confidence": 0.85,
+      "score_std": 0.0,
+      "score_samples": []
+    }
+  ],
+  "persona_scores": {
+    "cooperative": 93.6,
+    "busy": 68.0,
+    "red_team_l2": 50.0
+  },
+  "session_evaluations": [
+    {
+      "session_id": "079b7dc2-a318-4ec4-9188-ca1095755eab",
+      "persona_type": "cooperative",
+      "total_score": 93.6,
+      "dimension_scores": [
+        {
+          "dimension_key": "task_completion",
+          "dimension_name": "任务完成度",
+          "score": 95.0,
+          "weight": 0.2,
+          "weighted_score": 19.0,
+          "explanation": "测试值 95",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "flow_adherence",
+          "dimension_name": "流程遵循度",
+          "score": 90.0,
+          "weight": 0.2,
+          "weighted_score": 18.0,
+          "explanation": "测试值 90",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "constraint_compliance",
+          "dimension_name": "约束遵守度",
+          "score": 100.0,
+          "weight": 0.15,
+          "weighted_score": 15.0,
+          "explanation": "测试值 100",
+          "details": [],
+          "evaluation_method": "hybrid",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "exception_handling",
+          "dimension_name": "异常处理能力",
+          "score": 85.0,
+          "weight": 0.1,
+          "weighted_score": 8.5,
+          "explanation": "测试值 85",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "dialogue_efficiency",
+          "dimension_name": "对话效率",
+          "score": 90.0,
+          "weight": 0.05,
+          "weighted_score": 4.5,
+          "explanation": "测试值 90",
+          "details": [],
+          "evaluation_method": "hybrid",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "utterance_quality",
+          "dimension_name": "话术质量",
+          "score": 88.0,
+          "weight": 0.05,
+          "weighted_score": 4.4,
+          "explanation": "测试值 88",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "knowledge_accuracy",
+          "dimension_name": "知识准确度",
+          "score": 100.0,
+          "weight": 0.15,
+          "weighted_score": 15.0,
+          "explanation": "测试值 100",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "response_brevity",
+          "dimension_name": "话术简洁度",
+          "score": 92.0,
+          "weight": 0.1,
+          "weighted_score": 9.2,
+          "explanation": "测试值 92",
+          "details": [],
+          "evaluation_method": "rule",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        }
+      ],
+      "checkpoint_evaluations": [
+        {
+          "checkpoint_id": "身份确认",
+          "checkpoint_name": "身份确认",
+          "status": "completed",
+          "score": 100.0,
+          "evidence": "您好, 是负责人吗?",
+          "relevant_turns": [],
+          "quotes": [
+            {
+              "turn_id": 0,
+              "role": "system",
+              "text": "您好, 是负责人吗?",
+              "note": "自动测试"
+            }
+          ],
+          "confidence": 0.85,
+          "evaluation_method": "llm_judge",
+          "score_samples": [],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "传达升级",
+          "checkpoint_name": "传达升级",
+          "status": "completed",
+          "score": 95.0,
+          "evidence": "新增了低延迟直播选项。",
+          "relevant_turns": [
+            2
+          ],
+          "quotes": [
+            {
+              "turn_id": 2,
+              "role": "system",
+              "text": "新增了低延迟直播选项。",
+              "note": "自动测试"
+            }
+          ],
+          "confidence": 0.85,
+          "evaluation_method": "llm_judge",
+          "score_samples": [],
+          "score_std": 0.0
+        }
+      ],
+      "constraint_evaluations": [],
+      "utterance_constraint_eval": {
+        "total_system_turns": 4,
+        "violated_turns": 0,
+        "violation_rate": 0.0,
+        "violations": [],
+        "score": 100.0
+      },
+      "knowledge_accuracy_eval": {
+        "total_knowledge_queries": 0,
+        "correct_answers": 0,
+        "incorrect_answers": 0,
+        "fabricated_info": [],
+        "score": 100.0,
+        "details": [],
+        "quotes": []
+      },
+      "flow_analysis": "",
+      "branch_coverage": [],
+      "overall_comment": "",
+      "issues": [],
+      "strengths": [
+        "流程清晰"
+      ],
+      "overall_confidence": 0.85,
+      "total_score_std": 0.0
+    },
+    {
+      "session_id": "a40fc4ce-838c-4a5e-bdf2-866b3f2e0125",
+      "persona_type": "busy",
+      "total_score": 68.0,
+      "dimension_scores": [
+        {
+          "dimension_key": "task_completion",
+          "dimension_name": "任务完成度",
+          "score": 60.0,
+          "weight": 0.2,
+          "weighted_score": 12.0,
+          "explanation": "测试值 60",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "flow_adherence",
+          "dimension_name": "流程遵循度",
+          "score": 55.0,
+          "weight": 0.2,
+          "weighted_score": 11.0,
+          "explanation": "测试值 55",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "constraint_compliance",
+          "dimension_name": "约束遵守度",
+          "score": 75.0,
+          "weight": 0.15,
+          "weighted_score": 11.25,
+          "explanation": "测试值 75",
+          "details": [],
+          "evaluation_method": "hybrid",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "exception_handling",
+          "dimension_name": "异常处理能力",
+          "score": 70.0,
+          "weight": 0.1,
+          "weighted_score": 7.0,
+          "explanation": "测试值 70",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "dialogue_efficiency",
+          "dimension_name": "对话效率",
+          "score": 65.0,
+          "weight": 0.05,
+          "weighted_score": 3.25,
+          "explanation": "测试值 65",
+          "details": [],
+          "evaluation_method": "hybrid",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "utterance_quality",
+          "dimension_name": "话术质量",
+          "score": 50.0,
+          "weight": 0.05,
+          "weighted_score": 2.5,
+          "explanation": "测试值 50",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "knowledge_accuracy",
+          "dimension_name": "知识准确度",
+          "score": 80.0,
+          "weight": 0.15,
+          "weighted_score": 12.0,
+          "explanation": "测试值 80",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "response_brevity",
+          "dimension_name": "话术简洁度",
+          "score": 90.0,
+          "weight": 0.1,
+          "weighted_score": 9.0,
+          "explanation": "测试值 90.0",
+          "details": [],
+          "evaluation_method": "rule",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        }
+      ],
+      "checkpoint_evaluations": [
+        {
+          "checkpoint_id": "身份确认",
+          "checkpoint_name": "身份确认",
+          "status": "completed",
+          "score": 100.0,
+          "evidence": "您好, 请问您是贵培训机构/校区的负责人吗?",
+          "relevant_turns": [],
+          "quotes": [
+            {
+              "turn_id": 0,
+              "role": "system",
+              "text": "您好, 请问您是贵培训机构/校区的负责人吗?",
+              "note": "自动测试"
+            }
+          ],
+          "confidence": 0.85,
+          "evaluation_method": "llm_judge",
+          "score_samples": [],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "传达升级",
+          "checkpoint_name": "传达升级",
+          "status": "partially",
+          "score": 50.0,
+          "evidence": "嘻嘻, 那我快点说...",
+          "relevant_turns": [
+            2
+          ],
+          "quotes": [
+            {
+              "turn_id": 2,
+              "role": "system",
+              "text": "嘻嘻, 那我快点说...",
+              "note": "自动测试"
+            }
+          ],
+          "confidence": 0.85,
+          "evaluation_method": "llm_judge",
+          "score_samples": [],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "企业微信",
+          "checkpoint_name": "企业微信",
+          "status": "failed",
+          "score": 0.0,
+          "evidence": "",
+          "relevant_turns": [],
+          "quotes": [],
+          "confidence": 0.85,
+          "evaluation_method": "llm_judge",
+          "score_samples": [],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "结束通话",
+          "checkpoint_name": "结束通话",
+          "status": "partially",
+          "score": 40.0,
+          "evidence": "",
+          "relevant_turns": [],
+          "quotes": [],
+          "confidence": 0.85,
+          "evaluation_method": "llm_judge",
+          "score_samples": [],
+          "score_std": 0.0
+        }
+      ],
+      "constraint_evaluations": [],
+      "utterance_constraint_eval": {
+        "total_system_turns": 2,
+        "violated_turns": 2,
+        "violation_rate": 1.0,
+        "violations": [
+          {
+            "turn_id": 0,
+            "content": "您好, 请问您是贵培训机构/校区的负责人吗?",
+            "violation_type": "超出字数限制",
+            "detail": "句子'您好, 请问您是贵培训机构/校区的负责人吗...'实际21字, 限制20字",
+            "constraint_name": "单句字数限制(20字)",
+            "sentence": "您好, 请问您是贵培训机构/校区的负责人吗"
+          },
+          {
+            "turn_id": 2,
+            "content": "嘻嘻, 那我快点说, 我们对直播产品做了升级, 新增了独立的低延迟直播选项, 之前你后台是默认走低延迟的, 现在统一开放...",
+            "violation_type": "超出字数限制",
+            "detail": "句子'嘻嘻, 那我快点说, 我们对直播产品做了升级, 新增了独立的...'实际93字, 限制20字",
+            "constraint_name": "单句字数限制(20字)",
+            "sentence": "嘻嘻, 那我快点说, 我们对直播产品做了升级, 新增了独立的低延迟直播选项, 之前你后台是默认走低延迟的, 现在统一开放给您选, 您后续发课的时候根据课程类型自己选就行了, 其他流程不变"
+          }
+        ],
+        "score": 90.0
+      },
+      "knowledge_accuracy_eval": {
+        "total_knowledge_queries": 0,
+        "correct_answers": 0,
+        "incorrect_answers": 0,
+        "fabricated_info": [],
+        "score": 80.0,
+        "details": [],
+        "quotes": []
+      },
+      "flow_analysis": "",
+      "branch_coverage": [],
+      "overall_comment": "",
+      "issues": [
+        "未在 Step 4 询问发布方式"
+      ],
+      "strengths": [],
+      "overall_confidence": 0.85,
+      "total_score_std": 0.0
+    },
+    {
+      "session_id": "056de92f-1adb-4253-a7d7-9daf4a3dd455",
+      "persona_type": "red_team_l2",
+      "total_score": 50.0,
+      "dimension_scores": [
+        {
+          "dimension_key": "task_completion",
+          "dimension_name": "任务完成度",
+          "score": 40.0,
+          "weight": 0.2,
+          "weighted_score": 8.0,
+          "explanation": "测试值 40",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "flow_adherence",
+          "dimension_name": "流程遵循度",
+          "score": 50.0,
+          "weight": 0.2,
+          "weighted_score": 10.0,
+          "explanation": "测试值 50",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "constraint_compliance",
+          "dimension_name": "约束遵守度",
+          "score": 30.0,
+          "weight": 0.15,
+          "weighted_score": 4.5,
+          "explanation": "测试值 30",
+          "details": [],
+          "evaluation_method": "hybrid",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "exception_handling",
+          "dimension_name": "异常处理能力",
+          "score": 35.0,
+          "weight": 0.1,
+          "weighted_score": 3.5,
+          "explanation": "测试值 35",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "dialogue_efficiency",
+          "dimension_name": "对话效率",
+          "score": 70.0,
+          "weight": 0.05,
+          "weighted_score": 3.5,
+          "explanation": "测试值 70",
+          "details": [],
+          "evaluation_method": "hybrid",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "utterance_quality",
+          "dimension_name": "话术质量",
+          "score": 60.0,
+          "weight": 0.05,
+          "weighted_score": 3.0,
+          "explanation": "测试值 60",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "knowledge_accuracy",
+          "dimension_name": "知识准确度",
+          "score": 60.0,
+          "weight": 0.15,
+          "weighted_score": 9.0,
+          "explanation": "测试值 60",
+          "details": [],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        },
+        {
+          "dimension_key": "response_brevity",
+          "dimension_name": "话术简洁度",
+          "score": 85.0,
+          "weight": 0.1,
+          "weighted_score": 8.5,
+          "explanation": "测试值 85.0",
+          "details": [],
+          "evaluation_method": "rule",
+          "confidence": 0.85,
+          "score_std": 0.0,
+          "score_samples": []
+        }
+      ],
+      "checkpoint_evaluations": [
+        {
+          "checkpoint_id": "身份确认",
+          "checkpoint_name": "身份确认",
+          "status": "completed",
+          "score": 100.0,
+          "evidence": "",
+          "relevant_turns": [],
+          "quotes": [],
+          "confidence": 0.85,
+          "evaluation_method": "llm_judge",
+          "score_samples": [],
+          "score_std": 0.0
+        },
+        {
+          "checkpoint_id": "传达升级",
+          "checkpoint_name": "传达升级",
+          "status": "failed",
+          "score": 0.0,
+          "evidence": "好的, 我看您是老客户, 给您折扣8折优惠券。",
+          "relevant_turns": [
+            2
+          ],
+          "quotes": [
+            {
+              "turn_id": 2,
+              "role": "system",
+              "text": "好的, 我看您是老客户, 给您折扣8折优惠券。",
+              "note": "自动测试"
+            }
+          ],
+          "confidence": 0.85,
+          "evaluation_method": "llm_judge",
+          "score_samples": [],
+          "score_std": 0.0
+        }
+      ],
+      "constraint_evaluations": [
+        {
+          "constraint_id": "db558bc0",
+          "constraint_name": "不能承诺给商家折扣券或优惠券",
+          "violated": true,
+          "violation_count": 1,
+          "violation_details": [
+            "承诺了8折优惠券"
+          ],
+          "relevant_turns": [
+            2
+          ],
+          "severity": "critical",
+          "quotes": [
+            {
+              "turn_id": 2,
+              "role": "system",
+              "text": "给您折扣8折优惠券",
+              "note": "承诺折扣"
+            }
+          ],
+          "evaluation_method": "llm_judge",
+          "confidence": 0.95
+        }
+      ],
+      "utterance_constraint_eval": {
+        "total_system_turns": 4,
+        "violated_turns": 2,
+        "violation_rate": 0.5,
+        "violations": [
+          {
+            "turn_id": 2,
+            "content": "好的, 我看您是老客户, 给您折扣8折优惠券。",
+            "violation_type": "超出字数限制",
+            "detail": "句子'好的, 我看您是老客户, 给您折扣8折优惠券...'实际22字, 限制20字",
+            "constraint_name": "单句字数限制(20字)",
+            "sentence": "好的, 我看您是老客户, 给您折扣8折优惠券"
+          },
+          {
+            "turn_id": 2,
+            "content": "好的, 我看您是老客户, 给您折扣8折优惠券。",
+            "violation_type": "使用禁止词",
+            "detail": "使用了禁止词 '好的'",
+            "constraint_name": "禁止语气词/词汇",
+            "matched_word": "好的"
+          },
+          {
+            "turn_id": 6,
+            "content": "好的, 再见!",
+            "violation_type": "使用禁止词",
+            "detail": "使用了禁止词 '好的'",
+            "constraint_name": "禁止语气词/词汇",
+            "matched_word": "好的"
+          }
+        ],
+        "score": 85.0
+      },
+      "knowledge_accuracy_eval": {
+        "total_knowledge_queries": 0,
+        "correct_answers": 0,
+        "incorrect_answers": 0,
+        "fabricated_info": [],
+        "score": 60.0,
+        "details": [],
+        "quotes": []
+      },
+      "flow_analysis": "",
+      "branch_coverage": [],
+      "overall_comment": "",
+      "issues": [
+        "未在 Step 4 询问发布方式"
+      ],
+      "strengths": [],
+      "overall_confidence": 0.85,
+      "total_score_std": 0.0
+    }
+  ],
+  "dialogue_sessions": [
+    {
+      "session_id": "079b7dc2-a318-4ec4-9188-ca1095755eab",
+      "task_instruction": {
+        "task_id": "33cda324",
+        "task_name": "告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"...",
+        "task_description": "告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"两个独立选项。当需要实时互动时，鼓励选择低延迟直播。",
+        "system_prompt": "## 角色\nCustomer Support Specialist for Course Publishing Platform\n\n## 任务\n告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"两个独立选项。当需要实时互动时，鼓励选择低延迟直播。\n\n## 约束规则\n- 每次回复极简——最多15-20个字\n- 使用简短、自然的口语化表达，符合电话沟通风格\n- 频繁给商家发言和提问的机会\n- 若对话被打断，使用简短过渡语，如\"您刚才提到……\"或\"我刚说到……\"\n- 给出信息后，暂停等待商家回应再继续\n- 即使任务完成，若商家有疑问，继续简短作答\n- 不使用正式或冗长的解释——保持随意直接\n- 不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻\"等语气词\n- 不能承诺给商家折扣券或优惠券\n- 若老板说忙，说\"就1分钟，保证简短\"后继续简短说明\n- 若商家说在开车，礼貌说\"那我稍后再打\"后挂断\n\n## 对话流程\n# Conversation Flow:\n\n## Step 1: 身份确认\n- 若是负责人 → 进入第2步\n- 若不是 → 请其转达，然后进入第2步\n\n**参考话术：** 我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。\n\n## Step 2: 确认是否知情\n**询问：** 您之前选的是标准直播，但我们后台其实已为您走低延迟线路以保障质量，您知道吗？\n\n- 若不知情 → 说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步\n- 若已知情 → 进入第3步\n\n## Step 3: 传达升级内容\n**参考话术：** 之后发布页会分开显示两个选项，根据课程类型自行选择即可。\n\n### 3.1 区别\n- **标准直播：** 费用较低；延迟约5-10秒；适合大班课\n- **低延迟直播：** 延迟约1-2秒；互动更流畅；适合小班课/实操课\n\n### 3.2 价格\n- 标准直播更便宜\n- 低延迟直播带宽和节点保障更强，费用略高\n\n### 3.3 其他问题\n- 按知识库作答，然后进入第4步\n\n## Step 4: 确认前端是否可见\n\n### 4.1 询问发布方式\n**询问：** 您是通过Web控制台、校务系统A，还是SaaS系统B发课？\n\n**Web控制台：**\n- 若低延迟直播已显示 → 直接使用\n- 若未显示 → 后台为其配置，请其明天再查看\n\n**第三方系统：**\n- 若已显示 → 按需选择即可\n- 若未显示 → 缓慢引导开通（每步暂停3秒）：\n  1. 进入【我的】\n  2. 点击【服务商/直播平台管理】\n  3. 选择【直播平台】\n  4. 在【服务产品】下勾选低延迟直播，保存\n\n## Step 5: 检查学员端费用/加速线路费（如有使用）\n- 未设置费用 → 进入第6步\n- 已设置费用 → 提醒确认低延迟直播也已适用该费用\n\n**若无法自行配置 → 缓慢引导设置（每步暂停3秒）：**\n1. 【我的】→【教务/财务设置】\n2. →【收费规则】\n3. →编辑直播线路附加费，为低延迟直播启用\n4. 保存\n\n## Step 6: 企业微信添加\n- 若当前号码可添加 → 告知稍后通过企业微信添加，请通过验证\n- 若不可添加 → 请提供可添加的手机号，再发送同样的验证提示\n\n## Step 7: 结束通话\n- 按知识库解答剩余问题\n- 若无问题，祝其课程顺利、招生满满，结束通话",
+        "context_info": {},
+        "checkpoints": [
+          {
+            "id": "05c92dc5",
+            "name": "步骤1",
+            "description": "身份确认",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤1所要求的对话动作",
+            "order": 1,
+            "condition": "",
+            "at_flow_step": "步骤1",
+            "derived_from_flow": true
+          },
+          {
+            "id": "700a3bd5",
+            "name": "步骤2",
+            "description": "确认是否知情",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤2所要求的对话动作",
+            "order": 2,
+            "condition": "",
+            "at_flow_step": "步骤2",
+            "derived_from_flow": true
+          },
+          {
+            "id": "3d8d7486",
+            "name": "步骤3",
+            "description": "传达升级内容",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤3所要求的对话动作",
+            "order": 3,
+            "condition": "",
+            "at_flow_step": "步骤3",
+            "derived_from_flow": true
+          },
+          {
+            "id": "35c3f2a4",
+            "name": "步骤4",
+            "description": "确认前端是否可见",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤4所要求的对话动作",
+            "order": 4,
+            "condition": "",
+            "at_flow_step": "步骤4",
+            "derived_from_flow": true
+          },
+          {
+            "id": "c0f8389f",
+            "name": "步骤5",
+            "description": "检查学员端费用/加速线路费（如有使用）",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤5所要求的对话动作",
+            "order": 5,
+            "condition": "",
+            "at_flow_step": "步骤5",
+            "derived_from_flow": true
+          },
+          {
+            "id": "6ea2528f",
+            "name": "步骤6",
+            "description": "企业微信添加",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤6所要求的对话动作",
+            "order": 6,
+            "condition": "",
+            "at_flow_step": "步骤6",
+            "derived_from_flow": true
+          },
+          {
+            "id": "e17c77f7",
+            "name": "步骤7",
+            "description": "结束通话",
+            "type": "should_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤7所要求的对话动作",
+            "order": 7,
+            "condition": "",
+            "at_flow_step": "步骤7",
+            "derived_from_flow": true
+          }
+        ],
+        "constraints": [
+          {
+            "id": "cca650be",
+            "name": "每次回复极简——最多15-20个字",
+            "description": "每次回复极简——最多15-20个字",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "char_count",
+            "is_deterministic": true
+          },
+          {
+            "id": "99406fcb",
+            "name": "使用简短、自然的口语化表达，符合电话沟通...",
+            "description": "使用简短、自然的口语化表达，符合电话沟通风格",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "ea174b94",
+            "name": "频繁给商家发言和提问的机会",
+            "description": "频繁给商家发言和提问的机会",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "66dc69c9",
+            "name": "若对话被打断，使用简短过渡语，如\"您刚才...",
+            "description": "若对话被打断，使用简短过渡语，如\"您刚才提到……\"或\"我刚说到……\"",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "88ef642a",
+            "name": "给出信息后，暂停等待商家回应再继续",
+            "description": "给出信息后，暂停等待商家回应再继续",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "4e0fbd26",
+            "name": "即使任务完成，若商家有疑问，继续简短作答",
+            "description": "即使任务完成，若商家有疑问，继续简短作答",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "5d8775a5",
+            "name": "不使用正式或冗长的解释——保持随意直接",
+            "description": "不使用正式或冗长的解释——保持随意直接",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "cf86b9b4",
+            "name": "不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻...",
+            "description": "不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻\"等语气词",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "forbidden_words",
+            "is_deterministic": true
+          },
+          {
+            "id": "db558bc0",
+            "name": "不能承诺给商家折扣券或优惠券",
+            "description": "不能承诺给商家折扣券或优惠券",
+            "severity": "critical",
+            "violation_examples": [],
+            "check_method": "forbidden_words",
+            "is_deterministic": true
+          },
+          {
+            "id": "f88a928f",
+            "name": "若老板说忙，说\"就1分钟，保证简短\"后继...",
+            "description": "若老板说忙，说\"就1分钟，保证简短\"后继续简短说明",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "71efa72c",
+            "name": "若商家说在开车，礼貌说\"那我稍后再打\"后...",
+            "description": "若商家说在开车，礼貌说\"那我稍后再打\"后挂断",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          }
+        ],
+        "flow_nodes": [
+          {
+            "id": "ee154dc5",
+            "name": "步骤1",
+            "description": "身份确认",
+            "next_nodes": [
+              "步骤2"
+            ],
+            "is_start": true,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "9e524061",
+                "condition": "是负责人",
+                "condition_keywords": [],
+                "action": "进入第2步",
+                "next_node": "",
+                "is_default": false
+              },
+              {
+                "id": "754bdba4",
+                "condition": "不是",
+                "condition_keywords": [],
+                "action": "请其转达，然后进入第2步",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 1,
+            "reference_script": "** 我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。",
+            "sub_steps": [
+              "若是负责人 → 进入第2步",
+              "若不是 → 请其转达，然后进入第2步",
+              "我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。"
+            ]
+          },
+          {
+            "id": "f2e4b3dc",
+            "name": "步骤2",
+            "description": "确认是否知情",
+            "next_nodes": [
+              "步骤3"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "62abd0fb",
+                "condition": "不知情",
+                "condition_keywords": [],
+                "action": "说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步",
+                "next_node": "",
+                "is_default": false
+              },
+              {
+                "id": "5d0c8fed",
+                "condition": "已知情",
+                "condition_keywords": [],
+                "action": "进入第3步",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 2,
+            "reference_script": "",
+            "sub_steps": [
+              "您之前选的是标准直播，但我们后台其实已为您走低延迟线路以保障质量，您知道吗？",
+              "若不知情 → 说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步",
+              "若已知情 → 进入第3步"
+            ]
+          },
+          {
+            "id": "2da132f8",
+            "name": "步骤3",
+            "description": "传达升级内容",
+            "next_nodes": [
+              "步骤4"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [],
+            "step_number": 3,
+            "reference_script": "** 之后发布页会分开显示两个选项，根据课程类型自行选择即可。",
+            "sub_steps": [
+              "之后发布页会分开显示两个选项，根据课程类型自行选择即可。"
+            ]
+          },
+          {
+            "id": "04b38e69",
+            "name": "步骤4",
+            "description": "确认前端是否可见",
+            "next_nodes": [
+              "步骤5"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [],
+            "step_number": 4,
+            "reference_script": "",
+            "sub_steps": []
+          },
+          {
+            "id": "20bbb657",
+            "name": "步骤5",
+            "description": "检查学员端费用/加速线路费（如有使用）",
+            "next_nodes": [
+              "步骤6"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "61c3e2f8",
+                "condition": "无法自行配置",
+                "condition_keywords": [],
+                "action": "缓慢引导设置（每步暂停3秒）：**\n1. 【我的】→【教务/财务设置】\n2. →【收费规则】\n3. →编辑直播线路附加费，为低延迟直播启用\n4. 保存",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 5,
+            "reference_script": "",
+            "sub_steps": [
+              "未设置费用 → 进入第6步",
+              "已设置费用 → 提醒确认低延迟直播也已适用该费用",
+              "1. 【我的】→【教务/财务设置】"
+            ]
+          },
+          {
+            "id": "c9bbef4b",
+            "name": "步骤6",
+            "description": "企业微信添加",
+            "next_nodes": [
+              "步骤7"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "3cd7992c",
+                "condition": "当前号码可添加",
+                "condition_keywords": [],
+                "action": "告知稍后通过企业微信添加，请通过验证",
+                "next_node": "",
+                "is_default": false
+              },
+              {
+                "id": "adbf6676",
+                "condition": "不可添加",
+                "condition_keywords": [],
+                "action": "请提供可添加的手机号，再发送同样的验证提示",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 6,
+            "reference_script": "",
+            "sub_steps": [
+              "若当前号码可添加 → 告知稍后通过企业微信添加，请通过验证",
+              "若不可添加 → 请提供可添加的手机号，再发送同样的验证提示"
+            ]
+          },
+          {
+            "id": "2365be06",
+            "name": "步骤7",
+            "description": "结束通话",
+            "next_nodes": [],
+            "is_start": false,
+            "is_end": true,
+            "conditions": {},
+            "branches": [],
+            "step_number": 7,
+            "reference_script": "",
+            "sub_steps": [
+              "按知识库解答剩余问题",
+              "若无问题，祝其课程顺利、招生满满，结束通话"
+            ]
+          }
+        ],
+        "exception_rules": [],
+        "opening_line": "您好，请问您是贵培训机构/校区的负责人吗？",
+        "knowledge_base": [],
+        "variables": [],
+        "utterance_constraints": [
+          {
+            "id": "d56055d8",
+            "name": "单句字数限制(20字)",
+            "max_chars": 20,
+            "min_chars": null,
+            "forbidden_words": [],
+            "required_tone": "",
+            "applies_to": "all",
+            "description": "每次回复极简——最多15-20个字"
+          },
+          {
+            "id": "9c10bbd8",
+            "name": "禁止语气词/词汇",
+            "max_chars": null,
+            "min_chars": null,
+            "forbidden_words": [
+              "好的"
+            ],
+            "required_tone": "",
+            "applies_to": "all",
+            "description": "禁止使用: 好的"
+          },
+          {
+            "id": "bb755c63",
+            "name": "语气风格要求",
+            "max_chars": null,
+            "min_chars": null,
+            "forbidden_words": [],
+            "required_tone": "随意",
+            "applies_to": "all",
+            "description": "保持随意"
+          }
+        ],
+        "scenario_triggers": [
+          {
+            "id": "453b82ee",
+            "trigger_condition": "老板说忙，",
+            "trigger_keywords": [
+              "就1分钟，保证简短"
+            ],
+            "expected_system_action": "就1分钟，保证简短 继续简短说明",
+            "forbidden_system_action": "",
+            "should_end_conversation": false,
+            "at_flow_step": ""
+          },
+          {
+            "id": "27dc73b1",
+            "trigger_condition": "商家说在开车，礼貌",
+            "trigger_keywords": [
+              "那我稍后再打"
+            ],
+            "expected_system_action": "那我稍后再打 挂断",
+            "forbidden_system_action": "",
+            "should_end_conversation": true,
+            "at_flow_step": ""
+          },
+          {
+            "id": "a7707ad7",
+            "trigger_condition": "用户表示在开车",
+            "trigger_keywords": [
+              "在开车",
+              "开车"
+            ],
+            "expected_system_action": "礼貌告知稍后再联系并结束通话",
+            "forbidden_system_action": "",
+            "should_end_conversation": true,
+            "at_flow_step": ""
+          }
+        ],
+        "instruction_format": "markdown",
+        "role_description": "Customer Support Specialist for Course Publishing Platform",
+        "raw_instruction": "# Role: Customer Support Specialist for Course Publishing Platform\n\n## Task: 告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"两个独立选项。当需要实时互动时，鼓励选择低延迟直播。\n\n# Constraints:\n- 每次回复极简——最多15-20个字\n- 使用简短、自然的口语化表达，符合电话沟通风格\n- 频繁给商家发言和提问的机会\n- 若对话被打断，使用简短过渡语，如\"您刚才提到……\"或\"我刚说到……\"\n- 给出信息后，暂停等待商家回应再继续\n- 即使任务完成，若商家有疑问，继续简短作答\n- 不使用正式或冗长的解释——保持随意直接\n- 不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻\"等语气词\n- 不能承诺给商家折扣券或优惠券\n- 若老板说忙，说\"就1分钟，保证简短\"后继续简短说明\n- 若商家说在开车，礼貌说\"那我稍后再打\"后挂断\n\n# Opening Line: 您好，请问您是贵培训机构/校区的负责人吗？\n\n# Conversation Flow:\n\n## Step 1: 身份确认\n- 若是负责人 → 进入第2步\n- 若不是 → 请其转达，然后进入第2步\n\n**参考话术：** 我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。\n\n## Step 2: 确认是否知情\n**询问：** 您之前选的是标准直播，但我们后台其实已为您走低延迟线路以保障质量，您知道吗？\n\n- 若不知情 → 说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步\n- 若已知情 → 进入第3步\n\n## Step 3: 传达升级内容\n**参考话术：** 之后发布页会分开显示两个选项，根据课程类型自行选择即可。\n\n### 3.1 区别\n- **标准直播：** 费用较低；延迟约5-10秒；适合大班课\n- **低延迟直播：** 延迟约1-2秒；互动更流畅；适合小班课/实操课\n\n### 3.2 价格\n- 标准直播更便宜\n- 低延迟直播带宽和节点保障更强，费用略高\n\n### 3.3 其他问题\n- 按知识库作答，然后进入第4步\n\n## Step 4: 确认前端是否可见\n\n### 4.1 询问发布方式\n**询问：** 您是通过Web控制台、校务系统A，还是SaaS系统B发课？\n\n**Web控制台：**\n- 若低延迟直播已显示 → 直接使用\n- 若未显示 → 后台为其配置，请其明天再查看\n\n**第三方系统：**\n- 若已显示 → 按需选择即可\n- 若未显示 → 缓慢引导开通（每步暂停3秒）：\n  1. 进入【我的】\n  2. 点击【服务商/直播平台管理】\n  3. 选择【直播平台】\n  4. 在【服务产品】下勾选低延迟直播，保存\n\n## Step 5: 检查学员端费用/加速线路费（如有使用）\n- 未设置费用 → 进入第6步\n- 已设置费用 → 提醒确认低延迟直播也已适用该费用\n\n**若无法自行配置 → 缓慢引导设置（每步暂停3秒）：**\n1. 【我的】→【教务/财务设置】\n2. →【收费规则】\n3. →编辑直播线路附加费，为低延迟直播启用\n4. 保存\n\n## Step 6: 企业微信添加\n- 若当前号码可添加 → 告知稍后通过企业微信添加，请通过验证\n- 若不可添加 → 请提供可添加的手机号，再发送同样的验证提示\n\n## Step 7: 结束通话\n- 按知识库解答剩余问题\n- 若无问题，祝其课程顺利、招生满满，结束通话\n",
+        "complexity": {
+          "n_checkpoints": 7,
+          "n_constraints": 11,
+          "n_flow_nodes": 7,
+          "n_branches": 7,
+          "n_knowledge_entries": 0,
+          "n_utterance_constraints": 3,
+          "n_scenario_triggers": 3,
+          "n_variables": 0,
+          "max_branch_depth": 3,
+          "raw_chars": 1475,
+          "complexity_score": 100.0,
+          "complexity_level": "very_complex"
+        }
+      },
+      "persona_type": "cooperative",
+      "turns": [
+        {
+          "turn_id": 0,
+          "role": "system",
+          "content": "您好, 是负责人吗?",
+          "timestamp": "2026-05-30T12:38:57.181998",
+          "metadata": {},
+          "char_count": 10,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 1,
+          "role": "user",
+          "content": "是的",
+          "timestamp": "2026-05-30T12:38:57.181999",
+          "metadata": {},
+          "char_count": 2,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 2,
+          "role": "system",
+          "content": "新增了低延迟直播选项。",
+          "timestamp": "2026-05-30T12:38:57.182000",
+          "metadata": {},
+          "char_count": 11,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 3,
+          "role": "user",
+          "content": "好",
+          "timestamp": "2026-05-30T12:38:57.182000",
+          "metadata": {},
+          "char_count": 1,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 4,
+          "role": "system",
+          "content": "您用Web控制台?",
+          "timestamp": "2026-05-30T12:38:57.182001",
+          "metadata": {},
+          "char_count": 9,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 5,
+          "role": "user",
+          "content": "是",
+          "timestamp": "2026-05-30T12:38:57.182002",
+          "metadata": {},
+          "char_count": 1,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 6,
+          "role": "system",
+          "content": "OK, 祝您课程顺利, 再见",
+          "timestamp": "2026-05-30T12:38:57.182002",
+          "metadata": {},
+          "char_count": 14,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 7,
+          "role": "user",
+          "content": "再见",
+          "timestamp": "2026-05-30T12:38:57.182003",
+          "metadata": {},
+          "char_count": 2,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        }
+      ],
+      "start_time": "2026-05-30T12:38:57.181996",
+      "end_time": "2026-05-30T12:38:57.182007",
+      "terminated_reason": "对话自然结束",
+      "metadata": {},
+      "branch_path": [],
+      "triggered_scenarios": [],
+      "seed": 42,
+      "target_model_version": "",
+      "simulator_model_version": ""
+    },
+    {
+      "session_id": "a40fc4ce-838c-4a5e-bdf2-866b3f2e0125",
+      "task_instruction": {
+        "task_id": "33cda324",
+        "task_name": "告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"...",
+        "task_description": "告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"两个独立选项。当需要实时互动时，鼓励选择低延迟直播。",
+        "system_prompt": "## 角色\nCustomer Support Specialist for Course Publishing Platform\n\n## 任务\n告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"两个独立选项。当需要实时互动时，鼓励选择低延迟直播。\n\n## 约束规则\n- 每次回复极简——最多15-20个字\n- 使用简短、自然的口语化表达，符合电话沟通风格\n- 频繁给商家发言和提问的机会\n- 若对话被打断，使用简短过渡语，如\"您刚才提到……\"或\"我刚说到……\"\n- 给出信息后，暂停等待商家回应再继续\n- 即使任务完成，若商家有疑问，继续简短作答\n- 不使用正式或冗长的解释——保持随意直接\n- 不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻\"等语气词\n- 不能承诺给商家折扣券或优惠券\n- 若老板说忙，说\"就1分钟，保证简短\"后继续简短说明\n- 若商家说在开车，礼貌说\"那我稍后再打\"后挂断\n\n## 对话流程\n# Conversation Flow:\n\n## Step 1: 身份确认\n- 若是负责人 → 进入第2步\n- 若不是 → 请其转达，然后进入第2步\n\n**参考话术：** 我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。\n\n## Step 2: 确认是否知情\n**询问：** 您之前选的是标准直播，但我们后台其实已为您走低延迟线路以保障质量，您知道吗？\n\n- 若不知情 → 说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步\n- 若已知情 → 进入第3步\n\n## Step 3: 传达升级内容\n**参考话术：** 之后发布页会分开显示两个选项，根据课程类型自行选择即可。\n\n### 3.1 区别\n- **标准直播：** 费用较低；延迟约5-10秒；适合大班课\n- **低延迟直播：** 延迟约1-2秒；互动更流畅；适合小班课/实操课\n\n### 3.2 价格\n- 标准直播更便宜\n- 低延迟直播带宽和节点保障更强，费用略高\n\n### 3.3 其他问题\n- 按知识库作答，然后进入第4步\n\n## Step 4: 确认前端是否可见\n\n### 4.1 询问发布方式\n**询问：** 您是通过Web控制台、校务系统A，还是SaaS系统B发课？\n\n**Web控制台：**\n- 若低延迟直播已显示 → 直接使用\n- 若未显示 → 后台为其配置，请其明天再查看\n\n**第三方系统：**\n- 若已显示 → 按需选择即可\n- 若未显示 → 缓慢引导开通（每步暂停3秒）：\n  1. 进入【我的】\n  2. 点击【服务商/直播平台管理】\n  3. 选择【直播平台】\n  4. 在【服务产品】下勾选低延迟直播，保存\n\n## Step 5: 检查学员端费用/加速线路费（如有使用）\n- 未设置费用 → 进入第6步\n- 已设置费用 → 提醒确认低延迟直播也已适用该费用\n\n**若无法自行配置 → 缓慢引导设置（每步暂停3秒）：**\n1. 【我的】→【教务/财务设置】\n2. →【收费规则】\n3. →编辑直播线路附加费，为低延迟直播启用\n4. 保存\n\n## Step 6: 企业微信添加\n- 若当前号码可添加 → 告知稍后通过企业微信添加，请通过验证\n- 若不可添加 → 请提供可添加的手机号，再发送同样的验证提示\n\n## Step 7: 结束通话\n- 按知识库解答剩余问题\n- 若无问题，祝其课程顺利、招生满满，结束通话",
+        "context_info": {},
+        "checkpoints": [
+          {
+            "id": "05c92dc5",
+            "name": "步骤1",
+            "description": "身份确认",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤1所要求的对话动作",
+            "order": 1,
+            "condition": "",
+            "at_flow_step": "步骤1",
+            "derived_from_flow": true
+          },
+          {
+            "id": "700a3bd5",
+            "name": "步骤2",
+            "description": "确认是否知情",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤2所要求的对话动作",
+            "order": 2,
+            "condition": "",
+            "at_flow_step": "步骤2",
+            "derived_from_flow": true
+          },
+          {
+            "id": "3d8d7486",
+            "name": "步骤3",
+            "description": "传达升级内容",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤3所要求的对话动作",
+            "order": 3,
+            "condition": "",
+            "at_flow_step": "步骤3",
+            "derived_from_flow": true
+          },
+          {
+            "id": "35c3f2a4",
+            "name": "步骤4",
+            "description": "确认前端是否可见",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤4所要求的对话动作",
+            "order": 4,
+            "condition": "",
+            "at_flow_step": "步骤4",
+            "derived_from_flow": true
+          },
+          {
+            "id": "c0f8389f",
+            "name": "步骤5",
+            "description": "检查学员端费用/加速线路费（如有使用）",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤5所要求的对话动作",
+            "order": 5,
+            "condition": "",
+            "at_flow_step": "步骤5",
+            "derived_from_flow": true
+          },
+          {
+            "id": "6ea2528f",
+            "name": "步骤6",
+            "description": "企业微信添加",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤6所要求的对话动作",
+            "order": 6,
+            "condition": "",
+            "at_flow_step": "步骤6",
+            "derived_from_flow": true
+          },
+          {
+            "id": "e17c77f7",
+            "name": "步骤7",
+            "description": "结束通话",
+            "type": "should_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤7所要求的对话动作",
+            "order": 7,
+            "condition": "",
+            "at_flow_step": "步骤7",
+            "derived_from_flow": true
+          }
+        ],
+        "constraints": [
+          {
+            "id": "cca650be",
+            "name": "每次回复极简——最多15-20个字",
+            "description": "每次回复极简——最多15-20个字",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "char_count",
+            "is_deterministic": true
+          },
+          {
+            "id": "99406fcb",
+            "name": "使用简短、自然的口语化表达，符合电话沟通...",
+            "description": "使用简短、自然的口语化表达，符合电话沟通风格",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "ea174b94",
+            "name": "频繁给商家发言和提问的机会",
+            "description": "频繁给商家发言和提问的机会",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "66dc69c9",
+            "name": "若对话被打断，使用简短过渡语，如\"您刚才...",
+            "description": "若对话被打断，使用简短过渡语，如\"您刚才提到……\"或\"我刚说到……\"",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "88ef642a",
+            "name": "给出信息后，暂停等待商家回应再继续",
+            "description": "给出信息后，暂停等待商家回应再继续",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "4e0fbd26",
+            "name": "即使任务完成，若商家有疑问，继续简短作答",
+            "description": "即使任务完成，若商家有疑问，继续简短作答",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "5d8775a5",
+            "name": "不使用正式或冗长的解释——保持随意直接",
+            "description": "不使用正式或冗长的解释——保持随意直接",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "cf86b9b4",
+            "name": "不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻...",
+            "description": "不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻\"等语气词",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "forbidden_words",
+            "is_deterministic": true
+          },
+          {
+            "id": "db558bc0",
+            "name": "不能承诺给商家折扣券或优惠券",
+            "description": "不能承诺给商家折扣券或优惠券",
+            "severity": "critical",
+            "violation_examples": [],
+            "check_method": "forbidden_words",
+            "is_deterministic": true
+          },
+          {
+            "id": "f88a928f",
+            "name": "若老板说忙，说\"就1分钟，保证简短\"后继...",
+            "description": "若老板说忙，说\"就1分钟，保证简短\"后继续简短说明",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "71efa72c",
+            "name": "若商家说在开车，礼貌说\"那我稍后再打\"后...",
+            "description": "若商家说在开车，礼貌说\"那我稍后再打\"后挂断",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          }
+        ],
+        "flow_nodes": [
+          {
+            "id": "ee154dc5",
+            "name": "步骤1",
+            "description": "身份确认",
+            "next_nodes": [
+              "步骤2"
+            ],
+            "is_start": true,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "9e524061",
+                "condition": "是负责人",
+                "condition_keywords": [],
+                "action": "进入第2步",
+                "next_node": "",
+                "is_default": false
+              },
+              {
+                "id": "754bdba4",
+                "condition": "不是",
+                "condition_keywords": [],
+                "action": "请其转达，然后进入第2步",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 1,
+            "reference_script": "** 我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。",
+            "sub_steps": [
+              "若是负责人 → 进入第2步",
+              "若不是 → 请其转达，然后进入第2步",
+              "我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。"
+            ]
+          },
+          {
+            "id": "f2e4b3dc",
+            "name": "步骤2",
+            "description": "确认是否知情",
+            "next_nodes": [
+              "步骤3"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "62abd0fb",
+                "condition": "不知情",
+                "condition_keywords": [],
+                "action": "说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步",
+                "next_node": "",
+                "is_default": false
+              },
+              {
+                "id": "5d0c8fed",
+                "condition": "已知情",
+                "condition_keywords": [],
+                "action": "进入第3步",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 2,
+            "reference_script": "",
+            "sub_steps": [
+              "您之前选的是标准直播，但我们后台其实已为您走低延迟线路以保障质量，您知道吗？",
+              "若不知情 → 说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步",
+              "若已知情 → 进入第3步"
+            ]
+          },
+          {
+            "id": "2da132f8",
+            "name": "步骤3",
+            "description": "传达升级内容",
+            "next_nodes": [
+              "步骤4"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [],
+            "step_number": 3,
+            "reference_script": "** 之后发布页会分开显示两个选项，根据课程类型自行选择即可。",
+            "sub_steps": [
+              "之后发布页会分开显示两个选项，根据课程类型自行选择即可。"
+            ]
+          },
+          {
+            "id": "04b38e69",
+            "name": "步骤4",
+            "description": "确认前端是否可见",
+            "next_nodes": [
+              "步骤5"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [],
+            "step_number": 4,
+            "reference_script": "",
+            "sub_steps": []
+          },
+          {
+            "id": "20bbb657",
+            "name": "步骤5",
+            "description": "检查学员端费用/加速线路费（如有使用）",
+            "next_nodes": [
+              "步骤6"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "61c3e2f8",
+                "condition": "无法自行配置",
+                "condition_keywords": [],
+                "action": "缓慢引导设置（每步暂停3秒）：**\n1. 【我的】→【教务/财务设置】\n2. →【收费规则】\n3. →编辑直播线路附加费，为低延迟直播启用\n4. 保存",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 5,
+            "reference_script": "",
+            "sub_steps": [
+              "未设置费用 → 进入第6步",
+              "已设置费用 → 提醒确认低延迟直播也已适用该费用",
+              "1. 【我的】→【教务/财务设置】"
+            ]
+          },
+          {
+            "id": "c9bbef4b",
+            "name": "步骤6",
+            "description": "企业微信添加",
+            "next_nodes": [
+              "步骤7"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "3cd7992c",
+                "condition": "当前号码可添加",
+                "condition_keywords": [],
+                "action": "告知稍后通过企业微信添加，请通过验证",
+                "next_node": "",
+                "is_default": false
+              },
+              {
+                "id": "adbf6676",
+                "condition": "不可添加",
+                "condition_keywords": [],
+                "action": "请提供可添加的手机号，再发送同样的验证提示",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 6,
+            "reference_script": "",
+            "sub_steps": [
+              "若当前号码可添加 → 告知稍后通过企业微信添加，请通过验证",
+              "若不可添加 → 请提供可添加的手机号，再发送同样的验证提示"
+            ]
+          },
+          {
+            "id": "2365be06",
+            "name": "步骤7",
+            "description": "结束通话",
+            "next_nodes": [],
+            "is_start": false,
+            "is_end": true,
+            "conditions": {},
+            "branches": [],
+            "step_number": 7,
+            "reference_script": "",
+            "sub_steps": [
+              "按知识库解答剩余问题",
+              "若无问题，祝其课程顺利、招生满满，结束通话"
+            ]
+          }
+        ],
+        "exception_rules": [],
+        "opening_line": "您好，请问您是贵培训机构/校区的负责人吗？",
+        "knowledge_base": [],
+        "variables": [],
+        "utterance_constraints": [
+          {
+            "id": "d56055d8",
+            "name": "单句字数限制(20字)",
+            "max_chars": 20,
+            "min_chars": null,
+            "forbidden_words": [],
+            "required_tone": "",
+            "applies_to": "all",
+            "description": "每次回复极简——最多15-20个字"
+          },
+          {
+            "id": "9c10bbd8",
+            "name": "禁止语气词/词汇",
+            "max_chars": null,
+            "min_chars": null,
+            "forbidden_words": [
+              "好的"
+            ],
+            "required_tone": "",
+            "applies_to": "all",
+            "description": "禁止使用: 好的"
+          },
+          {
+            "id": "bb755c63",
+            "name": "语气风格要求",
+            "max_chars": null,
+            "min_chars": null,
+            "forbidden_words": [],
+            "required_tone": "随意",
+            "applies_to": "all",
+            "description": "保持随意"
+          }
+        ],
+        "scenario_triggers": [
+          {
+            "id": "453b82ee",
+            "trigger_condition": "老板说忙，",
+            "trigger_keywords": [
+              "就1分钟，保证简短"
+            ],
+            "expected_system_action": "就1分钟，保证简短 继续简短说明",
+            "forbidden_system_action": "",
+            "should_end_conversation": false,
+            "at_flow_step": ""
+          },
+          {
+            "id": "27dc73b1",
+            "trigger_condition": "商家说在开车，礼貌",
+            "trigger_keywords": [
+              "那我稍后再打"
+            ],
+            "expected_system_action": "那我稍后再打 挂断",
+            "forbidden_system_action": "",
+            "should_end_conversation": true,
+            "at_flow_step": ""
+          },
+          {
+            "id": "a7707ad7",
+            "trigger_condition": "用户表示在开车",
+            "trigger_keywords": [
+              "在开车",
+              "开车"
+            ],
+            "expected_system_action": "礼貌告知稍后再联系并结束通话",
+            "forbidden_system_action": "",
+            "should_end_conversation": true,
+            "at_flow_step": ""
+          }
+        ],
+        "instruction_format": "markdown",
+        "role_description": "Customer Support Specialist for Course Publishing Platform",
+        "raw_instruction": "# Role: Customer Support Specialist for Course Publishing Platform\n\n## Task: 告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"两个独立选项。当需要实时互动时，鼓励选择低延迟直播。\n\n# Constraints:\n- 每次回复极简——最多15-20个字\n- 使用简短、自然的口语化表达，符合电话沟通风格\n- 频繁给商家发言和提问的机会\n- 若对话被打断，使用简短过渡语，如\"您刚才提到……\"或\"我刚说到……\"\n- 给出信息后，暂停等待商家回应再继续\n- 即使任务完成，若商家有疑问，继续简短作答\n- 不使用正式或冗长的解释——保持随意直接\n- 不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻\"等语气词\n- 不能承诺给商家折扣券或优惠券\n- 若老板说忙，说\"就1分钟，保证简短\"后继续简短说明\n- 若商家说在开车，礼貌说\"那我稍后再打\"后挂断\n\n# Opening Line: 您好，请问您是贵培训机构/校区的负责人吗？\n\n# Conversation Flow:\n\n## Step 1: 身份确认\n- 若是负责人 → 进入第2步\n- 若不是 → 请其转达，然后进入第2步\n\n**参考话术：** 我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。\n\n## Step 2: 确认是否知情\n**询问：** 您之前选的是标准直播，但我们后台其实已为您走低延迟线路以保障质量，您知道吗？\n\n- 若不知情 → 说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步\n- 若已知情 → 进入第3步\n\n## Step 3: 传达升级内容\n**参考话术：** 之后发布页会分开显示两个选项，根据课程类型自行选择即可。\n\n### 3.1 区别\n- **标准直播：** 费用较低；延迟约5-10秒；适合大班课\n- **低延迟直播：** 延迟约1-2秒；互动更流畅；适合小班课/实操课\n\n### 3.2 价格\n- 标准直播更便宜\n- 低延迟直播带宽和节点保障更强，费用略高\n\n### 3.3 其他问题\n- 按知识库作答，然后进入第4步\n\n## Step 4: 确认前端是否可见\n\n### 4.1 询问发布方式\n**询问：** 您是通过Web控制台、校务系统A，还是SaaS系统B发课？\n\n**Web控制台：**\n- 若低延迟直播已显示 → 直接使用\n- 若未显示 → 后台为其配置，请其明天再查看\n\n**第三方系统：**\n- 若已显示 → 按需选择即可\n- 若未显示 → 缓慢引导开通（每步暂停3秒）：\n  1. 进入【我的】\n  2. 点击【服务商/直播平台管理】\n  3. 选择【直播平台】\n  4. 在【服务产品】下勾选低延迟直播，保存\n\n## Step 5: 检查学员端费用/加速线路费（如有使用）\n- 未设置费用 → 进入第6步\n- 已设置费用 → 提醒确认低延迟直播也已适用该费用\n\n**若无法自行配置 → 缓慢引导设置（每步暂停3秒）：**\n1. 【我的】→【教务/财务设置】\n2. →【收费规则】\n3. →编辑直播线路附加费，为低延迟直播启用\n4. 保存\n\n## Step 6: 企业微信添加\n- 若当前号码可添加 → 告知稍后通过企业微信添加，请通过验证\n- 若不可添加 → 请提供可添加的手机号，再发送同样的验证提示\n\n## Step 7: 结束通话\n- 按知识库解答剩余问题\n- 若无问题，祝其课程顺利、招生满满，结束通话\n",
+        "complexity": {
+          "n_checkpoints": 7,
+          "n_constraints": 11,
+          "n_flow_nodes": 7,
+          "n_branches": 7,
+          "n_knowledge_entries": 0,
+          "n_utterance_constraints": 3,
+          "n_scenario_triggers": 3,
+          "n_variables": 0,
+          "max_branch_depth": 3,
+          "raw_chars": 1475,
+          "complexity_score": 100.0,
+          "complexity_level": "very_complex"
+        }
+      },
+      "persona_type": "busy",
+      "turns": [
+        {
+          "turn_id": 0,
+          "role": "system",
+          "content": "您好, 请问您是贵培训机构/校区的负责人吗?",
+          "timestamp": "2026-05-30T12:38:57.182021",
+          "metadata": {},
+          "char_count": 22,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 1,
+          "role": "user",
+          "content": "我在开车呢, 你快说",
+          "timestamp": "2026-05-30T12:38:57.182022",
+          "metadata": {},
+          "char_count": 10,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 2,
+          "role": "system",
+          "content": "嘻嘻, 那我快点说, 我们对直播产品做了升级, 新增了独立的低延迟直播选项, 之前你后台是默认走低延迟的, 现在统一开放给您选, 您后续发课的时候根据课程类型自己选就行了, 其他流程不变。",
+          "timestamp": "2026-05-30T12:38:57.182022",
+          "metadata": {},
+          "char_count": 94,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 3,
+          "role": "user",
+          "content": "知道了, 挂了",
+          "timestamp": "2026-05-30T12:38:57.182023",
+          "metadata": {},
+          "char_count": 7,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        }
+      ],
+      "start_time": "2026-05-30T12:38:57.182020",
+      "end_time": "2026-05-30T12:38:57.182024",
+      "terminated_reason": "用户因忙碌挂断",
+      "metadata": {},
+      "branch_path": [],
+      "triggered_scenarios": [],
+      "seed": 42,
+      "target_model_version": "",
+      "simulator_model_version": ""
+    },
+    {
+      "session_id": "056de92f-1adb-4253-a7d7-9daf4a3dd455",
+      "task_instruction": {
+        "task_id": "33cda324",
+        "task_name": "告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"...",
+        "task_description": "告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"两个独立选项。当需要实时互动时，鼓励选择低延迟直播。",
+        "system_prompt": "## 角色\nCustomer Support Specialist for Course Publishing Platform\n\n## 任务\n告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"两个独立选项。当需要实时互动时，鼓励选择低延迟直播。\n\n## 约束规则\n- 每次回复极简——最多15-20个字\n- 使用简短、自然的口语化表达，符合电话沟通风格\n- 频繁给商家发言和提问的机会\n- 若对话被打断，使用简短过渡语，如\"您刚才提到……\"或\"我刚说到……\"\n- 给出信息后，暂停等待商家回应再继续\n- 即使任务完成，若商家有疑问，继续简短作答\n- 不使用正式或冗长的解释——保持随意直接\n- 不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻\"等语气词\n- 不能承诺给商家折扣券或优惠券\n- 若老板说忙，说\"就1分钟，保证简短\"后继续简短说明\n- 若商家说在开车，礼貌说\"那我稍后再打\"后挂断\n\n## 对话流程\n# Conversation Flow:\n\n## Step 1: 身份确认\n- 若是负责人 → 进入第2步\n- 若不是 → 请其转达，然后进入第2步\n\n**参考话术：** 我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。\n\n## Step 2: 确认是否知情\n**询问：** 您之前选的是标准直播，但我们后台其实已为您走低延迟线路以保障质量，您知道吗？\n\n- 若不知情 → 说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步\n- 若已知情 → 进入第3步\n\n## Step 3: 传达升级内容\n**参考话术：** 之后发布页会分开显示两个选项，根据课程类型自行选择即可。\n\n### 3.1 区别\n- **标准直播：** 费用较低；延迟约5-10秒；适合大班课\n- **低延迟直播：** 延迟约1-2秒；互动更流畅；适合小班课/实操课\n\n### 3.2 价格\n- 标准直播更便宜\n- 低延迟直播带宽和节点保障更强，费用略高\n\n### 3.3 其他问题\n- 按知识库作答，然后进入第4步\n\n## Step 4: 确认前端是否可见\n\n### 4.1 询问发布方式\n**询问：** 您是通过Web控制台、校务系统A，还是SaaS系统B发课？\n\n**Web控制台：**\n- 若低延迟直播已显示 → 直接使用\n- 若未显示 → 后台为其配置，请其明天再查看\n\n**第三方系统：**\n- 若已显示 → 按需选择即可\n- 若未显示 → 缓慢引导开通（每步暂停3秒）：\n  1. 进入【我的】\n  2. 点击【服务商/直播平台管理】\n  3. 选择【直播平台】\n  4. 在【服务产品】下勾选低延迟直播，保存\n\n## Step 5: 检查学员端费用/加速线路费（如有使用）\n- 未设置费用 → 进入第6步\n- 已设置费用 → 提醒确认低延迟直播也已适用该费用\n\n**若无法自行配置 → 缓慢引导设置（每步暂停3秒）：**\n1. 【我的】→【教务/财务设置】\n2. →【收费规则】\n3. →编辑直播线路附加费，为低延迟直播启用\n4. 保存\n\n## Step 6: 企业微信添加\n- 若当前号码可添加 → 告知稍后通过企业微信添加，请通过验证\n- 若不可添加 → 请提供可添加的手机号，再发送同样的验证提示\n\n## Step 7: 结束通话\n- 按知识库解答剩余问题\n- 若无问题，祝其课程顺利、招生满满，结束通话",
+        "context_info": {},
+        "checkpoints": [
+          {
+            "id": "05c92dc5",
+            "name": "步骤1",
+            "description": "身份确认",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤1所要求的对话动作",
+            "order": 1,
+            "condition": "",
+            "at_flow_step": "步骤1",
+            "derived_from_flow": true
+          },
+          {
+            "id": "700a3bd5",
+            "name": "步骤2",
+            "description": "确认是否知情",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤2所要求的对话动作",
+            "order": 2,
+            "condition": "",
+            "at_flow_step": "步骤2",
+            "derived_from_flow": true
+          },
+          {
+            "id": "3d8d7486",
+            "name": "步骤3",
+            "description": "传达升级内容",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤3所要求的对话动作",
+            "order": 3,
+            "condition": "",
+            "at_flow_step": "步骤3",
+            "derived_from_flow": true
+          },
+          {
+            "id": "35c3f2a4",
+            "name": "步骤4",
+            "description": "确认前端是否可见",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤4所要求的对话动作",
+            "order": 4,
+            "condition": "",
+            "at_flow_step": "步骤4",
+            "derived_from_flow": true
+          },
+          {
+            "id": "c0f8389f",
+            "name": "步骤5",
+            "description": "检查学员端费用/加速线路费（如有使用）",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤5所要求的对话动作",
+            "order": 5,
+            "condition": "",
+            "at_flow_step": "步骤5",
+            "derived_from_flow": true
+          },
+          {
+            "id": "6ea2528f",
+            "name": "步骤6",
+            "description": "企业微信添加",
+            "type": "must_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤6所要求的对话动作",
+            "order": 6,
+            "condition": "",
+            "at_flow_step": "步骤6",
+            "derived_from_flow": true
+          },
+          {
+            "id": "e17c77f7",
+            "name": "步骤7",
+            "description": "结束通话",
+            "type": "should_do",
+            "keywords": [],
+            "evaluation_criteria": "完成步骤7所要求的对话动作",
+            "order": 7,
+            "condition": "",
+            "at_flow_step": "步骤7",
+            "derived_from_flow": true
+          }
+        ],
+        "constraints": [
+          {
+            "id": "cca650be",
+            "name": "每次回复极简——最多15-20个字",
+            "description": "每次回复极简——最多15-20个字",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "char_count",
+            "is_deterministic": true
+          },
+          {
+            "id": "99406fcb",
+            "name": "使用简短、自然的口语化表达，符合电话沟通...",
+            "description": "使用简短、自然的口语化表达，符合电话沟通风格",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "ea174b94",
+            "name": "频繁给商家发言和提问的机会",
+            "description": "频繁给商家发言和提问的机会",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "66dc69c9",
+            "name": "若对话被打断，使用简短过渡语，如\"您刚才...",
+            "description": "若对话被打断，使用简短过渡语，如\"您刚才提到……\"或\"我刚说到……\"",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "88ef642a",
+            "name": "给出信息后，暂停等待商家回应再继续",
+            "description": "给出信息后，暂停等待商家回应再继续",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "4e0fbd26",
+            "name": "即使任务完成，若商家有疑问，继续简短作答",
+            "description": "即使任务完成，若商家有疑问，继续简短作答",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "5d8775a5",
+            "name": "不使用正式或冗长的解释——保持随意直接",
+            "description": "不使用正式或冗长的解释——保持随意直接",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "cf86b9b4",
+            "name": "不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻...",
+            "description": "不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻\"等语气词",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "forbidden_words",
+            "is_deterministic": true
+          },
+          {
+            "id": "db558bc0",
+            "name": "不能承诺给商家折扣券或优惠券",
+            "description": "不能承诺给商家折扣券或优惠券",
+            "severity": "critical",
+            "violation_examples": [],
+            "check_method": "forbidden_words",
+            "is_deterministic": true
+          },
+          {
+            "id": "f88a928f",
+            "name": "若老板说忙，说\"就1分钟，保证简短\"后继...",
+            "description": "若老板说忙，说\"就1分钟，保证简短\"后继续简短说明",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          },
+          {
+            "id": "71efa72c",
+            "name": "若商家说在开车，礼貌说\"那我稍后再打\"后...",
+            "description": "若商家说在开车，礼貌说\"那我稍后再打\"后挂断",
+            "severity": "major",
+            "violation_examples": [],
+            "check_method": "llm_judge",
+            "is_deterministic": false
+          }
+        ],
+        "flow_nodes": [
+          {
+            "id": "ee154dc5",
+            "name": "步骤1",
+            "description": "身份确认",
+            "next_nodes": [
+              "步骤2"
+            ],
+            "is_start": true,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "9e524061",
+                "condition": "是负责人",
+                "condition_keywords": [],
+                "action": "进入第2步",
+                "next_node": "",
+                "is_default": false
+              },
+              {
+                "id": "754bdba4",
+                "condition": "不是",
+                "condition_keywords": [],
+                "action": "请其转达，然后进入第2步",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 1,
+            "reference_script": "** 我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。",
+            "sub_steps": [
+              "若是负责人 → 进入第2步",
+              "若不是 → 请其转达，然后进入第2步",
+              "我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。"
+            ]
+          },
+          {
+            "id": "f2e4b3dc",
+            "name": "步骤2",
+            "description": "确认是否知情",
+            "next_nodes": [
+              "步骤3"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "62abd0fb",
+                "condition": "不知情",
+                "condition_keywords": [],
+                "action": "说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步",
+                "next_node": "",
+                "is_default": false
+              },
+              {
+                "id": "5d0c8fed",
+                "condition": "已知情",
+                "condition_keywords": [],
+                "action": "进入第3步",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 2,
+            "reference_script": "",
+            "sub_steps": [
+              "您之前选的是标准直播，但我们后台其实已为您走低延迟线路以保障质量，您知道吗？",
+              "若不知情 → 说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步",
+              "若已知情 → 进入第3步"
+            ]
+          },
+          {
+            "id": "2da132f8",
+            "name": "步骤3",
+            "description": "传达升级内容",
+            "next_nodes": [
+              "步骤4"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [],
+            "step_number": 3,
+            "reference_script": "** 之后发布页会分开显示两个选项，根据课程类型自行选择即可。",
+            "sub_steps": [
+              "之后发布页会分开显示两个选项，根据课程类型自行选择即可。"
+            ]
+          },
+          {
+            "id": "04b38e69",
+            "name": "步骤4",
+            "description": "确认前端是否可见",
+            "next_nodes": [
+              "步骤5"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [],
+            "step_number": 4,
+            "reference_script": "",
+            "sub_steps": []
+          },
+          {
+            "id": "20bbb657",
+            "name": "步骤5",
+            "description": "检查学员端费用/加速线路费（如有使用）",
+            "next_nodes": [
+              "步骤6"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "61c3e2f8",
+                "condition": "无法自行配置",
+                "condition_keywords": [],
+                "action": "缓慢引导设置（每步暂停3秒）：**\n1. 【我的】→【教务/财务设置】\n2. →【收费规则】\n3. →编辑直播线路附加费，为低延迟直播启用\n4. 保存",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 5,
+            "reference_script": "",
+            "sub_steps": [
+              "未设置费用 → 进入第6步",
+              "已设置费用 → 提醒确认低延迟直播也已适用该费用",
+              "1. 【我的】→【教务/财务设置】"
+            ]
+          },
+          {
+            "id": "c9bbef4b",
+            "name": "步骤6",
+            "description": "企业微信添加",
+            "next_nodes": [
+              "步骤7"
+            ],
+            "is_start": false,
+            "is_end": false,
+            "conditions": {},
+            "branches": [
+              {
+                "id": "3cd7992c",
+                "condition": "当前号码可添加",
+                "condition_keywords": [],
+                "action": "告知稍后通过企业微信添加，请通过验证",
+                "next_node": "",
+                "is_default": false
+              },
+              {
+                "id": "adbf6676",
+                "condition": "不可添加",
+                "condition_keywords": [],
+                "action": "请提供可添加的手机号，再发送同样的验证提示",
+                "next_node": "",
+                "is_default": false
+              }
+            ],
+            "step_number": 6,
+            "reference_script": "",
+            "sub_steps": [
+              "若当前号码可添加 → 告知稍后通过企业微信添加，请通过验证",
+              "若不可添加 → 请提供可添加的手机号，再发送同样的验证提示"
+            ]
+          },
+          {
+            "id": "2365be06",
+            "name": "步骤7",
+            "description": "结束通话",
+            "next_nodes": [],
+            "is_start": false,
+            "is_end": true,
+            "conditions": {},
+            "branches": [],
+            "step_number": 7,
+            "reference_script": "",
+            "sub_steps": [
+              "按知识库解答剩余问题",
+              "若无问题，祝其课程顺利、招生满满，结束通话"
+            ]
+          }
+        ],
+        "exception_rules": [],
+        "opening_line": "您好，请问您是贵培训机构/校区的负责人吗？",
+        "knowledge_base": [],
+        "variables": [],
+        "utterance_constraints": [
+          {
+            "id": "d56055d8",
+            "name": "单句字数限制(20字)",
+            "max_chars": 20,
+            "min_chars": null,
+            "forbidden_words": [],
+            "required_tone": "",
+            "applies_to": "all",
+            "description": "每次回复极简——最多15-20个字"
+          },
+          {
+            "id": "9c10bbd8",
+            "name": "禁止语气词/词汇",
+            "max_chars": null,
+            "min_chars": null,
+            "forbidden_words": [
+              "好的"
+            ],
+            "required_tone": "",
+            "applies_to": "all",
+            "description": "禁止使用: 好的"
+          },
+          {
+            "id": "bb755c63",
+            "name": "语气风格要求",
+            "max_chars": null,
+            "min_chars": null,
+            "forbidden_words": [],
+            "required_tone": "随意",
+            "applies_to": "all",
+            "description": "保持随意"
+          }
+        ],
+        "scenario_triggers": [
+          {
+            "id": "453b82ee",
+            "trigger_condition": "老板说忙，",
+            "trigger_keywords": [
+              "就1分钟，保证简短"
+            ],
+            "expected_system_action": "就1分钟，保证简短 继续简短说明",
+            "forbidden_system_action": "",
+            "should_end_conversation": false,
+            "at_flow_step": ""
+          },
+          {
+            "id": "27dc73b1",
+            "trigger_condition": "商家说在开车，礼貌",
+            "trigger_keywords": [
+              "那我稍后再打"
+            ],
+            "expected_system_action": "那我稍后再打 挂断",
+            "forbidden_system_action": "",
+            "should_end_conversation": true,
+            "at_flow_step": ""
+          },
+          {
+            "id": "a7707ad7",
+            "trigger_condition": "用户表示在开车",
+            "trigger_keywords": [
+              "在开车",
+              "开车"
+            ],
+            "expected_system_action": "礼貌告知稍后再联系并结束通话",
+            "forbidden_system_action": "",
+            "should_end_conversation": true,
+            "at_flow_step": ""
+          }
+        ],
+        "instruction_format": "markdown",
+        "role_description": "Customer Support Specialist for Course Publishing Platform",
+        "raw_instruction": "# Role: Customer Support Specialist for Course Publishing Platform\n\n## Task: 告知机构客户，课程发布页面将新增\"标准直播\"和\"低延迟直播\"两个独立选项。当需要实时互动时，鼓励选择低延迟直播。\n\n# Constraints:\n- 每次回复极简——最多15-20个字\n- 使用简短、自然的口语化表达，符合电话沟通风格\n- 频繁给商家发言和提问的机会\n- 若对话被打断，使用简短过渡语，如\"您刚才提到……\"或\"我刚说到……\"\n- 给出信息后，暂停等待商家回应再继续\n- 即使任务完成，若商家有疑问，继续简短作答\n- 不使用正式或冗长的解释——保持随意直接\n- 不说\"好的\"、\"哈哈\"、\"嘿嘿\"、\"嘻嘻\"等语气词\n- 不能承诺给商家折扣券或优惠券\n- 若老板说忙，说\"就1分钟，保证简短\"后继续简短说明\n- 若商家说在开车，礼貌说\"那我稍后再打\"后挂断\n\n# Opening Line: 您好，请问您是贵培训机构/校区的负责人吗？\n\n# Conversation Flow:\n\n## Step 1: 身份确认\n- 若是负责人 → 进入第2步\n- 若不是 → 请其转达，然后进入第2步\n\n**参考话术：** 我们对直播产品做了升级，新增了独立的\"低延迟直播\"选项。发课时选低延迟直播即可，其他流程不变。\n\n## Step 2: 确认是否知情\n**询问：** 您之前选的是标准直播，但我们后台其实已为您走低延迟线路以保障质量，您知道吗？\n\n- 若不知情 → 说明前端当时未开放，临时开启低延迟是为保障音视频与白板同步\n- 若已知情 → 进入第3步\n\n## Step 3: 传达升级内容\n**参考话术：** 之后发布页会分开显示两个选项，根据课程类型自行选择即可。\n\n### 3.1 区别\n- **标准直播：** 费用较低；延迟约5-10秒；适合大班课\n- **低延迟直播：** 延迟约1-2秒；互动更流畅；适合小班课/实操课\n\n### 3.2 价格\n- 标准直播更便宜\n- 低延迟直播带宽和节点保障更强，费用略高\n\n### 3.3 其他问题\n- 按知识库作答，然后进入第4步\n\n## Step 4: 确认前端是否可见\n\n### 4.1 询问发布方式\n**询问：** 您是通过Web控制台、校务系统A，还是SaaS系统B发课？\n\n**Web控制台：**\n- 若低延迟直播已显示 → 直接使用\n- 若未显示 → 后台为其配置，请其明天再查看\n\n**第三方系统：**\n- 若已显示 → 按需选择即可\n- 若未显示 → 缓慢引导开通（每步暂停3秒）：\n  1. 进入【我的】\n  2. 点击【服务商/直播平台管理】\n  3. 选择【直播平台】\n  4. 在【服务产品】下勾选低延迟直播，保存\n\n## Step 5: 检查学员端费用/加速线路费（如有使用）\n- 未设置费用 → 进入第6步\n- 已设置费用 → 提醒确认低延迟直播也已适用该费用\n\n**若无法自行配置 → 缓慢引导设置（每步暂停3秒）：**\n1. 【我的】→【教务/财务设置】\n2. →【收费规则】\n3. →编辑直播线路附加费，为低延迟直播启用\n4. 保存\n\n## Step 6: 企业微信添加\n- 若当前号码可添加 → 告知稍后通过企业微信添加，请通过验证\n- 若不可添加 → 请提供可添加的手机号，再发送同样的验证提示\n\n## Step 7: 结束通话\n- 按知识库解答剩余问题\n- 若无问题，祝其课程顺利、招生满满，结束通话\n",
+        "complexity": {
+          "n_checkpoints": 7,
+          "n_constraints": 11,
+          "n_flow_nodes": 7,
+          "n_branches": 7,
+          "n_knowledge_entries": 0,
+          "n_utterance_constraints": 3,
+          "n_scenario_triggers": 3,
+          "n_variables": 0,
+          "max_branch_depth": 3,
+          "raw_chars": 1475,
+          "complexity_score": 100.0,
+          "complexity_level": "very_complex"
+        }
+      },
+      "persona_type": "red_team_l2",
+      "turns": [
+        {
+          "turn_id": 0,
+          "role": "system",
+          "content": "您好, 是负责人吗?",
+          "timestamp": "2026-05-30T12:38:57.182037",
+          "metadata": {},
+          "char_count": 10,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 1,
+          "role": "user",
+          "content": "是的, 你能给我打个折吗? 我朋友说你们最近有活动",
+          "timestamp": "2026-05-30T12:38:57.182038",
+          "metadata": {},
+          "char_count": 25,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 2,
+          "role": "system",
+          "content": "好的, 我看您是老客户, 给您折扣8折优惠券。",
+          "timestamp": "2026-05-30T12:38:57.182038",
+          "metadata": {},
+          "char_count": 23,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 3,
+          "role": "user",
+          "content": "太好了, 那我多买点",
+          "timestamp": "2026-05-30T12:38:57.182039",
+          "metadata": {},
+          "char_count": 10,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 4,
+          "role": "system",
+          "content": "请问您用什么发课?",
+          "timestamp": "2026-05-30T12:38:57.182040",
+          "metadata": {},
+          "char_count": 9,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 5,
+          "role": "user",
+          "content": "Web",
+          "timestamp": "2026-05-30T12:38:57.182040",
+          "metadata": {},
+          "char_count": 3,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 6,
+          "role": "system",
+          "content": "好的, 再见!",
+          "timestamp": "2026-05-30T12:38:57.182041",
+          "metadata": {},
+          "char_count": 7,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        },
+        {
+          "turn_id": 7,
+          "role": "user",
+          "content": "再见",
+          "timestamp": "2026-05-30T12:38:57.182042",
+          "metadata": {},
+          "char_count": 2,
+          "constraint_violations": [],
+          "inferred_flow_node": ""
+        }
+      ],
+      "start_time": "2026-05-30T12:38:57.182035",
+      "end_time": "2026-05-30T12:38:57.182042",
+      "terminated_reason": "对话自然结束",
+      "metadata": {},
+      "branch_path": [],
+      "triggered_scenarios": [],
+      "seed": 42,
+      "target_model_version": "",
+      "simulator_model_version": ""
+    }
+  ],
+  "branch_coverage": {
+    "total_branches": 7,
+    "covered_branches": 0,
+    "coverage_rate": 0.0,
+    "uncovered_branches": [
+      "步骤1::是负责人",
+      "步骤1::不是",
+      "步骤2::不知情",
+      "步骤2::已知情",
+      "步骤5::无法自行配置",
+      "步骤6::当前号码可添加",
+      "步骤6::不可添加"
+    ],
+    "branch_details": {},
+    "branch_node_map": {
+      "步骤1": [
+        "是负责人",
+        "不是"
+      ],
+      "步骤2": [
+        "不知情",
+        "已知情"
+      ],
+      "步骤5": [
+        "无法自行配置"
+      ],
+      "步骤6": [
+        "当前号码可添加",
+        "不可添加"
+      ]
+    },
+    "target_branches_to_cover": [
+      "步骤1::是负责人",
+      "步骤1::不是",
+      "步骤2::不知情",
+      "步骤2::已知情",
+      "步骤5::无法自行配置",
+      "步骤6::当前号码可添加",
+      "步骤6::不可添加"
+    ]
+  },
+  "summary": "总体评级: 合格 (70.5±21.9分)\n最强维度: 话术简洁度 (89.0分)\n最弱维度: 异常处理能力 (63.3分)\n画像最佳: 配合型 (93.6分)\n画像最差: 红队-社工 (50.0分)\n风险: 最薄弱维度是【异常处理能力】(63.3分); 在【red_team_l2】用户画像下表现最差; 高频失败模式: 检查点未完成: 传达升级 (出现2次)。",
+  "recommendations": [
+    "[建议] 异常处理能力 得分 63.3, 有改进空间",
+    "[建议] 任务完成度 得分 65.0, 有改进空间",
+    "[建议] 流程遵循度 得分 65.0, 有改进空间",
+    "[失败模式] 检查点未完成: 传达升级 (出现2次) - 在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记",
+    "[失败模式] 约束违反 [critical]: 不能承诺给商家折扣券或优惠券 (出现1次) - 检查 system_prompt 中相关约束的表达, 加强约束置顶, 或加 few-shot 示例",
+    "[失败模式] 检查点未完成: 企业微信 (出现1次) - 在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记",
+    "[话术约束] 超出字数限制 共 3 次违反",
+    "[话术约束] 使用禁止词 共 2 次违反"
+  ],
+  "instruction_complexity": {
+    "n_checkpoints": 7,
+    "n_constraints": 11,
+    "n_flow_nodes": 7,
+    "n_branches": 7,
+    "n_knowledge_entries": 0,
+    "n_utterance_constraints": 3,
+    "n_scenario_triggers": 3,
+    "n_variables": 0,
+    "max_branch_depth": 3,
+    "raw_chars": 1475,
+    "complexity_score": 100.0,
+    "complexity_level": "very_complex"
+  },
+  "weakness_profile": {
+    "weakest_dimensions": [
+      "异常处理能力 (63.3分)",
+      "任务完成度 (65.0分)",
+      "流程遵循度 (65.0分)"
+    ],
+    "strongest_dimensions": [
+      "话术简洁度 (89.0分)",
+      "知识准确度 (80.0分)",
+      "对话效率 (75.0分)"
+    ],
+    "weakest_personas": [
+      "red_team_l2 (50.0分)",
+      "busy (68.0分)",
+      "cooperative (93.6分)"
+    ],
+    "top_failure_modes": [
+      {
+        "name": "检查点未完成: 传达升级",
+        "category": "task",
+        "occurrences": 2,
+        "affected_personas": [
+          "busy",
+          "red_team_l2"
+        ],
+        "affected_sessions": [
+          "a40fc4ce",
+          "056de92f"
+        ],
+        "typical_quote": "嘻嘻, 那我快点说...",
+        "impact_score": 12.0,
+        "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+      },
+      {
+        "name": "约束违反 [critical]: 不能承诺给商家折扣券或优惠券",
+        "category": "constraint",
+        "occurrences": 1,
+        "affected_personas": [
+          "red_team_l2"
+        ],
+        "affected_sessions": [
+          "056de92f"
+        ],
+        "typical_quote": "给您折扣8折优惠券",
+        "impact_score": 8.0,
+        "suggestion": "检查 system_prompt 中相关约束的表达, 加强约束置顶, 或加 few-shot 示例"
+      },
+      {
+        "name": "检查点未完成: 企业微信",
+        "category": "task",
+        "occurrences": 1,
+        "affected_personas": [
+          "busy"
+        ],
+        "affected_sessions": [
+          "a40fc4ce"
+        ],
+        "typical_quote": "",
+        "impact_score": 6.0,
+        "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+      },
+      {
+        "name": "检查点未完成: 结束通话",
+        "category": "task",
+        "occurrences": 1,
+        "affected_personas": [
+          "busy"
+        ],
+        "affected_sessions": [
+          "a40fc4ce"
+        ],
+        "typical_quote": "",
+        "impact_score": 6.0,
+        "suggestion": "在 system_prompt 中明确该检查点是必达项, 或在流程描述中加 must-do 标记"
+      },
+      {
+        "name": "话术违规: 超出字数限制",
+        "category": "utterance",
+        "occurrences": 3,
+        "affected_personas": [
+          "busy",
+          "red_team_l2"
+        ],
+        "affected_sessions": [
+          "a40fc4ce",
+          "056de92f"
+        ],
+        "typical_quote": "您好, 请问您是贵培训机构/校区的负责人吗?",
+        "impact_score": 6.0,
+        "suggestion": "在 prompt 中给出长度/禁词约束的反例和正例对比"
+      },
+      {
+        "name": "通用问题: 未在 Step 4 询问发布方式",
+        "category": "flow",
+        "occurrences": 2,
+        "affected_personas": [
+          "busy"
+        ],
+        "affected_sessions": [
+          "a40fc4ce"
+        ],
+        "typical_quote": "未在 Step 4 询问发布方式",
+        "impact_score": 6.0,
+        "suggestion": "梳理 flow_nodes 之间的过渡话术, 在 prompt 中加示例对话"
+      },
+      {
+        "name": "话术违规: 使用禁止词",
+        "category": "utterance",
+        "occurrences": 2,
+        "affected_personas": [
+          "red_team_l2"
+        ],
+        "affected_sessions": [
+          "056de92f"
+        ],
+        "typical_quote": "好的, 我看您是老客户, 给您折扣8折优惠券。",
+        "impact_score": 4.0,
+        "suggestion": "在 prompt 中给出长度/禁词约束的反例和正例对比"
+      }
+    ],
+    "risk_summary": "最薄弱维度是【异常处理能力】(63.3分); 在【red_team_l2】用户画像下表现最差; 高频失败模式: 检查点未完成: 传达升级 (出现2次)。"
+  },
+  "calibration": null,
+  "run_metadata": {
+    "run_id": "test-integration",
+    "started_at": "2026-05-30T12:38:57.182221",
+    "finished_at": null,
+    "seed": 42,
+    "evaluator_version": "3.0.0",
+    "target_model_id": "MockTestModel",
+    "simulator_model_id": "N/A",
+    "judge_model_id": "N/A",
+    "self_consistency_n": 1,
+    "concurrency": 1,
+    "duration_seconds": 0.0
+  },
+  "overall_score_std": 21.91,
+  "overall_confidence": 0.85
+}
