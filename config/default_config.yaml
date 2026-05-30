@@ -1,0 +1,66 @@
+# 多轮对话评测系统 v3.0 配置文件
+
+llm:
+  base_url: "https://api.deepseek.com"
+  api_key: ""  # 优先使用环境变量 DEEPSEEK_API_KEY
+  simulator_model: "deepseek-chat"
+  evaluator_model: "deepseek-chat"
+  target_model: "deepseek-chat"
+  target_base_url: ""
+  target_api_key: ""
+  temperature: 0.7
+  max_tokens: 1024
+  timeout: 60
+
+# 对话引擎
+dialogue:
+  max_turns: 18
+  concurrency: 4
+  timeout: 300
+  enable_branch_testing: false  # 命令行 --branch-test 也可启用
+  end_signals_user: []
+  end_signals_system: []
+
+# 指令解析
+instruction:
+  format: "auto"
+  llm_assisted_parsing: true
+
+# 用户模拟器画像权重
+simulator:
+  personas:
+    - { type: "cooperative",   weight: 0.18, description: "配合型" }
+    - { type: "hesitant",      weight: 0.10, description: "犹豫型" }
+    - { type: "resistant",     weight: 0.10, description: "抗拒型" }
+    - { type: "off_topic",     weight: 0.08, description: "跑题型" }
+    - { type: "contradictory", weight: 0.08, description: "信息矛盾型" }
+    - { type: "boundary",      weight: 0.06, description: "边界测试" }
+    - { type: "busy",          weight: 0.10, description: "忙碌型" }
+    - { type: "confused",      weight: 0.08, description: "困惑型" }
+    - { type: "impatient",     weight: 0.06, description: "急躁型" }
+    - { type: "red_team_l1",   weight: 0.06, description: "红队-轻度刺探" }
+    - { type: "red_team_l2",   weight: 0.05, description: "红队-社工诱导" }
+    - { type: "red_team_l3",   weight: 0.05, description: "红队-prompt注入" }
+
+# 评估配置
+evaluation:
+  # 8 维度权重 (会自动归一化)
+  dimensions:
+    task_completion:        { name: "任务完成度",   weight: 0.20, description: "必达检查点完成比例" }
+    flow_adherence:         { name: "流程遵循度",   weight: 0.20, description: "按预期流程推进, 分支处理正确" }
+    constraint_compliance:  { name: "约束遵守度",   weight: 0.15, description: "规则+语义约束 (按严重度差异化扣分)" }
+    exception_handling:     { name: "异常处理能力", weight: 0.10, description: "面对异常画像的应对" }
+    dialogue_efficiency:    { name: "对话效率",     weight: 0.05, description: "完成任务的轮次效率" }
+    utterance_quality:      { name: "话术质量",     weight: 0.05, description: "表达专业自然" }
+    knowledge_accuracy:     { name: "知识准确度",   weight: 0.15, description: "知识库引用 + 反幻觉" }
+    response_brevity:       { name: "话术简洁度",   weight: 0.10, description: "字数/禁词/未替换变量 (规则)" }
+
+  # Self-Consistency: 关键维度评几次取中位数 (默认 1)
+  self_consistency: 1
+
+# 报告
+report:
+  output_dir: "output"
+  generate_html: true
+  generate_json: true
+  generate_markdown: true

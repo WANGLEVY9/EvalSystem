@@ -1,0 +1,325 @@
+{
+  "task_name": "飞毛腿骑手合同通知",
+  "task_description": "作为美团外卖骑手站长，致电已报名飞毛腿的骑手，通知他们今天合同已成功签署，并提醒他们完成配送任务要求。",
+  "instruction_format": "markdown",
+  "role_description": "你是美团外卖骑手的站长，与骑手是同事关系，语气随意自然。",
+  "system_prompt": "# Role\n你是美团外卖骑手的站长。\n\n# Task\n致电飞毛腿骑手，通知他们今天合同已成功签署，并提醒他们完成配送任务。\n\n# 知识库\n- 目前许多骑手正在申请飞毛腿。如果你无法连续配送Y天，你的名额可能会被他人占用。\n- 单日合同：在生效当天必须完成X单，否则合同及派单可能受到影响。\n- 多日合同：每天必须完成Y单，否则后续合同及派单可能受到影响。\n- 如需退出飞毛腿，必须在前一天Z点之前在App的飞毛腿报名中取消；次日生效。\n- 连续完成W天多日合同，且每天完成Y单，将获得额外奖励（例如，与单日合同相比每单多+$元）。\n\n# 约束\n- 遵循对话流程和常见问题解答。\n- 如被问及超出职责范围的问题，回复：'我向同事确认后再回电给你。我现在能回答的先回答。'\n- 保持语气随意，像打电话一样自然。\n- 每次回复控制在约30个字以内。\n- 避免重复回复；如需重申，请换种方式礼貌表达。\n- 如果骑手坚持确实无法配送，安慰他们后挂断电话。",
+  "opening_line": "你好，请问是${rider_name}吗？我是站长。我看到你已报名飞毛腿。请记住，午餐和晚餐高峰期需要上线。",
+  "context_info": {
+    "骑手姓名": "小王",
+    "合同类型": "单日合同",
+    "单日最低单量": "8单",
+    "多日最低单量": "5单",
+    "连续天数要求": "7天",
+    "退出截止时间": "前一天22:00",
+    "额外奖励": "每单多2元"
+  },
+  "variables": [
+    {
+      "name": "rider_name",
+      "description": "骑手姓名",
+      "placeholder": "${rider_name}",
+      "sample_values": ["小王", "小李", "老张"],
+      "default_value": "小王"
+    },
+    {
+      "name": "X_单",
+      "description": "单日合同每天最低完成单量",
+      "placeholder": "**X 单**",
+      "sample_values": ["8", "10"],
+      "default_value": "8"
+    },
+    {
+      "name": "Y_单",
+      "description": "多日合同每天最低完成单量",
+      "placeholder": "**Y 单**",
+      "sample_values": ["5", "6"],
+      "default_value": "5"
+    },
+    {
+      "name": "W_天",
+      "description": "连续完成天数获得奖励",
+      "placeholder": "**W 天**",
+      "sample_values": ["7", "5"],
+      "default_value": "7"
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "确认骑手身份",
+      "description": "确认对方是否为目标骑手",
+      "type": "must_do",
+      "keywords": ["请问是", "你好"],
+      "evaluation_criteria": "开场白中明确确认对方身份",
+      "order": 1
+    },
+    {
+      "name": "通知合同生效",
+      "description": "告知骑手今天飞毛腿合同已生效",
+      "type": "must_do",
+      "keywords": ["合同", "生效", "飞毛腿", "签署"],
+      "evaluation_criteria": "明确告知骑手合同已经生效，可以开始配送",
+      "order": 2
+    },
+    {
+      "name": "说明配送要求",
+      "description": "说明单日/多日合同的最低配送单量要求",
+      "type": "must_do",
+      "keywords": ["单", "完成", "配送", "要求"],
+      "evaluation_criteria": "告知骑手每天至少需要完成多少单",
+      "order": 3
+    },
+    {
+      "name": "说明违约后果",
+      "description": "说明如不能连续配送，合同和派单会受影响",
+      "type": "should_do",
+      "keywords": ["影响", "名额", "受到"],
+      "evaluation_criteria": "警告骑手不完成任务的后果",
+      "order": 4
+    },
+    {
+      "name": "鼓励或挽留骑手",
+      "description": "对犹豫的骑手进行鼓励，对想退出的骑手进行挽留",
+      "type": "should_do",
+      "keywords": ["加油", "坚持", "奖励"],
+      "evaluation_criteria": "面对犹豫或退出意愿时进行积极引导",
+      "order": 0,
+      "condition": "骑手表达犹豫或想退出时"
+    },
+    {
+      "name": "提醒注意安全",
+      "description": "提醒骑手在配送过程中注意安全",
+      "type": "optional",
+      "keywords": ["安全", "注意", "小心"],
+      "evaluation_criteria": "在合适的时机提醒安全",
+      "order": 0
+    }
+  ],
+  "constraints": [
+    {
+      "name": "每次回复不超过30字",
+      "description": "每次回复控制在约30个字以内，保持电话沟通的简洁性",
+      "severity": "minor",
+      "violation_examples": [],
+      "check_method": "char_count"
+    },
+    {
+      "name": "不重复回复",
+      "description": "避免重复相同内容的回复；如需重申，请换种方式礼貌表达",
+      "severity": "minor",
+      "violation_examples": ["连续两次说完全相同的话"],
+      "check_method": "llm_judge"
+    },
+    {
+      "name": "不承诺超出职责范围的事项",
+      "description": "如被问及超出职责范围的问题，应说明需要确认后回电",
+      "severity": "major",
+      "violation_examples": ["随意承诺调整系统规则", "承诺修改合同条件"],
+      "check_method": "llm_judge"
+    },
+    {
+      "name": "保持随意自然的语气",
+      "description": "语气要像同事之间打电话一样随意自然，不要太正式",
+      "severity": "minor",
+      "violation_examples": ["尊敬的骑手您好", "感谢您的来电"],
+      "check_method": "llm_judge"
+    },
+    {
+      "name": "坚持无法配送时礼貌结束",
+      "description": "如果骑手坚持确实无法配送，安慰他们后礼貌结束通话，不要过度纠缠",
+      "severity": "major",
+      "violation_examples": ["反复多次挽留已明确拒绝的骑手", "对骑手表达不满"],
+      "check_method": "llm_judge"
+    }
+  ],
+  "flow_nodes": [
+    {
+      "name": "开场确认身份",
+      "description": "自我介绍为站长，确认骑手身份，告知飞毛腿报名成功",
+      "step_number": 1,
+      "next_nodes": ["通知合同详情"],
+      "is_start": true,
+      "is_end": false,
+      "conditions": {"通知合同详情": "骑手确认身份后"},
+      "branches": [],
+      "reference_script": "你好，请问是小王吗？我是站长。我看到你已报名飞毛腿。"
+    },
+    {
+      "name": "通知合同详情",
+      "description": "告知合同已生效，说明配送要求和注意事项",
+      "step_number": 2,
+      "next_nodes": ["确认配送意愿"],
+      "is_start": false,
+      "is_end": false,
+      "conditions": {"确认配送意愿": "告知完配送要求后"},
+      "branches": [
+        {
+          "condition": "骑手是单日合同",
+          "action": "告知当天需完成X单",
+          "condition_keywords": ["单日"],
+          "next_node": "确认配送意愿"
+        },
+        {
+          "condition": "骑手是多日合同",
+          "action": "告知每天需完成Y单，连续配送",
+          "condition_keywords": ["多日"],
+          "next_node": "确认配送意愿"
+        }
+      ],
+      "reference_script": "请记住，午餐和晚餐高峰期需要上线。单日合同每天至少完成8单。"
+    },
+    {
+      "name": "确认配送意愿",
+      "description": "询问骑手是否可以开始配送，处理骑手的疑虑",
+      "step_number": 3,
+      "next_nodes": ["鼓励与提醒", "挽留处理", "结束通话"],
+      "is_start": false,
+      "is_end": false,
+      "conditions": {
+        "鼓励与提醒": "骑手确认可以配送",
+        "挽留处理": "骑手表示犹豫或不想配送",
+        "结束通话": "骑手明确拒绝"
+      },
+      "branches": [
+        {
+          "condition": "骑手确认可以配送",
+          "action": "鼓励并提醒注意安全",
+          "condition_keywords": ["可以", "没问题", "行"],
+          "next_node": "鼓励与提醒"
+        },
+        {
+          "condition": "骑手犹豫或不确定",
+          "action": "说明竞争激烈和额外奖励来挽留",
+          "condition_keywords": ["不确定", "考虑", "看情况"],
+          "next_node": "挽留处理"
+        },
+        {
+          "condition": "骑手明确拒绝",
+          "action": "了解原因，简单挽留一次",
+          "condition_keywords": ["不行", "不想", "退出", "取消"],
+          "next_node": "挽留处理"
+        }
+      ]
+    },
+    {
+      "name": "鼓励与提醒",
+      "description": "鼓励骑手，提醒注意安全和保持低拒单率",
+      "step_number": 4,
+      "next_nodes": ["结束通话"],
+      "is_start": false,
+      "is_end": false,
+      "conditions": {"结束通话": "鼓励完毕"},
+      "branches": [],
+      "reference_script": "好的，加油！注意安全，减少拒单和超时。恶劣天气多跑有助于保住飞毛腿资格。"
+    },
+    {
+      "name": "挽留处理",
+      "description": "尝试挽留不想配送的骑手，说明竞争和奖励",
+      "step_number": 5,
+      "next_nodes": ["结束通话"],
+      "is_start": false,
+      "is_end": false,
+      "conditions": {"结束通话": "挽留完毕或骑手坚持退出"},
+      "branches": [
+        {
+          "condition": "骑手被说服继续",
+          "action": "鼓励并结束",
+          "condition_keywords": ["好吧", "试试", "行"],
+          "next_node": "结束通话"
+        },
+        {
+          "condition": "骑手坚持退出",
+          "action": "安慰后告知退出方法，结束通话",
+          "condition_keywords": ["不行", "真的不行", "确定退出"],
+          "next_node": "结束通话"
+        }
+      ]
+    },
+    {
+      "name": "结束通话",
+      "description": "礼貌结束通话",
+      "step_number": 6,
+      "next_nodes": [],
+      "is_start": false,
+      "is_end": true,
+      "conditions": {},
+      "branches": []
+    }
+  ],
+  "exception_rules": [
+    {
+      "trigger": "骑手询问超出站长职责范围的问题（如系统规则修改）",
+      "expected_behavior": "回复'我向同事确认后再回电给你。我现在能回答的先回答。'",
+      "forbidden_behavior": "随意承诺或编造答案"
+    },
+    {
+      "trigger": "骑手坚持无法配送",
+      "expected_behavior": "安慰骑手，告知退出方法（前一天Z点前在App取消），礼貌结束",
+      "forbidden_behavior": "多次强行挽留或表达不满"
+    },
+    {
+      "trigger": "骑手询问飞毛腿排名机制",
+      "expected_behavior": "说明报名是按排名进行，非站长干预，建议减少拒单/取消/超时",
+      "forbidden_behavior": "承诺可以帮骑手调整排名"
+    }
+  ],
+  "knowledge_base": [
+    {
+      "question": "很多人在申请飞毛腿吗？名额紧张吗？",
+      "answer": "目前许多骑手正在申请飞毛腿。如果你无法连续配送，你的名额可能会被他人占用。",
+      "keywords": ["名额", "申请", "紧张", "多少人"],
+      "category": "竞争情况"
+    },
+    {
+      "question": "单日合同每天要完成多少单？",
+      "answer": "单日合同在生效当天必须完成X单，否则合同及派单可能受到影响。",
+      "keywords": ["单日", "多少单", "要求"],
+      "category": "合同规则"
+    },
+    {
+      "question": "多日合同要求是什么？",
+      "answer": "多日合同每天必须完成Y单，否则后续合同及派单可能受到影响。",
+      "keywords": ["多日", "要求", "每天"],
+      "category": "合同规则"
+    },
+    {
+      "question": "怎么退出飞毛腿？",
+      "answer": "如需退出飞毛腿，必须在前一天Z点之前在App的飞毛腿报名中取消，次日生效。",
+      "keywords": ["退出", "取消", "不想做了"],
+      "category": "退出规则"
+    },
+    {
+      "question": "有什么额外奖励吗？",
+      "answer": "连续完成W天多日合同，且每天完成Y单，将获得额外奖励（每单多+$元）。",
+      "keywords": ["奖励", "额外", "多赚"],
+      "category": "奖励机制"
+    }
+  ],
+  "utterance_constraints": [
+    {
+      "name": "单句字数限制(30字)",
+      "max_chars": 35,
+      "min_chars": null,
+      "forbidden_words": [],
+      "required_tone": "随意自然",
+      "applies_to": "all",
+      "description": "每次回复控制在约30个字以内"
+    }
+  ],
+  "scenario_triggers": [
+    {
+      "trigger_condition": "骑手说今天有事无法配送",
+      "trigger_keywords": ["有事", "今天不行", "今天配送不了"],
+      "expected_system_action": "了解情况，提醒明天要补上，避免影响合同",
+      "forbidden_system_action": "强行要求今天必须配送",
+      "should_end_conversation": false
+    },
+    {
+      "trigger_condition": "骑手坚持要退出飞毛腿",
+      "trigger_keywords": ["退出", "不做了", "取消飞毛腿"],
+      "expected_system_action": "简单挽留一次后安慰，告知退出方法，结束通话",
+      "forbidden_system_action": "多次挽留或表达不满",
+      "should_end_conversation": false
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "task_name": "物流履约配送通知",
+  "task_description": "作为XX物流智能客服，主动致电用户通知包裹即将送达，确认收货地址和时间，处理用户可能提出的改约、退货等请求。",
+  "system_prompt": "你是XX物流的智能客服助手，正在进行一通外呼电话。你的任务是通知用户有一个包裹即将送达，并确认相关信息。\n\n你需要遵循以下流程：\n1. 自我介绍并确认对方身份\n2. 通知包裹信息和预计送达时间\n3. 确认收货地址是否正确\n4. 确认用户是否方便签收\n5. 处理用户可能的特殊需求（改约时间、改地址、退货等）\n6. 礼貌结束通话\n\n语言要求：\n- 使用礼貌、专业但不过分正式的语言\n- 控制每句话在30字以内\n- 不能透露系统内部编号或其他用户信息\n- 遇到无法处理的请求要说明原因并提供替代方案",
+  "context_info": {
+    "收件人": "李先生",
+    "手机尾号": "8888",
+    "订单日期": "5月15日",
+    "商品": "运动鞋一双",
+    "快递单号尾号": "3342",
+    "订单尾号": "8856",
+    "预计送达时间": "今天下午14:00-16:00",
+    "收货地址": "北京市朝阳区建国路88号2单元501室",
+    "快递员": "王师傅",
+    "快递员电话尾号": "6677"
+  },
+  "opening_line": "您好，请问是李先生吗？我这边是XX物流，今天给您来电是关于您的快递配送通知。",
+  "checkpoints": [
+    {
+      "name": "确认用户身份",
+      "description": "在开始通知前确认对方是否为收件人本人",
+      "type": "must_do",
+      "keywords": ["请问是", "李先生", "本人"],
+      "evaluation_criteria": "明确询问对方是否为李先生/收件人本人",
+      "order": 1
+    },
+    {
+      "name": "通知包裹信息",
+      "description": "告知用户有包裹即将送达，包含预计时间",
+      "type": "must_do",
+      "keywords": ["包裹", "快递", "送达", "今天", "下午"],
+      "evaluation_criteria": "明确告知用户有包裹将要送达，并说明预计送达时间段",
+      "order": 2
+    },
+    {
+      "name": "确认收货地址",
+      "description": "与用户确认收货地址是否正确",
+      "type": "must_do",
+      "keywords": ["地址", "朝阳区", "建国路", "确认"],
+      "evaluation_criteria": "向用户报出地址信息并请求确认",
+      "order": 3
+    },
+    {
+      "name": "确认签收安排",
+      "description": "确认用户是否方便在预计时间签收",
+      "type": "should_do",
+      "keywords": ["方便", "签收", "有人", "在家"],
+      "evaluation_criteria": "询问用户是否能在预计时间内签收",
+      "order": 4
+    },
+    {
+      "name": "提供快递员联系方式",
+      "description": "在适当时机提供快递员联系方式",
+      "type": "optional",
+      "keywords": ["快递员", "王师傅", "联系"],
+      "evaluation_criteria": "主动或应用户要求提供快递员联系方式",
+      "order": 0
+    },
+    {
+      "name": "礼貌结束通话",
+      "description": "在所有事项确认后礼貌结束通话",
+      "type": "should_do",
+      "keywords": ["再见", "祝您", "感谢"],
+      "evaluation_criteria": "使用礼貌用语结束通话，如'祝您生活愉快'",
+      "order": 99
+    }
+  ],
+  "constraints": [
+    {
+      "name": "不透露完整内部编号",
+      "description": "不能向用户透露完整的快递单号或订单号，只能说尾号",
+      "severity": "critical",
+      "violation_examples": ["您的快递单号是SF1234567890", "订单号是ORD20240515001"],
+      "check_method": "llm_judge"
+    },
+    {
+      "name": "不透露其他用户信息",
+      "description": "不能向用户透露其他用户的任何信息",
+      "severity": "critical",
+      "violation_examples": ["其他客户也住在这个小区", "您楼上的张先生也有包裹"],
+      "check_method": "llm_judge"
+    },
+    {
+      "name": "不做超出权限的承诺",
+      "description": "不能承诺赔偿金额、确保精确送达时间等超出权限的内容",
+      "severity": "major",
+      "violation_examples": ["我保证14:00准时到", "可以赔偿您100元"],
+      "check_method": "llm_judge"
+    },
+    {
+      "name": "保持专业礼貌",
+      "description": "面对用户的不礼貌或抗拒态度时，不能使用不当语言或表现出不耐烦",
+      "severity": "major",
+      "violation_examples": ["那您到底收不收", "您这样说没意思"],
+      "check_method": "llm_judge"
+    },
+    {
+      "name": "单句不超过50字",
+      "description": "每次回复中单个语句不应过长，保持电话沟通的简洁性",
+      "severity": "minor",
+      "violation_examples": [],
+      "check_method": "llm_judge"
+    }
+  ],
+  "flow_nodes": [
+    {
+      "name": "开场白",
+      "description": "自我介绍，确认对方身份",
+      "next_nodes": ["信息通知"],
+      "is_start": true,
+      "is_end": false,
+      "conditions": {"信息通知": "用户确认身份后"}
+    },
+    {
+      "name": "信息通知",
+      "description": "通知包裹信息和预计送达时间",
+      "next_nodes": ["地址确认", "异常处理"],
+      "is_start": false,
+      "is_end": false,
+      "conditions": {
+        "地址确认": "用户了解包裹信息后",
+        "异常处理": "用户表示不知道/否认订单"
+      }
+    },
+    {
+      "name": "地址确认",
+      "description": "确认收货地址和签收时间",
+      "next_nodes": ["结束通话", "变更处理"],
+      "is_start": false,
+      "is_end": false,
+      "conditions": {
+        "结束通话": "地址确认无误",
+        "变更处理": "用户要求改地址/改时间"
+      }
+    },
+    {
+      "name": "变更处理",
+      "description": "处理用户的改约/改地址/退货请求",
+      "next_nodes": ["结束通话"],
+      "is_start": false,
+      "is_end": false,
+      "conditions": {"结束通话": "变更处理完成"}
+    },
+    {
+      "name": "异常处理",
+      "description": "处理用户否认订单、要求转人工等异常情况",
+      "next_nodes": ["结束通话"],
+      "is_start": false,
+      "is_end": false,
+      "conditions": {"结束通话": "异常处理完成或转人工"}
+    },
+    {
+      "name": "结束通话",
+      "description": "礼貌结束通话",
+      "next_nodes": [],
+      "is_start": false,
+      "is_end": true,
+      "conditions": {}
+    }
+  ],
+  "exception_rules": [
+    {
+      "trigger": "用户表示不认识这个订单/没有下过单",
+      "expected_behavior": "耐心核实信息，提供订单相关细节帮助用户回忆，如确认无误则建议联系客服",
+      "forbidden_behavior": "直接挂断或强行继续通知"
+    },
+    {
+      "trigger": "用户要求转人工客服",
+      "expected_behavior": "确认用户需求后，礼貌告知将转接人工，并提供预计等待时间",
+      "forbidden_behavior": "拒绝转人工或者多次挽留不让转"
+    },
+    {
+      "trigger": "用户表示要退货/拒收",
+      "expected_behavior": "了解原因，记录退货意愿，告知退货流程或后续会有专人联系",
+      "forbidden_behavior": "强行说服用户不要退货或表示不满"
+    },
+    {
+      "trigger": "用户询问与快递无关的问题",
+      "expected_behavior": "礼貌说明自己只负责快递相关事宜，引导回到主题",
+      "forbidden_behavior": "随意回答无关问题或长时间闲聊"
+    },
+    {
+      "trigger": "用户要求提供其他人的信息或系统内部信息",
+      "expected_behavior": "明确拒绝，说明信息保密原则",
+      "forbidden_behavior": "提供任何其他用户信息或内部系统信息"
+    }
+  ]
+}
