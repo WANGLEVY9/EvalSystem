@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="bg-gray-50 dark:bg-gray-950">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EvalSystem · 多轮对话评测系统</title>
+<!-- Config: set API base URL before loading scripts -->
+<script>window.EVALSYSTEM_API_BASE = ''; // e.g. 'https://evalsystem.up.railway.app'</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#667eea',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'],mono:['Cascadia Code','Fira Code','JetBrains Mono','Menlo','monospace']}}}}
+</script>
+<link rel="stylesheet" href="static/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+</head>
+<body x-data="{ sidebarOpen: false }" class="min-h-screen flex">
+
+<!-- ============ Sidebar ============ -->
+<aside class="no-print fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-auto"
+       :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+       @click.away="sidebarOpen = false">
+  <div class="flex flex-col h-full">
+    <div class="flex items-center gap-3 px-6 py-5 border-b border-gray-200 dark:border-gray-800">
+      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-white text-lg font-bold">E</div>
+      <div><div class="text-base font-bold text-gray-900 dark:text-white">EvalSystem</div><div class="text-xs text-gray-500 dark:text-gray-400">v3.0 · 评测仪表盘</div></div>
+    </div>
+    <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <a href="#dashboard" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" onclick="navigate('dashboard')">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>仪表盘
+      </a>
+      <a href="#eval" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" onclick="navigate('eval')">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>发起评测
+      </a>
+      <a href="#reports" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" onclick="navigate('reports')">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>评测报告
+      </a>
+      <a href="#jobs" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" onclick="navigate('jobs')">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>任务监控
+      </a>
+      <a href="#calibration" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" onclick="navigate('calibration')">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>校准回测
+      </a>
+    </nav>
+    <div class="px-3 py-4 border-t border-gray-200 dark:border-gray-800 space-y-2">
+      <button onclick="toggleDark()" class="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <span id="dark-label">深色模式</span>
+      </button>
+      <a href="https://github.com/WANGLEVY9/EvalSystem" target="_blank" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>GitHub
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile overlay -->
+<div x-show="sidebarOpen" class="fixed inset-0 z-30 bg-black/50 lg:hidden" @click="sidebarOpen = false"></div>
+
+<!-- ============ Main Content ============ -->
+<div class="flex-1 flex flex-col min-h-screen min-w-0">
+  <header class="no-print lg:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-3 flex items-center gap-3">
+    <button @click="sidebarOpen = !sidebarOpen" class="p-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div class="text-sm font-semibold text-gray-900 dark:text-white">EvalSystem</div>
+  </header>
+
+  <main class="flex-1 p-4 md:p-6 lg:p-8 overflow-auto">
+
+    <!-- ===== Page: Dashboard ===== -->
+    <div id="page-dashboard" class="page-section max-w-7xl mx-auto space-y-6 hidden">
+      <div class="bg-gradient-to-r from-primary-600 to-purple-700 rounded-2xl p-6 md:p-8 text-white">
+        <h1 class="text-2xl md:text-3xl font-bold mb-2">多轮对话评测系统 v3.0</h1>
+        <p class="text-primary-100 text-sm md:text-base max-w-2xl">可解释 · 可量化 · 可复算 · 可对比</p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="px-3 py-1 rounded-full bg-white/20 text-xs">12 用户画像</span>
+          <span class="px-3 py-1 rounded-full bg-white/20 text-xs">8 评估维度</span>
+          <span class="px-3 py-1 rounded-full bg-white/20 text-xs">Self-Consistency</span>
+          <span class="px-3 py-1 rounded-full bg-white/20 text-xs">证据三元组</span>
+          <span class="px-3 py-1 rounded-full bg-white/20 text-xs">分支覆盖</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+          <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">历史报告</div>
+          <div class="mt-1 text-3xl font-bold text-gray-900 dark:text-white" id="kpi-reports">-</div>
+        </div>
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+          <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">评测任务</div>
+          <div class="mt-1 text-3xl font-bold text-gray-900 dark:text-white" id="kpi-jobs">-</div>
+        </div>
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+          <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">校准 MAE</div>
+          <div class="mt-1 text-3xl font-bold text-gray-900 dark:text-white">4.72</div>
+          <div class="text-xs text-green-600 dark:text-green-400 mt-1">与人工标注偏差</div>
+        </div>
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+          <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Pearson r</div>
+          <div class="mt-1 text-3xl font-bold text-gray-900 dark:text-white">0.967</div>
+          <div class="text-xs text-green-600 dark:text-green-400 mt-1">评估器可靠性</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-1 space-y-4">
+          <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+            <h2 class="text-base font-bold text-gray-900 dark:text-white mb-4">快捷操作</h2>
+            <div class="space-y-3">
+              <a href="#eval" onclick="navigate('eval')" class="flex items-center gap-4 p-3 rounded-lg bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors">
+                <div class="w-10 h-10 rounded-lg bg-primary-500 flex items-center justify-center text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                <div><div class="font-medium text-sm">发起新评测</div><div class="text-xs text-primary-500 dark:text-primary-400 mt-0.5">选择指令和画像，一键运行</div></div>
+              </a>
+              <a href="#reports" onclick="navigate('reports')" class="flex items-center gap-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-750 transition-colors">
+                <div class="w-10 h-10 rounded-lg bg-gray-500 flex items-center justify-center text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+                <div><div class="font-medium text-sm">浏览报告</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">查看所有历史评测报告</div></div>
+              </a>
+              <a href="#jobs" onclick="navigate('jobs')" class="flex items-center gap-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-750 transition-colors">
+                <div class="w-10 h-10 rounded-lg bg-gray-500 flex items-center justify-center text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg></div>
+                <div><div class="font-medium text-sm">任务监控</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">查看运行中的评测任务和日志</div></div>
+              </a>
+              <a href="#calibration" onclick="navigate('calibration')" class="flex items-center gap-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-750 transition-colors">
+                <div class="w-10 h-10 rounded-lg bg-gray-500 flex items-center justify-center text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+                <div><div class="font-medium text-sm">校准回测</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">验证评估器可靠性 (8 case)</div></div>
+              </a>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+            <h2 class="text-base font-bold text-gray-900 dark:text-white mb-3">系统信息</h2>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between"><span class="text-gray-500">版本</span><span class="font-medium text-gray-900 dark:text-white">v3.0.0</span></div>
+              <div class="flex justify-between"><span class="text-gray-500">用户画像</span><span class="font-medium text-gray-900 dark:text-white">12 种</span></div>
+              <div class="flex justify-between"><span class="text-gray-500">评估维度</span><span class="font-medium text-gray-900 dark:text-white">8 个</span></div>
+              <div class="flex justify-between"><span class="text-gray-500">报告格式</span><span class="font-medium text-gray-900 dark:text-white">HTML / JSON / MD / PDF</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-span-2">
+          <div class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden">
+            <div class="px-5 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+              <h2 class="text-base font-bold text-gray-900 dark:text-white">最新报告</h2>
+              <a href="#reports" onclick="navigate('reports')" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">查看全部 →</a>
+            </div>
+            <div id="recent-reports"><div class="text-center py-10 text-gray-400 text-sm">加载中...</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Page: Eval ===== -->
+    <div id="page-eval" class="page-section max-w-5xl mx-auto space-y-6 hidden">
+      <div><h1 class="text-2xl font-bold text-gray-900 dark:text-white">🚀 发起新评测</h1><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">选择任务指令和用户画像，配置评测参数后一键启动。</p></div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-6">
+          <!-- Instruction -->
+          <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+            <h2 class="text-base font-bold text-gray-900 dark:text-white mb-3">任务指令</h2>
+            <select id="instr-select" class="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2.5 text-sm" onchange="evalForm.instruction_path=this.value">
+              <option value="">— 选择指令文件 —</option>
+            </select>
+            <div id="instr-path" class="mt-2 text-xs text-gray-500 hidden"></div>
+          </div>
+          <!-- Persona -->
+          <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-base font-bold text-gray-900 dark:text-white">用户画像</h2>
+              <div class="flex gap-2">
+                <button onclick="evalForm.selectedPersonas=Object.keys(window.PERSONA_META);renderPersonaChips()" class="text-xs px-2.5 py-1 rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">全选</button>
+                <button onclick="evalForm.selectedPersonas=[];renderPersonaChips()" class="text-xs px-2.5 py-1 rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">清空</button>
+              </div>
+            </div>
+            <div id="persona-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2"></div>
+            <div class="mt-3 text-xs text-gray-500" id="persona-count"></div>
+          </div>
+          <!-- Config -->
+          <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+            <h2 class="text-base font-bold text-gray-900 dark:text-white mb-3">评测参数</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div><label class="block text-xs font-medium text-gray-500 mb-1">每画像会话数</label><input type="number" id="cfg-sessions" value="1" min="1" onchange="evalForm.sessions=+this.value" class="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 text-sm"></div>
+              <div><label class="block text-xs font-medium text-gray-500 mb-1">SC N</label><input type="number" id="cfg-sc" value="1" min="1" onchange="evalForm.self_consistency=+this.value" class="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 text-sm"></div>
+              <div><label class="block text-xs font-medium text-gray-500 mb-1">并发数</label><input type="number" id="cfg-conc" value="4" min="1" onchange="evalForm.concurrency=+this.value" class="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 text-sm"></div>
+              <div><label class="block text-xs font-medium text-gray-500 mb-1">Seed</label><input type="number" id="cfg-seed" value="42" onchange="evalForm.seed=+this.value" class="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 text-sm"></div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-4">
+              <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="cfg-branch" onchange="evalForm.branch_test=this.checked" class="rounded text-primary-600"> <span class="text-sm text-gray-700 dark:text-gray-300">强制分支覆盖</span></label>
+              <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="cfg-pdf" onchange="evalForm.generate_pdf=this.checked" class="rounded text-primary-600"> <span class="text-sm text-gray-700 dark:text-gray-300">导出 PDF</span></label>
+            </div>
+          </div>
+          <!-- Presets -->
+          <div class="flex flex-wrap gap-3">
+            <button onclick="setEvalPreset('mini')" class="preset-btn px-4 py-2.5 rounded-lg text-sm font-medium border transition-all" data-preset="mini">⚡ Mini 模式 <span class="block text-xs opacity-75 mt-0.5 font-normal">3 画像 × 1 次</span></button>
+            <button onclick="setEvalPreset('full')" class="preset-btn px-4 py-2.5 rounded-lg text-sm font-medium border transition-all" data-preset="full">🔬 Full 模式 <span class="block text-xs opacity-75 mt-0.5 font-normal">全画像 × 3 次 + 分支</span></button>
+            <button onclick="setEvalPreset('custom')" class="preset-btn px-4 py-2.5 rounded-lg text-sm font-medium border transition-all" data-preset="custom">🛠️ 自定义 <span class="block text-xs opacity-75 mt-0.5 font-normal">手动配置</span></button>
+          </div>
+          <!-- Start -->
+          <button id="btn-start-eval" onclick="evalForm.startEval()" class="w-full py-3 rounded-xl text-white font-semibold text-sm bg-gradient-to-r from-primary-500 to-purple-600 hover:from-primary-600 hover:to-purple-700 shadow-lg shadow-primary-500/25 transition-all">▶ 开始评测</button>
+        </div>
+        <div class="space-y-4">
+          <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+            <h2 class="text-base font-bold text-gray-900 dark:text-white mb-3">运行中的任务</h2>
+            <div id="running-jobs-sidebar"><div class="text-sm text-gray-400 text-center py-6">加载中...</div></div>
+            <a href="#jobs" onclick="navigate('jobs')" class="block text-center text-xs text-primary-600 hover:underline mt-2">查看全部 →</a>
+          </div>
+          <div class="bg-gradient-to-br from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 rounded-xl p-5 border border-primary-100 dark:border-primary-900/30">
+            <h3 class="text-sm font-bold text-primary-800 dark:text-primary-200 mb-2">💡 提示</h3>
+            <ul class="text-xs text-primary-700 dark:text-primary-300 space-y-1.5">
+              <li>• Mini 模式约 2-3 分钟完成</li>
+              <li>• Full 模式约 20-30 分钟</li>
+              <li>• SC ≥ 3 提高评估稳定性</li>
+              <li>• 分支测试覆盖所有流程分支</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Page: Reports ===== -->
+    <div id="page-reports" class="page-section max-w-7xl mx-auto space-y-6 hidden">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div><h1 class="text-2xl font-bold text-gray-900 dark:text-white">📂 评测报告</h1><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">浏览所有历史评测报告，支持筛选。</p></div>
+        <button onclick="initReports()" class="px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">🔄 刷新</button>
+      </div>
+      <div class="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-800">
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-300">筛选：</span>
+          <button onclick="filterReports('')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-colors bg-primary-500 text-white" data-kind="">全部</button>
+          <button onclick="filterReports('report')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-colors bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200" data-kind="report">评测</button>
+          <button onclick="filterReports('comparison')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-colors bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200" data-kind="comparison">对比</button>
+          <button onclick="filterReports('calibration')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-colors bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200" data-kind="calibration">校准</button>
+        </div>
+      </div>
+      <div id="report-list" class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 divide-y divide-gray-100 dark:divide-gray-800"><div class="text-center py-10 text-gray-400 text-sm">加载中...</div></div>
+    </div>
+
+    <!-- ===== Page: Jobs ===== -->
+    <div id="page-jobs" class="page-section max-w-7xl mx-auto space-y-6 hidden">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div><h1 class="text-2xl font-bold text-gray-900 dark:text-white">⚙️ 任务监控</h1><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">查看实时状态和日志输出。</p></div>
+        <span class="text-xs text-gray-500"><span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span>自动刷新中</span>
+      </div>
+      <div class="grid grid-cols-4 gap-4">
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-800 text-center"><div class="text-2xl font-bold text-gray-900 dark:text-white" id="jobs-total">-</div><div class="text-xs text-gray-400 mt-1">总任务</div></div>
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-800 text-center"><div class="text-2xl font-bold text-primary-600 dark:text-primary-400" id="jobs-running">-</div><div class="text-xs text-gray-400 mt-1">运行中</div></div>
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-800 text-center"><div class="text-2xl font-bold text-green-600" id="jobs-finished">-</div><div class="text-xs text-gray-400 mt-1">已完成</div></div>
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-800 text-center"><div class="text-2xl font-bold text-red-600" id="jobs-failed">-</div><div class="text-xs text-gray-400 mt-1">失败</div></div>
+      </div>
+      <div id="job-list"></div>
+    </div>
+
+    <!-- ===== Page: Calibration ===== -->
+    <div id="page-calibration" class="page-section max-w-5xl mx-auto space-y-6 hidden">
+      <div><h1 class="text-2xl font-bold text-gray-900 dark:text-white">🔬 校准回测</h1><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">用 8 个人工标注 case 评估自动评估器的可靠性（MAE / Pearson-r）。</p></div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="space-y-4">
+          <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+            <h2 class="text-base font-bold text-gray-900 dark:text-white mb-3">运行校准</h2>
+            <div class="mb-4"><label class="block text-xs font-medium text-gray-500 mb-1">Self-Consistency N</label><input type="number" id="cal-sc" value="3" min="1" onchange="calForm.sc=+this.value" class="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 text-sm"></div>
+            <button id="btn-cal" onclick="calForm.runCalibration()" class="w-full py-2.5 rounded-xl text-white font-semibold text-sm bg-gradient-to-r from-primary-500 to-purple-600 hover:from-primary-600 hover:to-purple-700 shadow-lg shadow-primary-500/25 transition-all">▶ 开始校准回测</button>
+          </div>
+          <div class="bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 rounded-xl p-5 border border-orange-100 dark:border-orange-900/30">
+            <h3 class="text-sm font-bold text-orange-800 dark:text-orange-200 mb-2">📖 关于校准</h3>
+            <ul class="text-xs text-orange-700 dark:text-orange-300 space-y-1.5">
+              <li>• 内置 8 个人工标注 case</li>
+              <li>• MAE < 10 = 评估器可靠</li>
+              <li>• Pearson-r > 0.9 = 强相关</li>
+              <li>• 建议 SC ≥ 3 获得稳定结果</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lg:col-span-2">
+          <div id="cal-results">
+            <div class="bg-white dark:bg-gray-900 rounded-xl p-12 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+              <div class="text-5xl mb-4 opacity-30">📊</div>
+              <div class="text-sm text-gray-400 dark:text-gray-500">尚未运行校准回测。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="no-print text-center text-xs text-gray-400 dark:text-gray-600 py-4 px-6 border-t border-gray-100 dark:border-gray-900">EvalSystem v3.0 · MIT Licensed</footer>
+</div>
+
+<script src="static/app.js"></script>
+<script>
+// Initialize persona chips
+function renderPersonaChips() {
+  const grid = document.getElementById('persona-grid');
+  if (!grid) return;
+  grid.innerHTML = Object.entries(window.PERSONA_META).map(([key, meta]) => `
+    <div onclick="togglePersonaChip('${key}')" id="chip-${key}" class="cursor-pointer rounded-lg p-3 border-2 transition-all ${evalForm.selectedPersonas.includes(key) ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'}">
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${evalForm.selectedPersonas.includes(key) ? 'bg-primary-500 border-primary-500' : 'border-gray-400 dark:border-gray-500'}">
+          ${evalForm.selectedPersonas.includes(key) ? '<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>' : ''}
+        </div>
+        <span class="text-sm font-medium text-gray-900 dark:text-white">${meta.label}</span>
+      </div>
+      <div class="mt-1 text-xs text-gray-500 dark:text-gray-400">${meta.desc}</div>
+    </div>
+  `).join('');
+  document.getElementById('persona-count').textContent = `已选 ${evalForm.selectedPersonas.length} 个画像: ${evalForm.selectedPersonas.map(p => window.PERSONA_META[p]?.label || p).join('、') || '-'}`;
+}
+function togglePersonaChip(key) {
+  evalForm.togglePersona(key);
+  const chip = document.getElementById('chip-' + key);
+  if (chip) chip.classList.toggle('border-primary-500');
+  updatePersonaChipState(key);
+}
+function updatePersonaChipState(key) {
+  const chip = document.getElementById('chip-' + key);
+  if (!chip) return;
+  const selected = evalForm.selectedPersonas.includes(key);
+  chip.className = `cursor-pointer rounded-lg p-3 border-2 transition-all ${selected ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'}`;
+  renderPersonaCount();
+}
+function renderPersonaCount() {
+  document.getElementById('persona-count').textContent = `已选 ${evalForm.selectedPersonas.length} 个画像${evalForm.selectedPersonas.length ? ': ' + evalForm.selectedPersonas.map(p => window.PERSONA_META[p]?.label || p).join('、') : ''}`;
+}
+
+// Eval presets
+function setEvalPreset(mode) {
+  evalForm.setPreset(mode);
+  document.querySelectorAll('.preset-btn').forEach(b => {
+    const isActive = b.dataset.preset === mode;
+    b.className = `preset-btn px-4 py-2.5 rounded-lg text-sm font-medium border transition-all ${isActive ? 'bg-primary-500 text-white border-primary-500' : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700 hover:border-primary-400'}`;
+  });
+  // Update form fields
+  document.getElementById('cfg-sessions').value = evalForm.sessions;
+  document.getElementById('cfg-sc').value = evalForm.self_consistency;
+  document.getElementById('cfg-branch').checked = evalForm.branch_test;
+  renderPersonaChips();
+}
+
+// Filter buttons styling
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('filter-btn')) {
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.className = `filter-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${b === e.target ? 'bg-primary-500 text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200'}`;
+    });
+  }
+});
+
+// Running jobs sidebar
+setInterval(async () => {
+  const div = document.getElementById('running-jobs-sidebar');
+  if (!div || !div.offsetParent) return; // only update if visible
+  try {
+    const jobs = await apiGet('/api/jobs');
+    const running = jobs.filter(j => j.status === 'running' || j.status === 'pending').slice(0, 5);
+    if (!running.length) {
+      div.innerHTML = '<div class="text-sm text-gray-400 text-center py-6">暂无运行中的任务</div>';
+      return;
+    }
+    div.innerHTML = running.map(j => `
+      <div class="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800 mb-2">
+        <span class="pulse-dot w-2 h-2 rounded-full bg-primary-500"></span>
+        <div class="flex-1 min-w-0">
+          <div class="text-xs font-mono text-primary-600">${j.id}</div>
+          <div class="text-xs text-gray-500">${j.kind} · ${new Date(j.started_at).toLocaleTimeString()}</div>
+        </div>
+        <span class="text-xs px-2 py-0.5 rounded-full bg-primary-100 text-primary-700">${j.status}</span>
+      </div>
+    `).join('');
+  } catch (e) {}
+}, 3000);
+
+// Init eval persona on page show
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new MutationObserver(() => {
+    if (!document.getElementById('page-eval').classList.contains('hidden')) {
+      if (!document.getElementById('persona-grid').children.length) renderPersonaChips();
+    }
+  });
+  document.querySelectorAll('.page-section').forEach(el => observer.observe(el, { attributes: true, attributeFilter: ['class'] }));
+});
+</script>
+</body>
+</html>

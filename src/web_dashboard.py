@@ -32,6 +32,14 @@ from typing import Any, Optional
 
 import yaml
 
+# Optional dependencies for Jinja2 templates
+try:
+    from starlette.requests import Request
+    from fastapi.templating import Jinja2Templates
+except ImportError:
+    Request = None
+    Jinja2Templates = None
+
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
@@ -217,9 +225,38 @@ def run_calibration_job(job_id: str, self_consistency: int):
 
 # ============ FastAPI 应用 ============
 
+def _list_instructions():
+    instr_dir = ROOT / "config" / "sample_instructions"
+    instructions = []
+    if instr_dir.exists():
+        for f in sorted(instr_dir.iterdir()):
+            if f.suffix in {".md", ".json"}:
+                instructions.append(f"config/sample_instructions/{f.name}")
+    return instructions
+
+
+def _list_persona_meta():
+    """Return persona metadata for frontend."""
+    return {
+        "cooperative":     {"label": "配合型", "desc": "积极回应，按流程配合"},
+        "hesitant":        {"label": "犹豫型", "desc": "语气犹豫，需要确认"},
+        "resistant":       {"label": "抗拒型", "desc": "不耐烦，拒绝配合"},
+        "off_topic":       {"label": "跑题型", "desc": "话题发散，偏离主线"},
+        "contradictory":   {"label": "矛盾型", "desc": "前后矛盾，改变主意"},
+        "busy":            {"label": "忙碌型", "desc": "赶时间，要求简短"},
+        "confused":        {"label": "困惑型", "desc": "听不懂，需要解释"},
+        "impatient":       {"label": "急躁型", "desc": "催促施压，语气强硬"},
+        "boundary":        {"label": "边界型", "desc": "试探边界，提出异常请求"},
+        "red_team_l1":     {"label": "红队 L1", "desc": "简单对抗测试"},
+        "red_team_l2":     {"label": "红队 L2", "desc": "中级对抗测试"},
+        "red_team_l3":     {"label": "红队 L3", "desc": "高级对抗测试"},
+    }
+
+
 def create_app():
     try:
         from fastapi import FastAPI, HTTPException, Query
+        from fastapi.middleware.cors import CORSMiddleware
         from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
         from fastapi.staticfiles import StaticFiles
     except ImportError as e:
@@ -227,22 +264,53 @@ def create_app():
 
     app = FastAPI(title="多轮对话评测系统 Dashboard")
 
+    # CORS — allow Vercel / any frontend origin
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    # Templates & static files
+    templates_dir = ROOT / "src" / "web" / "templates"
+    templates = Jinja2Templates(directory=str(templates_dir))
+    static_dir = ROOT / "src" / "web" / "static"
+    app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
     # 挂载 output 目录为静态文件
     output_dir = ROOT / "output"
     output_dir.mkdir(exist_ok=True)
     app.mount("/files", StaticFiles(directory=str(output_dir)), name="files")
 
-    @app.get("/", response_class=HTMLResponse)
-    def index():
-        # 列出指令、报告、jobs
-        instr_dir = ROOT / "config" / "sample_instructions"
-        instructions = []
-        if instr_dir.exists():
-            for f in sorted(instr_dir.iterdir()):
-                if f.suffix in {".md", ".json"}:
-                    instructions.append(f"config/sample_instructions/{f.name}")
+    # ============ Page Routes ============
 
-        return DASHBOARD_HTML.replace("__INSTRUCTIONS__", json.dumps(instructions))
+    @app.get("/", response_class=HTMLResponse)
+    def index(request: Request):
+        return templates.TemplateResponse("dashboard.html", {"request": request})
+
+    @app.get("/eval", response_class=HTMLResponse)
+    def eval_page(request: Request):
+        return templates.TemplateResponse("eval.html", {"request": request})
+
+    @app.get("/reports", response_class=HTMLResponse)
+    def reports_page(request: Request):
+        return templates.TemplateResponse("reports.html", {"request": request})
+
+    @app.get("/jobs", response_class=HTMLResponse)
+    def jobs_page(request: Request):
+        return templates.TemplateResponse("jobs.html", {"request": request})
+
+    @app.get("/calibration", response_class=HTMLResponse)
+    def calibration_page(request: Request):
+        return templates.TemplateResponse("calibration.html", {"request": request})
+
+    # ============ API Routes ============
+
+    @app.get("/api/instructions")
+    def api_instructions():
+        return {"instructions": _list_instructions(), "persona_meta": _list_persona_meta()}
 
     @app.get("/api/reports")
     def api_reports():
@@ -312,282 +380,12 @@ def create_app():
 
     @app.get("/files/{name}")
     def file_redirect(name: str):
-        # 防 staticfiles 不命中, fallback
         f = output_dir / name
         if not f.exists():
             raise HTTPException(404)
         return FileResponse(f)
 
     return app
-
-
-# ============ Dashboard HTML ============
-
-DASHBOARD_HTML = r"""<!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><title>评测系统 Dashboard</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f3f5f9;color:#222;line-height:1.5}
-.container{max-width:1320px;margin:0 auto;padding:18px}
-.hero{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:24px 30px;border-radius:14px;margin-bottom:18px}
-.hero h1{font-size:24px;margin-bottom:6px}
-.hero .meta{opacity:.92;font-size:13px}
-.grid{display:grid;gap:16px}
-.grid-2{grid-template-columns:1.2fr 1fr}
-.card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:14px}
-.card h2{font-size:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:2px solid #f0f2f7}
-.card h2 .badge{background:#667eea;color:#fff;font-size:10px;padding:2px 7px;border-radius:8px;font-weight:400}
-label{display:block;font-size:12px;color:#666;margin-top:8px;margin-bottom:3px}
-input,select,textarea{width:100%;padding:6px 9px;border:1px solid #d9dde6;border-radius:6px;font-size:13px;font-family:inherit}
-button{padding:8px 16px;background:#1890ff;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;margin-top:8px}
-button:hover{background:#40a9ff}
-button.ghost{background:#fff;color:#1890ff;border:1px solid #1890ff}
-button.danger{background:#f5222d}
-.row{display:flex;gap:8px;align-items:center}
-.row > *{flex:1}
-.persona-chip{display:inline-block;padding:3px 10px;margin:2px;background:#fafbfd;border:1px solid #d9dde6;border-radius:14px;cursor:pointer;font-size:11px;user-select:none}
-.persona-chip.active{background:#1890ff;color:#fff;border-color:#1890ff}
-.report-row{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #f0f2f7;font-size:12px}
-.report-row .kind{font-size:10px;padding:2px 6px;border-radius:4px;color:#fff}
-.kind-report{background:#1890ff}.kind-comparison{background:#722ed1}.kind-calibration{background:#fa8c16}
-.score{font-weight:700;color:#1890ff;min-width:50px;text-align:right}
-.btn-mini{padding:3px 9px;background:#fafbfd;color:#444;border:1px solid #d9dde6;border-radius:4px;font-size:11px;cursor:pointer;margin-left:4px;text-decoration:none;display:inline-block}
-.btn-mini:hover{background:#1890ff;color:#fff;border-color:#1890ff}
-.job-row{padding:10px 12px;background:#fafbfd;border-radius:6px;margin:6px 0;font-size:12px}
-.job-row .id{font-family:Menlo,monospace;color:#1890ff;font-size:11px}
-.status{display:inline-block;padding:1px 7px;border-radius:8px;font-size:10px;color:#fff;margin-left:6px}
-.status-running{background:#1890ff}
-.status-finished{background:#52c41a}
-.status-failed{background:#f5222d}
-.status-pending{background:#aaa}
-.log{background:#1e1e2e;color:#d9d9e2;padding:10px 12px;border-radius:6px;font-family:Menlo,monospace;font-size:11px;max-height:280px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;margin-top:8px}
-.tag{display:inline-block;padding:1px 7px;background:rgba(255,255,255,.18);border-radius:8px;font-size:10px;margin-right:5px}
-</style>
-</head>
-<body>
-<div class="container">
-
-<div class="hero">
-  <h1>📊 多轮对话评测系统 v3.0 — Dashboard</h1>
-  <div class="meta">
-    可解释 · 可量化 · 可复算 · 可对比
-    <span class="tag">12 画像</span><span class="tag">8 维度</span>
-    <span class="tag">证据三元组</span><span class="tag">Self-Consistency</span>
-    <span class="tag">分支覆盖</span>
-  </div>
-</div>
-
-<div class="grid grid-2">
-  <!-- 左: 新评测 -->
-  <div>
-    <div class="card">
-      <h2>🚀 发起新评测 <span class="badge">异步</span></h2>
-      <label>任务指令文件</label>
-      <select id="instruction">
-        <!-- JS 动态填 -->
-      </select>
-      <label>用户画像 (点击切换)</label>
-      <div id="personas">
-        <span class="persona-chip" data-p="cooperative">配合型</span>
-        <span class="persona-chip" data-p="hesitant">犹豫型</span>
-        <span class="persona-chip" data-p="resistant">抗拒型</span>
-        <span class="persona-chip" data-p="off_topic">跑题型</span>
-        <span class="persona-chip" data-p="contradictory">矛盾型</span>
-        <span class="persona-chip" data-p="busy">忙碌型</span>
-        <span class="persona-chip" data-p="confused">困惑型</span>
-        <span class="persona-chip" data-p="impatient">急躁型</span>
-        <span class="persona-chip" data-p="boundary">边界型</span>
-        <span class="persona-chip" data-p="red_team_l1">红队 L1</span>
-        <span class="persona-chip" data-p="red_team_l2">红队 L2</span>
-        <span class="persona-chip" data-p="red_team_l3">红队 L3</span>
-      </div>
-      <div class="row" style="margin-top:6px">
-        <div><label>每画像会话数</label><input id="sessions" type="number" value="1" min="1"/></div>
-        <div><label>Self-Consistency N</label><input id="sc" type="number" value="1" min="1"/></div>
-        <div><label>并发数</label><input id="conc" type="number" value="4" min="1"/></div>
-        <div><label>Seed</label><input id="seed" type="number" value="42"/></div>
-      </div>
-      <div style="margin-top:10px">
-        <label><input type="checkbox" id="branch"/> 强制分支覆盖测试</label>
-        <label><input type="checkbox" id="pdf"/> 同时导出 PDF (需 weasyprint)</label>
-      </div>
-      <div class="row" style="margin-top:10px">
-        <button onclick="startEval()">▶ 开始评测</button>
-        <button class="ghost" onclick="quickPersonas(['cooperative','busy'])">2 画像 mini</button>
-        <button class="ghost" onclick="quickPersonas(['cooperative','busy','red_team_l1'])">3 画像</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>🔬 校准回测 <span class="badge">8 case 学术级证明</span></h2>
-      <p style="font-size:12px;color:#666;margin-bottom:8px">用 8 个人工标注 case 评估 evaluator 的 MAE / Pearson-r, 证明可靠性</p>
-      <div class="row">
-        <div><label>Self-Consistency N</label><input id="cal_sc" type="number" value="1" min="1"/></div>
-      </div>
-      <button onclick="startCalibration()">▶ 开始校准回测</button>
-    </div>
-
-    <!-- 进行中 jobs -->
-    <div class="card">
-      <h2>⚙️ 任务状态 <button class="btn-mini" onclick="refreshJobs()">🔄 刷新</button></h2>
-      <div id="jobs"></div>
-    </div>
-  </div>
-
-  <!-- 右: 历史报告 -->
-  <div>
-    <div class="card">
-      <h2>📂 历史报告 <button class="btn-mini" onclick="refreshReports()">🔄 刷新</button></h2>
-      <div id="reports" style="max-height:780px;overflow-y:auto"></div>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<script>
-const INSTRUCTIONS = __INSTRUCTIONS__;
-
-document.addEventListener('DOMContentLoaded', () => {
-  // 填充指令下拉
-  const sel = document.getElementById('instruction');
-  for (const i of INSTRUCTIONS) {
-    const opt = document.createElement('option');
-    opt.value = i;
-    opt.textContent = i.split('/').pop();
-    sel.appendChild(opt);
-  }
-  // 默认勾选 cooperative
-  document.querySelector('.persona-chip[data-p="cooperative"]').classList.add('active');
-
-  // chip 点击
-  document.querySelectorAll('.persona-chip').forEach(el => {
-    el.addEventListener('click', () => el.classList.toggle('active'));
-  });
-
-  refreshReports();
-  refreshJobs();
-  setInterval(refreshJobs, 3500);
-});
-
-function getSelectedPersonas() {
-  return Array.from(document.querySelectorAll('.persona-chip.active')).map(el => el.dataset.p);
-}
-
-function quickPersonas(arr) {
-  document.querySelectorAll('.persona-chip').forEach(el => {
-    el.classList.toggle('active', arr.includes(el.dataset.p));
-  });
-}
-
-async function startEval() {
-  const payload = {
-    instruction_path: document.getElementById('instruction').value,
-    personas: getSelectedPersonas(),
-    sessions: parseInt(document.getElementById('sessions').value) || 1,
-    branch_test: document.getElementById('branch').checked,
-    self_consistency: parseInt(document.getElementById('sc').value) || 1,
-    concurrency: parseInt(document.getElementById('conc').value) || 4,
-    seed: parseInt(document.getElementById('seed').value) || null,
-    generate_pdf: document.getElementById('pdf').checked,
-  };
-  if (payload.personas.length === 0) {
-    alert('至少选择一个画像');
-    return;
-  }
-  const r = await fetch('/api/eval/start', {
-    method: 'POST', headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload),
-  });
-  const data = await r.json();
-  alert('已开始, job_id=' + data.job_id);
-  refreshJobs();
-}
-
-async function startCalibration() {
-  const payload = {self_consistency: parseInt(document.getElementById('cal_sc').value) || 1};
-  const r = await fetch('/api/calibration/start', {
-    method: 'POST', headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload),
-  });
-  const data = await r.json();
-  alert('已开始, job_id=' + data.job_id);
-  refreshJobs();
-}
-
-async function refreshReports() {
-  const r = await fetch('/api/reports');
-  const reports = await r.json();
-  const div = document.getElementById('reports');
-  if (!reports.length) {
-    div.innerHTML = '<div style="color:#999;padding:14px 0;text-align:center;font-size:12px">尚无报告</div>';
-    return;
-  }
-  div.innerHTML = reports.map(r => {
-    const s = r.summary || {};
-    const score = s.overall_score ? `<span class="score">${s.overall_score.toFixed(1)}</span>` : '';
-    const subline = s.task_name ? `<div style="font-size:11px;color:#999">${s.task_name}${s.total_sessions?(' · '+s.total_sessions+' 会话'):''}${s.overall_score_std?(' · ±'+s.overall_score_std.toFixed(1)):''}</div>` : '';
-    const links = Object.keys(r.files).map(ext => `<a class="btn-mini" href="/files/${r.files[ext]}" target="_blank">${ext.toUpperCase()}</a>`).join('');
-    return `<div class="report-row">
-      <span class="kind kind-${r.kind}">${r.kind}</span>
-      <div>
-        <div style="font-weight:500">${r.datetime}</div>
-        ${subline}
-      </div>
-      ${score}
-      <div></div>
-      <div>${links}</div>
-    </div>`;
-  }).join('');
-}
-
-async function refreshJobs() {
-  const r = await fetch('/api/jobs');
-  const jobs = await r.json();
-  const div = document.getElementById('jobs');
-  if (!jobs.length) {
-    div.innerHTML = '<div style="color:#999;padding:8px 0;text-align:center;font-size:12px">尚无任务</div>';
-    return;
-  }
-  // 最新 5 个
-  const recent = jobs.slice().sort((a,b)=>b.started_at.localeCompare(a.started_at)).slice(0, 5);
-  div.innerHTML = recent.map(j => {
-    return `<div class="job-row">
-      <div>
-        <span class="id">${j.id}</span>
-        <span class="status status-${j.status}">${j.status}</span>
-        <span style="font-size:11px;color:#666;margin-left:5px">${j.kind} · ${new Date(j.started_at).toLocaleTimeString()}</span>
-        <button class="btn-mini" onclick="toggleLog('${j.id}')">日志</button>
-        ${j.report_files && j.report_files.html ? `<a class="btn-mini" href="/files/${j.report_files.html}" target="_blank">查看报告</a>` : ''}
-      </div>
-      <div id="log-${j.id}" style="display:none"><div class="log" id="log-content-${j.id}">加载中...</div></div>
-    </div>`;
-  }).join('');
-}
-
-async function toggleLog(jobId) {
-  const div = document.getElementById('log-' + jobId);
-  if (div.style.display === 'none') {
-    div.style.display = 'block';
-    refreshJobLog(jobId);
-  } else {
-    div.style.display = 'none';
-  }
-}
-
-async function refreshJobLog(jobId) {
-  const r = await fetch(`/api/jobs/${jobId}/log?tail=120`);
-  const data = await r.json();
-  const c = document.getElementById('log-content-' + jobId);
-  if (c) c.textContent = data.lines.join('\n') || '(无日志)';
-  // 如果 running 持续刷
-  if (data.status === 'running') {
-    setTimeout(() => refreshJobLog(jobId), 2000);
-  }
-}
-</script>
-</body></html>
-"""
 
 
 def main():

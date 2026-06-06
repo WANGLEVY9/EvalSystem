@@ -1,0 +1,100 @@
+/* ===== EvalSystem Custom Styles ===== */
+
+/* Smooth transitions */
+.transition-page {
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+.dark ::-webkit-scrollbar-thumb { background: #475569; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+/* Log viewer */
+.log-viewer {
+  font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Persona chip transitions */
+.persona-chip {
+  transition: all 0.15s ease;
+}
+.persona-chip:hover {
+  transform: translateY(-1px);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -8px rgba(0,0,0,0.15);
+}
+
+/* Score bar animation */
+.score-bar {
+  transition: width 0.8s ease-out;
+}
+
+/* Pulse animation for running jobs */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.pulse-dot {
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+/* Dark mode transitions */
+html { transition: background-color 0.3s; }
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Empty state illustrations */
+.empty-state svg { opacity: 0.4; }
+
+/* Radio/checkbox custom styles */
+input[type="radio"]:checked + label,
+input[type="checkbox"]:checked + label {
+  border-color: #667eea;
+  background-color: #eef2ff;
+}
+.dark input[type="radio"]:checked + label,
+.dark input[type="checkbox"]:checked + label {
+  border-color: #818cf8;
+  background-color: #1e1b4b;
+}
+
+/* Toast notifications */
+.toast {
+  animation: toast-in 0.3s ease-out, toast-out 0.3s ease-in 3.7s forwards;
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes toast-out {
+  from { opacity: 1; }
+  to { opacity: 0; transform: translateY(-12px); }
+}
+
+/* Print styles */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white !important; color: black !important; }
+}

@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block title %}任务监控 · EvalSystem{% endblock %}
+{% block content %}
+<div x-data="jobsPage()" class="max-w-7xl mx-auto space-y-6">
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">⚙️ 任务监控</h1>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">查看所有评测任务的实时状态和日志输出。</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="text-xs text-gray-500 dark:text-gray-400">
+        <span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-1"></span> 自动刷新中
+      </span>
+      <button @click="fetchJobs()" class="px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        刷新
+      </button>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="grid grid-cols-4 gap-4">
+    <div class="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+      <div class="text-2xl font-bold text-gray-900 dark:text-white" x-text="jobs.length"></div>
+      <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">总任务</div>
+    </div>
+    <div class="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+      <div class="text-2xl font-bold text-primary-600 dark:text-primary-400" x-text="jobs.filter(j => j.status === 'running').length"></div>
+      <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">运行中</div>
+    </div>
+    <div class="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+      <div class="text-2xl font-bold text-green-600 dark:text-green-400" x-text="jobs.filter(j => j.status === 'finished').length"></div>
+      <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">已完成</div>
+    </div>
+    <div class="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+      <div class="text-2xl font-bold text-red-600 dark:text-red-400" x-text="jobs.filter(j => j.status === 'failed').length"></div>
+      <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">失败</div>
+    </div>
+  </div>
+
+  <!-- Job List -->
+  <div class="space-y-4">
+    <div x-show="loading" class="bg-white dark:bg-gray-900 rounded-xl p-12 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+      <div class="spinner mx-auto mb-3"></div>
+      <div class="text-sm text-gray-400 dark:text-gray-500">加载中...</div>
+    </div>
+
+    <template x-for="j in sortedJobs" :key="j.id">
+      <div class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden">
+        <!-- Job header -->
+        <div class="flex items-center gap-3 px-5 py-3.5 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+             @click="toggleLog(j.id)">
+          <span class="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                :class="{'bg-primary-500 pulse-dot': j.status==='running', 'bg-green-500': j.status==='finished', 'bg-red-500': j.status==='failed', 'bg-gray-400': j.status==='pending'}"></span>
+          <span class="font-mono text-xs text-primary-600 dark:text-primary-400 font-medium" x-text="j.id"></span>
+          <span class="px-2 py-0.5 rounded-full text-xs font-medium text-white"
+                :class="{'bg-primary-500': j.status==='running', 'bg-green-500': j.status==='finished', 'bg-red-500': j.status==='failed', 'bg-gray-400': j.status==='pending'}"
+                x-text="j.status"></span>
+          <span class="text-xs text-gray-500 dark:text-gray-400" x-text="j.kind"></span>
+          <span class="text-xs text-gray-400 dark:text-gray-500" x-text="formatTime(j.started_at)"></span>
+          <div class="ml-auto flex items-center gap-2">
+            <span class="text-xs text-gray-400 dark:text-gray-500" x-text="j.n_log_lines + ' lines'"></span>
+            <svg class="w-4 h-4 text-gray-400 transition-transform" :class="openLogs.has(j.id) ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </div>
+
+        <!-- Log viewer -->
+        <div x-show="openLogs.has(j.id)" x-cloak>
+          <div class="border-t border-gray-200 dark:border-gray-800 bg-gray-900 text-gray-100">
+            <div class="flex items-center justify-between px-5 py-2 border-b border-gray-800">
+              <span class="text-xs text-gray-500 font-mono">日志输出</span>
+              <span x-show="j.status === 'running'" class="flex items-center gap-1.5 text-xs text-primary-400">
+                <span class="pulse-dot w-1.5 h-1.5 rounded-full bg-primary-400"></span> 实时更新
+              </span>
+            </div>
+            <div class="log-viewer p-4 max-h-96 overflow-y-auto" :id="'log-' + j.id">
+              <div class="text-gray-600">点击「加载日志」查看输出</div>
+            </div>
+            <div class="px-5 py-2 border-t border-gray-800 flex gap-2">
+              <button @click.stop="loadLog(j.id)" class="text-xs px-3 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors">加载日志</button>
+              <button @click.stop="autoRefreshLog(j.id)" class="text-xs px-3 py-1 rounded bg-primary-900 text-primary-300 hover:bg-primary-800 transition-colors">自动刷新</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Report link -->
+        <div x-show="j.report_files?.html" class="px-5 py-2 bg-gray-50 dark:bg-gray-850 border-t border-gray-100 dark:border-gray-800">
+          <a :href="'/files/' + j.report_files.html" target="_blank" class="text-xs text-primary-600 dark:text-primary-400 hover:underline flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            查看报告
+          </a>
+        </div>
+      </div>
+    </template>
+
+    <!-- Empty State -->
+    <div x-show="!loading && jobs.length === 0" class="bg-white dark:bg-gray-900 rounded-xl p-12 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+      <div class="text-4xl mb-3 opacity-30">📋</div>
+      <div class="text-sm text-gray-400 dark:text-gray-500">
+        尚无评测任务 —
+        <a href="/eval" class="text-primary-600 dark:text-primary-400 hover:underline">发起第一个评测</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function jobsPage() {
+  return {
+    jobs: [],
+    loading: true,
+    openLogs: new Set(),
+
+    get sortedJobs() {
+      return [...this.jobs].sort((a, b) => b.started_at.localeCompare(a.started_at));
+    },
+
+    init() {
+      this.fetchJobs();
+      // Auto refresh jobs list every 3s
+      this._interval = setInterval(() => this.fetchJobs(), 3000);
+    },
+
+    destroy() {
+      if (this._interval) clearInterval(this._interval);
+    },
+
+    toggleLog(jobId) {
+      if (this.openLogs.has(jobId)) {
+        this.openLogs.delete(jobId);
+      } else {
+        this.openLogs.add(jobId);
+        this.loadLog(jobId);
+      }
+    },
+
+    async fetchJobs() {
+      try {
+        this.jobs = await apiGet('/api/jobs');
+      } catch (e) {
+        // silent retry
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async loadLog(jobId) {
+      try {
+        const data = await apiGet(`/api/jobs/${jobId}/log?tail=200`);
+        const el = document.getElementById('log-' + jobId);
+        if (el) {
+          el.textContent = data.lines.join('\n') || '(无日志)';
+          el.scrollTop = el.scrollHeight;
+        }
+      } catch (e) {
+        const el = document.getElementById('log-' + jobId);
+        if (el) el.textContent = '(加载失败: ' + e.message + ')';
+      }
+    },
+
+    async autoRefreshLog(jobId) {
+      await this.loadLog(jobId);
+      const job = this.jobs.find(j => j.id === jobId);
+      if (job && (job.status === 'running' || job.status === 'pending')) {
+        setTimeout(() => this.autoRefreshLog(jobId), 2500);
+      }
+    },
+  };
+}
+</script>
+{% endblock %}

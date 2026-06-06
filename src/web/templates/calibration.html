@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block title %}校准回测 · EvalSystem{% endblock %}
+{% block content %}
+<div x-data="calibrationPage()" class="max-w-5xl mx-auto space-y-6">
+  <!-- Header -->
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">🔬 校准回测</h1>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+      用 8 个人工标注 case 评估自动评估器的可靠性，计算 MAE（平均绝对误差）、Pearson 相关系数等指标。
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Left: Controls -->
+    <div class="space-y-4">
+      <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+        <h2 class="text-base font-bold text-gray-900 dark:text-white mb-3">运行校准</h2>
+        <div class="mb-4">
+          <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Self-Consistency N</label>
+          <input type="number" x-model="sc" min="1" max="10" class="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500">
+        </div>
+        <button @click="runCalibration()" :disabled="running"
+                class="w-full py-2.5 rounded-xl text-white font-semibold text-sm transition-all"
+                :class="running ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-primary-500 to-purple-600 hover:from-primary-600 hover:to-purple-700 shadow-lg shadow-primary-500/25'">
+          <span x-show="!running">▶ 开始校准回测</span>
+          <span x-show="running" class="flex items-center justify-center gap-2">
+            <span class="spinner !w-4 !h-4 !border-2 !border-white/30 !border-t-white"></span>
+            校准进行中...
+          </span>
+        </button>
+      </div>
+
+      <div class="bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 rounded-xl p-5 border border-orange-100 dark:border-orange-900/30">
+        <h3 class="text-sm font-bold text-orange-800 dark:text-orange-200 mb-2">📖 关于校准</h3>
+        <ul class="text-xs text-orange-700 dark:text-orange-300 space-y-1.5">
+          <li>• 内置 8 个人工标注的对话评测 case</li>
+          <li>• 对比自动评分与人工评分的差异</li>
+          <li>• MAE &lt; 10 表示评估器可靠</li>
+          <li>• Pearson-r &gt; 0.9 表示强相关性</li>
+          <li>• 建议 SC ≥ 3 以获得稳定结果</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right: Results -->
+    <div class="lg:col-span-2 space-y-4">
+      <div x-show="!results && !running" class="bg-white dark:bg-gray-900 rounded-xl p-12 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+        <div class="text-5xl mb-4 opacity-30">📊</div>
+        <div class="text-sm text-gray-400 dark:text-gray-500">尚未运行校准回测，点击左侧按钮开始。</div>
+      </div>
+
+      <div x-show="running && !results" class="bg-white dark:bg-gray-900 rounded-xl p-12 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+        <div class="spinner mx-auto mb-3"></div>
+        <div class="text-sm text-gray-500 dark:text-gray-400">正在运行校准回测，请稍候...</div>
+      </div>
+
+      <div x-show="results" class="space-y-4">
+        <!-- Key Metrics -->
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+            <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">MAE</div>
+            <div class="mt-1 text-3xl font-bold" :class="(results.metrics?.mae || 0) < 5 ? 'text-green-600 dark:text-green-400' : 'text-yellow-600 dark:text-yellow-400'" x-text="(results.metrics?.mae || 0).toFixed(2)"></div>
+            <div class="text-xs text-gray-400 dark:text-gray-500 mt-1">平均绝对误差</div>
+          </div>
+          <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+            <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Pearson r</div>
+            <div class="mt-1 text-3xl font-bold" :class="(results.metrics?.pearson_r || 0) > 0.9 ? 'text-green-600 dark:text-green-400' : 'text-yellow-600 dark:text-yellow-400'" x-text="(results.metrics?.pearson_r || 0).toFixed(3)"></div>
+            <div class="text-xs text-gray-400 dark:text-gray-500 mt-1">相关系数</div>
+          </div>
+          <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
+            <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">通过率</div>
+            <div class="mt-1 text-3xl font-bold text-green-600 dark:text-green-400" x-text="(results.metrics?.within_tolerance_rate || 0) * 100 + '%'"></div>
+            <div class="text-xs text-gray-400 dark:text-gray-500 mt-1">容差范围内</div>
+          </div>
+        </div>
+
+        <!-- Individual Cases -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden">
+          <div class="px-5 py-3 border-b border-gray-200 dark:border-gray-800">
+            <h2 class="text-sm font-bold text-gray-900 dark:text-white">各 Case 详情</h2>
+          </div>
+          <div class="divide-y divide-gray-100 dark:divide-gray-800">
+            <template x-for="(case_item, idx) in results.cases || []" :key="idx">
+              <div class="px-5 py-3.5">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-sm font-medium text-gray-900 dark:text-white" x-text="'Case ' + (idx + 1)"></span>
+                  <span class="text-xs text-gray-500 dark:text-gray-400" x-text="case_item.session_id || ''"></span>
+                </div>
+                <div class="flex items-center gap-4 text-sm">
+                  <span>自动: <span class="font-bold" :class="scoreColor(case_item.auto_score)" x-text="case_item.auto_score?.toFixed(1)"></span></span>
+                  <span>人工: <span class="font-bold text-gray-900 dark:text-white" x-text="case_item.human_score?.toFixed(1)"></span></span>
+                  <span x-show="case_item.delta != null" class="text-xs text-gray-500 dark:text-gray-400">差值: <span :class="Math.abs(case_item.delta) < 10 ? 'text-green-600' : 'text-red-600'" x-text="(case_item.delta > 0 ? '+' : '') + case_item.delta.toFixed(1)"></span></span>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Report Links -->
+        <div x-show="resultFiles" class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+          <h2 class="text-sm font-bold text-gray-900 dark:text-white mb-2">📄 报告文件</h2>
+          <div class="flex gap-2">
+            <a x-show="resultFiles?.html" :href="'/files/' + resultFiles.html" target="_blank" class="px-4 py-2 rounded-lg text-sm font-medium bg-primary-500 text-white hover:bg-primary-600 transition-colors">查看完整 HTML 报告</a>
+            <a x-show="resultFiles?.json" :href="'/files/' + resultFiles.json" target="_blank" class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">JSON 数据</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function calibrationPage() {
+  return {
+    sc: 3,
+    running: false,
+    results: null,
+    resultFiles: null,
+
+    async runCalibration() {
+      this.running = true;
+      this.results = null;
+      this.resultFiles = null;
+      try {
+        const data = await apiPost('/api/calibration/start', {
+          self_consistency: parseInt(this.sc) || 1,
+        });
+        showToast('校准已启动! Job ID: ' + data.job_id, 'success');
+
+        // Poll for completion
+        const poll = setInterval(async () => {
+          try {
+            const allJobs = await apiGet('/api/jobs');
+            const job = allJobs.find(j => j.id === data.job_id);
+            if (job && job.status === 'finished') {
+              clearInterval(poll);
+              this.running = false;
+              this.resultFiles = job.report_files;
+              // Load results from JSON
+              if (job.report_files?.json) {
+                const r = await fetch('/files/' + job.report_files.json);
+                this.results = await r.json();
+              }
+              showToast('校准完成!', 'success');
+            } else if (job && job.status === 'failed') {
+              clearInterval(poll);
+              this.running = false;
+              showToast('校准失败: ' + (job.error || '未知错误'), 'error');
+            }
+          } catch (e) { /* retry */ }
+        }, 2000);
+      } catch (e) {
+        showToast('启动失败: ' + e.message, 'error');
+        this.running = false;
+      }
+    },
+  };
+}
+</script>
+{% endblock %}

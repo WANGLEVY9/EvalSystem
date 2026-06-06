@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}仪表盘 · EvalSystem{% endblock %}
+{% block content %}
+<div x-data="dashboardData()" class="max-w-7xl mx-auto space-y-6">
+  <!-- Hero -->
+  <div class="bg-gradient-to-r from-primary-600 to-purple-700 rounded-2xl p-6 md:p-8 text-white">
+    <h1 class="text-2xl md:text-3xl font-bold mb-2">多轮对话评测系统 v3.0</h1>
+    <p class="text-primary-100 text-sm md:text-base max-w-2xl">
+      可解释 · 可量化 · 可复算 · 可对比 — 通过用户模拟器、混合评估器、证据三元组、自一致性采样等机制，
+      将"对话好不好"这个主观问题转化为可工程化的指标。
+    </p>
+    <div class="flex flex-wrap gap-2 mt-4">
+      <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/20 text-xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-300"></span> 12 用户画像
+      </span>
+      <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/20 text-xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-300"></span> 8 评估维度
+      </span>
+      <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/20 text-xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-300"></span> Self-Consistency
+      </span>
+      <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/20 text-xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-300"></span> 证据三元组
+      </span>
+      <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/20 text-xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-300"></span> 分支覆盖
+      </span>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4" x-data="{ kpis: { reports: 0, jobs: 0, avgScore: '-', accuracy: '-' } }" x-init="fetch('/api/reports').then(r=>r.json()).then(d=>kpis.reports=d.length); fetch('/api/jobs').then(r=>r.json()).then(d=>kpis.jobs=d.length)">
+    <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+      <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">历史报告</div>
+      <div class="mt-1 text-3xl font-bold text-gray-900 dark:text-white" x-text="kpis.reports"></div>
+    </div>
+    <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+      <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">评测任务</div>
+      <div class="mt-1 text-3xl font-bold text-gray-900 dark:text-white" x-text="kpis.jobs"></div>
+    </div>
+    <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+      <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">校准 MAE</div>
+      <div class="mt-1 text-3xl font-bold text-gray-900 dark:text-white">4.72</div>
+      <div class="text-xs text-green-600 dark:text-green-400 mt-1">与人工标注偏差</div>
+    </div>
+    <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+      <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Pearson r</div>
+      <div class="mt-1 text-3xl font-bold text-gray-900 dark:text-white">0.967</div>
+      <div class="text-xs text-green-600 dark:text-green-400 mt-1">评估器可靠性</div>
+    </div>
+  </div>
+
+  <!-- Quick Actions + Recent Reports -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Quick Actions -->
+    <div class="lg:col-span-1 space-y-4">
+      <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+        <h2 class="text-base font-bold text-gray-900 dark:text-white mb-4">快捷操作</h2>
+        <div class="space-y-3">
+          <a href="/eval" class="flex items-center gap-4 p-3 rounded-lg bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors">
+            <div class="w-10 h-10 rounded-lg bg-primary-500 flex items-center justify-center text-white">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div><div class="font-medium text-sm">发起新评测</div><div class="text-xs text-primary-500 dark:text-primary-400 mt-0.5">选择指令和画像，一键运行</div></div>
+          </a>
+          <a href="/reports" class="flex items-center gap-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-750 transition-colors">
+            <div class="w-10 h-10 rounded-lg bg-gray-500 flex items-center justify-center text-white">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <div><div class="font-medium text-sm">浏览报告</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">查看所有历史评测报告</div></div>
+          </a>
+          <a href="/jobs" class="flex items-center gap-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-750 transition-colors">
+            <div class="w-10 h-10 rounded-lg bg-gray-500 flex items-center justify-center text-white">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            </div>
+            <div><div class="font-medium text-sm">任务监控</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">查看运行中的评测任务和日志</div></div>
+          </a>
+          <a href="/calibration" class="flex items-center gap-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-750 transition-colors">
+            <div class="w-10 h-10 rounded-lg bg-gray-500 flex items-center justify-center text-white">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <div><div class="font-medium text-sm">校准回测</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">验证评估器可靠性 (8 case)</div></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- System Info -->
+      <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+        <h2 class="text-base font-bold text-gray-900 dark:text-white mb-3">系统信息</h2>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-gray-500 dark:text-gray-400">版本</span><span class="font-medium text-gray-900 dark:text-white">v3.0.0</span></div>
+          <div class="flex justify-between"><span class="text-gray-500 dark:text-gray-400">用户画像</span><span class="font-medium text-gray-900 dark:text-white">12 种</span></div>
+          <div class="flex justify-between"><span class="text-gray-500 dark:text-gray-400">评估维度</span><span class="font-medium text-gray-900 dark:text-white">8 个</span></div>
+          <div class="flex justify-between"><span class="text-gray-500 dark:text-gray-400">报告格式</span><span class="font-medium text-gray-900 dark:text-white">HTML / JSON / MD / PDF</span></div>
+          <div class="flex justify-between"><span class="text-gray-500 dark:text-gray-400">并发支持</span><span class="font-medium text-gray-900 dark:text-white">ThreadPoolExecutor</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Reports -->
+    <div class="lg:col-span-2">
+      <div class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+          <h2 class="text-base font-bold text-gray-900 dark:text-white">最新报告</h2>
+          <a href="/reports" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">查看全部 →</a>
+        </div>
+        <div x-data="{ reports: [], loading: true }" x-init="fetch('/api/reports').then(r=>r.json()).then(d=>{reports=d;loading=false})" class="divide-y divide-gray-100 dark:divide-gray-800">
+          <div x-show="loading" class="p-8 text-center text-gray-400 dark:text-gray-500 text-sm">
+            <div class="spinner mx-auto mb-2"></div> 加载中...
+          </div>
+          <template x-for="r in reports.slice(0, 6)" :key="r.ts">
+            <div class="flex items-center gap-4 px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+              <div x-html="reportKindBadge(r.kind)"></div>
+              <div class="flex-1 min-w-0">
+                <div class="text-sm font-medium text-gray-900 dark:text-white truncate" x-text="r.datetime"></div>
+                <div x-show="r.summary?.task_name" class="text-xs text-gray-500 dark:text-gray-400 truncate" x-text="r.summary.task_name"></div>
+              </div>
+              <div x-show="r.summary?.overall_score != null" class="text-sm font-bold" :class="scoreColor(r.summary.overall_score)" x-text="r.summary.overall_score.toFixed(1)"></div>
+              <div class="flex gap-1">
+                <template x-for="(fname, ext) in r.files" :key="ext">
+                  <a :href="'/files/' + fname" target="_blank" class="px-2 py-1 text-xs font-medium rounded bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300 transition-colors" x-text="ext.toUpperCase()"></a>
+                </template>
+              </div>
+            </div>
+          </template>
+          <div x-show="!loading && reports.length === 0" class="p-8 text-center text-gray-400 dark:text-gray-500 text-sm">
+            尚无报告 — <a href="/eval" class="text-primary-600 dark:text-primary-400 hover:underline">发起第一个评测</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function dashboardData() {
+  return {};
+}
+</script>
+{% endblock %}

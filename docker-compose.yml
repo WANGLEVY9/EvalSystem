@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  evalsystem:
+    build: .
+    container_name: evalsystem
+    ports:
+      - "8765:8765"
+    environment:
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:?请设置 DEEPSEEK_API_KEY 环境变量}
+      - TZ=Asia/Shanghai
+    volumes:
+      # Mount config and output directories for persistence
+      - ./config:/app/config
+      - ./output:/app/output
+    restart: unless-stopped
