@@ -312,6 +312,38 @@ def create_app():
     def api_instructions():
         return {"instructions": _list_instructions(), "persona_meta": _list_persona_meta()}
 
+    @app.post("/api/instructions/upload")
+    async def api_instructions_upload(request: Request):
+        body = await request.body()
+        filename = request.query_params.get("filename", "")
+        if not body or not filename:
+            raise HTTPException(400, "missing file or filename")
+        if not any(filename.lower().endswith(ext) for ext in (".md", ".json")):
+            raise HTTPException(400, "仅支持 .md 和 .json 文件")
+        safe_name = Path(filename).name
+        instr_dir = ROOT / "config" / "sample_instructions"
+        instr_dir.mkdir(parents=True, exist_ok=True)
+        dest = instr_dir / safe_name
+        if dest.exists():
+            raise HTTPException(409, f"文件已存在: {safe_name}")
+        dest.write_bytes(body)
+        logger.info(f"指令文件已上传: {safe_name} ({len(body)} bytes)")
+        return {"path": f"config/sample_instructions/{safe_name}", "filename": safe_name}
+
+    @app.delete("/api/instructions/{name:path}")
+    def api_instructions_delete(name: str):
+        safe_name = Path(name).name
+        if not any(safe_name.lower().endswith(ext) for ext in (".md", ".json")):
+            raise HTTPException(400, "仅支持删除 .md 和 .json 文件")
+        instr_dir = ROOT / "config" / "sample_instructions"
+        dest = instr_dir / safe_name
+        if not dest.exists():
+            raise HTTPException(404, f"文件不存在: {safe_name}")
+        # Only allow deleting files that are not in the original sample set
+        dest.unlink()
+        logger.info(f"指令文件已删除: {safe_name}")
+        return {"deleted": safe_name}
+
     @app.get("/api/reports")
     def api_reports():
         return list_reports()

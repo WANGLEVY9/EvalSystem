@@ -22,6 +22,28 @@
         </select>
         <div x-show="form.instruction_path" class="mt-2 text-xs text-gray-500 dark:text-gray-400" x-text="'路径: ' + form.instruction_path"></div>
         <div x-show="!form.instruction_path" class="mt-2 text-xs text-amber-600 dark:text-amber-400">请选择一个任务指令文件</div>
+
+        <!-- Upload -->
+        <div class="mt-4 pt-4 border-t border-dashed border-gray-200 dark:border-gray-700">
+          <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">或者上传新的指令文件：</div>
+          <div @dragover.prevent="$event.dataTransfer.dropEffect = 'copy'"
+               @drop.prevent="handleDrop($event)"
+               @click="document.getElementById('file-input').click()"
+               class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
+               :class="uploading ? 'opacity-50 pointer-events-none' : ''">
+            <div x-show="!uploading">
+              <svg class="w-8 h-8 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+              <div class="mt-1 text-sm text-gray-500 dark:text-gray-400">点击或拖拽上传（.md / .json）</div>
+            </div>
+            <div x-show="uploading" class="flex items-center justify-center gap-2">
+              <span class="spinner !w-5 !h-5"></span>
+              <span class="text-sm text-gray-500">上传中...</span>
+            </div>
+          </div>
+          <input id="file-input" type="file" accept=".md,.json" class="hidden" @change="handleFileSelect($event)">
+          <div x-show="uploadError" class="mt-2 text-xs text-red-600 dark:text-red-400" x-text="uploadError"></div>
+          <div x-show="uploadSuccess" class="mt-2 text-xs text-green-600 dark:text-green-400" x-text="uploadSuccess"></div>
+        </div>
       </div>
 
       <!-- Persona Selector -->
@@ -179,14 +201,63 @@ function evalForm() {
     },
     selectedPersonas: ['cooperative'],
     running: false,
+    uploading: false,
+    uploadError: '',
+    uploadSuccess: '',
     PERSONA_META: window.PERSONA_META || {},
 
     init() {
+      this.fetchInstructions();
+      this.setPreset('mini');
+    },
+
+    fetchInstructions() {
       fetch('/api/instructions')
         .then(r => r.json())
         .then(data => { this.instructions = data.instructions || []; })
         .catch(() => {});
-      this.setPreset('mini');
+    },
+
+    async handleDrop(event) {
+      const file = event.dataTransfer.files[0];
+      if (file) await this.uploadFile(file);
+    },
+
+    async handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (file) await this.uploadFile(file);
+      event.target.value = '';
+    },
+
+    async uploadFile(file) {
+      const ext = '.' + file.name.split('.').pop().toLowerCase();
+      if (!['.md', '.json'].includes(ext)) {
+        this.uploadError = '仅支持 .md 和 .json 文件';
+        this.uploadSuccess = '';
+        setTimeout(() => this.uploadError = '', 3000);
+        return;
+      }
+      this.uploading = true;
+      this.uploadError = '';
+      this.uploadSuccess = '';
+      try {
+        const buf = await file.arrayBuffer();
+        const r = await fetch('/api/instructions/upload?filename=' + encodeURIComponent(file.name), {
+          method: 'POST',
+          body: buf,
+        });
+        if (!r.ok) throw new Error((await r.json()).detail || r.statusText);
+        const data = await r.json();
+        this.uploadSuccess = file.name + ' 上传成功';
+        this.form.instruction_path = data.path;
+        this.fetchInstructions();
+        setTimeout(() => this.uploadSuccess = '', 3000);
+      } catch (e) {
+        this.uploadError = '上传失败: ' + e.message;
+        setTimeout(() => this.uploadError = '', 5000);
+      } finally {
+        this.uploading = false;
+      }
     },
 
     togglePersona(key) {

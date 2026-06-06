@@ -160,6 +160,18 @@ tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',1
               <option value="">— 选择指令文件 —</option>
             </select>
             <div id="instr-path" class="mt-2 text-xs text-gray-500 hidden"></div>
+            <!-- Upload -->
+            <div class="mt-4 pt-4 border-t border-dashed border-gray-200 dark:border-gray-700">
+              <div class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">或者上传新的指令文件：</div>
+              <div id="upload-zone"
+                   class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
+                   onclick="document.getElementById('file-input').click()">
+                <svg class="w-8 h-8 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                <div class="mt-1 text-sm text-gray-500 dark:text-gray-400">点击或拖拽上传（.md / .json）</div>
+              </div>
+              <input id="file-input" type="file" accept=".md,.json" class="hidden" onchange="handleFileUpload(this.files[0])">
+              <div id="upload-status" class="mt-2 text-xs"></div>
+            </div>
           </div>
           <!-- Persona -->
           <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
@@ -286,6 +298,49 @@ tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',1
 
 <script src="static/app.js"></script>
 <script>
+// File upload handler
+async function handleFileUpload(file) {
+  const status = document.getElementById('upload-status');
+  if (!file) return;
+  const ext = '.' + file.name.split('.').pop().toLowerCase();
+  if (!['.md', '.json'].includes(ext)) {
+    status.className = 'mt-2 text-xs text-red-600';
+    status.textContent = '仅支持 .md 和 .json 文件';
+    return;
+  }
+  status.className = 'mt-2 text-xs text-blue-600';
+  status.textContent = '上传中...';
+  try {
+    const buf = await file.arrayBuffer();
+    const r = await fetch(API + '/api/instructions/upload?filename=' + encodeURIComponent(file.name), {
+      method: 'POST',
+      body: buf,
+    });
+    if (!r.ok) throw new Error((await r.json()).detail || r.statusText);
+    const data = await r.json();
+    status.className = 'mt-2 text-xs text-green-600';
+    status.textContent = file.name + ' 上传成功';
+    evalForm.instruction_path = data.path;
+    // Refresh instruction list
+    const r = await apiGet('/api/instructions');
+    const sel = document.getElementById('instr-select');
+    sel.innerHTML = '<option value="">— 选择指令文件 —</option>' + r.instructions.map(i => `<option value="${i}" ${i === data.path ? 'selected' : ''}>${i.split('/').pop()}</option>`).join('');
+    setTimeout(() => status.textContent = '', 3000);
+  } catch (e) {
+    status.className = 'mt-2 text-xs text-red-600';
+    status.textContent = '上传失败: ' + e.message;
+  }
+}
+// Drag-and-drop support for upload zone
+document.addEventListener('DOMContentLoaded', () => {
+  const zone = document.getElementById('upload-zone');
+  if (zone) {
+    zone.addEventListener('dragover', e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; zone.classList.add('border-primary-400'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('border-primary-400'));
+    zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('border-primary-400'); handleFileUpload(e.dataTransfer.files[0]); });
+  }
+});
+
 // Initialize persona chips
 function renderPersonaChips() {
   const grid = document.getElementById('persona-grid');
