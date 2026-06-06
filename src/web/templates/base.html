@@ -26,6 +26,77 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
 </head>
 <body x-data="{ sidebarOpen: false }" class="min-h-screen flex">
+  <!-- Welcome Modal (first visit) -->
+  <div id="welcome-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity">
+    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full mx-4 overflow-hidden border border-gray-200 dark:border-gray-700">
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-primary-600 to-purple-700 px-6 py-5 text-white">
+        <div class="flex items-center gap-3 mb-1">
+          <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-xl font-bold">E</div>
+          <div>
+            <h2 class="text-lg font-bold">EvalSystem v3.1</h2>
+            <p class="text-sm text-primary-100">多轮对话指令遵循自动评测系统</p>
+          </div>
+        </div>
+      </div>
+      <!-- Body -->
+      <div class="px-6 py-5 space-y-4">
+        <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          本系统面向<strong class="text-gray-900 dark:text-white">履约数字人外呼场景</strong>，通过<strong class="text-gray-900 dark:text-white">用户模拟器</strong>与<strong class="text-gray-900 dark:text-white">混合评估引擎</strong>，对对话模型在复杂任务指令下的指令遵循能力进行<strong class="text-gray-900 dark:text-white">可解释、可量化、可复算</strong>的全自动评估。
+        </p>
+
+        <!-- Key Metrics -->
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-3 text-center">
+            <div class="text-xs text-primary-600 dark:text-primary-400 font-medium">校准 MAE</div>
+            <div class="text-xl font-bold text-primary-700 dark:text-primary-300">4.72</div>
+            <div class="text-xs text-primary-500 dark:text-primary-400">与人工偏差极小</div>
+          </div>
+          <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 text-center">
+            <div class="text-xs text-purple-600 dark:text-purple-400 font-medium">Pearson r</div>
+            <div class="text-xl font-bold text-purple-700 dark:text-purple-300">0.967</div>
+            <div class="text-xs text-purple-500 dark:text-purple-400">与人工高度相关</div>
+          </div>
+        </div>
+
+        <!-- Feature Tags -->
+        <div class="flex flex-wrap gap-1.5">
+          <span class="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-400">12 用户画像</span>
+          <span class="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-400">8 评估维度</span>
+          <span class="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-400">证据三元组</span>
+          <span class="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-400">Self-Consistency</span>
+          <span class="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-400">强制分支覆盖</span>
+          <span class="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-400">红队分层测试</span>
+          <span class="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-400">短板诊断</span>
+          <span class="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-400">HTML / PDF / MD / JSON 报告</span>
+        </div>
+
+        <p class="text-xs text-gray-400 dark:text-gray-500 leading-relaxed">
+          通过「发起评测」选择任务指令和用户画像配置参数；「评测报告」浏览历史结果；「校准回测」验证评估器可靠性。支持 Docker / Railway / Vercel 部署。
+        </p>
+      </div>
+      <!-- Footer -->
+      <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800 flex justify-end">
+        <button onclick="dismissWelcome()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary-500 to-purple-600 text-white text-sm font-semibold hover:from-primary-600 hover:to-purple-700 shadow-lg shadow-primary-500/25 transition-all">
+          开始体验 →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function dismissWelcome() {
+    localStorage.setItem('evalsystem-welcome', '1');
+    document.getElementById('welcome-modal').classList.add('opacity-0', 'pointer-events-none');
+    setTimeout(() => document.getElementById('welcome-modal').remove(), 300);
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('evalsystem-welcome')) {
+      document.getElementById('welcome-modal').classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => document.getElementById('welcome-modal').remove(), 300);
+    }
+  });
+  </script>
   <!-- Sidebar -->
   <aside class="no-print fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-auto {{ '-translate-x-full' if not sidebar_open else '' }}"
          :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"

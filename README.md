@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Status](https://img.shields.io/badge/Status-v3.0-green.svg)](#)
+[![Status](https://img.shields.io/badge/Status-v3.1-green.svg)](#)
 
 > 一套面向**复杂任务指令下的多轮对话模型**的全自动评估框架。
 > 通过用户模拟器、混合评估器、证据三元组、自一致性采样等机制，把"对话好不好"这个主观问题转化为**可解释、可量化、可复算**的工程指标。
@@ -149,9 +149,11 @@
                             │
             ┌──────────────────────────────────┐
             │  Web Dashboard (FastAPI)          │
-            │  • 历史报告浏览                   │
-            │  • 一键发起评测 (实时日志流)      │
-            │  • 校准回测启动                   │
+            │  • 5 页面 SPA 仪表盘              │
+            │  • 历史报告浏览/一键评测/校准     │
+            │  • 文件拖拽上传                   │
+            │  • Tailwind + Alpine.js 深色模式  │
+            │  • Docker / Railway / Vercel 部署 │
             └──────────────────────────────────┘
 ```
 
@@ -166,7 +168,10 @@
 | 模板引擎 | **Jinja2** | HTML 报告模板 |
 | 可视化 | **HTML5 Canvas + SVG** | 雷达图 / 热力图 / DAG，零前端依赖 |
 | Web Dashboard | **FastAPI + Uvicorn** | 历史报告浏览 + 远程启动评测 |
+| 前端框架 | **Tailwind CSS + Alpine.js** | 零构建步骤，SPA 风格交互，深色模式 |
+| 独立前端 | **Vercel SPA** | 与后端分离部署（hash 路由） |
 | PDF 导出 | **WeasyPrint** | 用 SVG 替代 Canvas，PDF 中图表正确渲染 |
+| 容器化 | **Docker / Docker Compose** | 一键部署到 Railway / 自有服务器 |
 | 校准回测 | **NumPy/SciPy 风格的纯 Python 实现** | MAE / Pearson-r 计算无重依赖 |
 
 ---
@@ -440,11 +445,37 @@ python -m src.web_dashboard
 # 浏览器打开 http://127.0.0.1:8765/
 ```
 
-功能：
-- 📂 历史报告浏览（HTML/JSON/MD/PDF 一键打开）
-- ▶ 一键发起新评测（画像可视化选择 + 实时日志流）
-- 🔬 一键启动校准回测
-- ⚙️ 任务状态实时刷新
+FastAPI 构建的全功能 Web 管理界面，使用 **Tailwind CSS CDN + Alpine.js** 构建零构建步骤的现代化 UI，支持深色模式。
+
+#### 页面功能
+
+| 页面 | 路由 | 功能 |
+|------|------|------|
+| **仪表盘** | `/` | KPI 卡片（报告数/MAE 4.72/Pearson-r 0.967）、快捷操作入口 |
+| **发起评测** | `/eval` | 指令选择 + 文件拖拽上传 + 12 画像可视化网格选择 + Mini/Full/自定义预设 |
+| **评测报告** | `/reports` | 筛选浏览（评测/对比/校准）、分数圆圈可视化、元数据详情 |
+| **任务监控** | `/jobs` | 实时任务状态、终端风格日志查看器、KPI 计数器 |
+| **校准回测** | `/calibration` | SC 参数配置、一键启动、结果自动展示（MAE/Pearson-r） |
+
+#### 指令文件上传
+
+无需登录服务器，直接在浏览器上传：
+
+1. 打开「发起评测」页面
+2. 将 `.md` 或 `.json` 文件拖拽到上传区域，或点击选择文件
+3. 上传成功后自动填充到指令选择器，即可配置参数评测
+
+#### 部署方式
+
+**Docker 部署（推荐）：**
+```bash
+docker build -t evalsystem .
+docker run -d -p 8765:8765 -e DEEPSEEK_API_KEY="sk-..." evalsystem
+```
+
+**Railway 部署：** Fork 仓库 → Railway 新建项目 → 设置 `DEEPSEEK_API_KEY` 环境变量 → 自动部署
+
+**Vercel + Railway 分离部署：** 后端部署到 Railway，前端 `frontend/` 目录部署到 Vercel，设置 `window.EVALSYSTEM_API_BASE` 指向后端 URL
 
 ### 8.3 多模型 / 多 Prompt 对比
 
@@ -625,7 +656,7 @@ EvalSystem/
 │       ├── course_live_upgrade.md           # 示例任务 2 (复杂度 100)
 │       └── delivery_notification.json       # JSON 格式示例
 │
-├── src/                                     (16 个模块)
+├── src/                                     (18 个模块 + 前端)
 │   ├── models.py                            # Pydantic 数据模型 (含 EvidenceQuote, RunMetadata)
 │   ├── instruction_parser.py                # 4 段独立 LLM 抽取
 │   ├── instruction_compiler.py              # 复杂度 + DAG + 约束分类
@@ -641,7 +672,31 @@ EvalSystem/
 │   ├── pdf_exporter.py                      # PDF 导出 (SVG 替代 Canvas)
 │   ├── model_comparison.py                  # 多模型/Prompt 对比
 │   ├── web_dashboard.py                     # FastAPI Dashboard
-│   └── llm_cache.py                         # LLM 调用缓存
+│   ├── llm_cache.py                         # LLM 调用缓存
+│   │
+│   └── web/                                 # Jinja2 前端模板
+│       ├── templates/
+│       │   ├── base.html                    # 基础布局 (导航栏/深色模式)
+│       │   ├── dashboard.html               # 仪表盘
+│       │   ├── eval.html                    # 发起评测 (含文件上传)
+│       │   ├── reports.html                 # 评测报告
+│       │   ├── jobs.html                    # 任务监控
+│       │   └── calibration.html             # 校准回测
+│       └── static/
+│           ├── app.js                       # 共享 JS
+│           └── style.css                    # 自定义样式
+│
+├── frontend/                                # Vercel 独立前端 SPA
+│   ├── index.html                           # 单页应用 (5 页面 hash 路由)
+│   ├── vercel.json                          # Vercel 部署配置
+│   └── static/
+│       ├── app.js                           # 前端应用逻辑
+│       └── style.css                        # 前端样式
+│
+├── Dockerfile                               # Docker 镜像构建
+├── docker-compose.yml                       # 容器编排
+├── railway.json                             # Railway 部署配置
+├── Procfile                                 # Railway 进程定义
 │
 ├── tests/
 │   ├── test_integration.py                  # 集成测试 (无 API)
@@ -752,11 +807,35 @@ llm:
 3. 在 `config/default_config.yaml:simulator.personas` 加权重
 </details>
 
+<details>
+<summary><b>Q: 如何部署 Web Dashboard？</b></summary>
+
+支持三种部署方式：
+
+```bash
+# 1. Docker（推荐）
+docker build -t evalsystem .
+docker run -d -p 8765:8765 -e DEEPSEEK_API_KEY="sk-..." evalsystem
+
+# 2. Railway（自动部署）
+# Fork 仓库 → Railway 新建项目 → 设置 DEEPSEEK_API_KEY → 自动构建部署
+
+# 3. 本地直接运行
+python -m src.web_dashboard --host 0.0.0.0 --port 8765
+```
+</details>
+
+<details>
+<summary><b>Q: 如何上传自定义指令文件？</b></summary>
+
+无需登录服务器，打开 Web Dashboard →「发起评测」页面，在「任务指令」区域拖拽上传 `.md` 或 `.json` 文件即可。上传后自动填充到指令选择器。
+</details>
+
 ---
 
 ## 13. 路线图
 
-### 已完成 (v3.0)
+### 已完成 (v3.1)
 
 - [x] 混合评估架构（规则 + LLM）
 - [x] 证据三元组 + quote 校验反幻觉
@@ -767,10 +846,14 @@ llm:
 - [x] 短板诊断 + Top-N 失败模式聚类
 - [x] 校准回测（MAE / Pearson-r 量化可靠性）
 - [x] HTML / PDF / MD / JSON 四种报告格式
-- [x] Web Dashboard（FastAPI）
+- [x] Web Dashboard（FastAPI + Jinja2 模板）
+- [x] Tailwind CSS + Alpine.js 现代化 UI（零构建步骤）
+- [x] 深色模式 + 文件拖拽上传
+- [x] 独立前端 SPA（Vercel 部署）
+- [x] Docker + Railway 容器化部署
 - [x] 多模型 / 多 Prompt 对比
 
-### 计划 (v3.1+)
+### 计划 (v3.2+)
 
 - [ ] **多 Judge Ensemble** — Claude / GPT-4 / DeepSeek 三模型评，取多数票
 - [ ] **校准集扩充** — 50+ case 涵盖更多边缘场景
