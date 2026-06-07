@@ -43,6 +43,9 @@ except ImportError:
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+# 上传的指令文件存储目录（独立于源码目录，确保在 Docker 中可写）
+UPLOAD_DIR = ROOT / "uploads"
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
 logger = logging.getLogger("dashboard")
 
@@ -226,12 +229,18 @@ def run_calibration_job(job_id: str, self_consistency: int):
 # ============ FastAPI 应用 ============
 
 def _list_instructions():
-    instr_dir = ROOT / "config" / "sample_instructions"
     instructions = []
+    # Built-in instructions
+    instr_dir = ROOT / "config" / "sample_instructions"
     if instr_dir.exists():
         for f in sorted(instr_dir.iterdir()):
             if f.suffix in {".md", ".json"}:
                 instructions.append(f"config/sample_instructions/{f.name}")
+    # User-uploaded instructions
+    if UPLOAD_DIR.exists():
+        for f in sorted(UPLOAD_DIR.iterdir()):
+            if f.suffix in {".md", ".json"}:
+                instructions.append(f"uploads/{f.name}")
     return instructions
 
 
@@ -384,25 +393,22 @@ def create_app():
         if not any(filename.lower().endswith(ext) for ext in (".md", ".json")):
             raise HTTPException(400, "仅支持 .md 和 .json 文件")
         safe_name = Path(filename).name
-        instr_dir = ROOT / "config" / "sample_instructions"
-        instr_dir.mkdir(parents=True, exist_ok=True)
-        dest = instr_dir / safe_name
+        UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+        dest = UPLOAD_DIR / safe_name
         if dest.exists():
             raise HTTPException(409, f"文件已存在: {safe_name}")
         dest.write_bytes(body)
         logger.info(f"指令文件已上传: {safe_name} ({len(body)} bytes)")
-        return {"path": f"config/sample_instructions/{safe_name}", "filename": safe_name}
+        return {"path": f"uploads/{safe_name}", "filename": safe_name}
 
     @app.delete("/api/instructions/{name:path}")
     def api_instructions_delete(name: str):
         safe_name = Path(name).name
         if not any(safe_name.lower().endswith(ext) for ext in (".md", ".json")):
             raise HTTPException(400, "仅支持删除 .md 和 .json 文件")
-        instr_dir = ROOT / "config" / "sample_instructions"
-        dest = instr_dir / safe_name
+        dest = UPLOAD_DIR / safe_name
         if not dest.exists():
             raise HTTPException(404, f"文件不存在: {safe_name}")
-        # Only allow deleting files that are not in the original sample set
         dest.unlink()
         logger.info(f"指令文件已删除: {safe_name}")
         return {"deleted": safe_name}
