@@ -59,12 +59,12 @@
         <div class="grid grid-cols-3 gap-4">
           <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
             <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">MAE</div>
-            <div class="mt-1 text-3xl font-bold" :class="(results.metrics?.mae || 0) < 5 ? 'text-green-600 dark:text-green-400' : 'text-yellow-600 dark:text-yellow-400'" x-text="(results.metrics?.mae || 0).toFixed(2)"></div>
+            <div class="mt-1 text-3xl font-bold" :class="(results.metrics?.total_score_mae || 0) < 10 ? 'text-green-600 dark:text-green-400' : 'text-yellow-600 dark:text-yellow-400'" x-text="(results.metrics?.total_score_mae || 0).toFixed(2)"></div>
             <div class="text-xs text-gray-400 dark:text-gray-500 mt-1">平均绝对误差</div>
           </div>
           <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
             <div class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Pearson r</div>
-            <div class="mt-1 text-3xl font-bold" :class="(results.metrics?.pearson_r || 0) > 0.9 ? 'text-green-600 dark:text-green-400' : 'text-yellow-600 dark:text-yellow-400'" x-text="(results.metrics?.pearson_r || 0).toFixed(3)"></div>
+            <div class="mt-1 text-3xl font-bold" :class="(results.metrics?.total_score_pearson_r || 0) > 0.9 ? 'text-green-600 dark:text-green-400' : 'text-yellow-600 dark:text-yellow-400'" x-text="(results.metrics?.total_score_pearson_r || 0).toFixed(3)"></div>
             <div class="text-xs text-gray-400 dark:text-gray-500 mt-1">相关系数</div>
           </div>
           <div class="bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
@@ -87,9 +87,9 @@
                   <span class="text-xs text-gray-500 dark:text-gray-400" x-text="case_item.session_id || ''"></span>
                 </div>
                 <div class="flex items-center gap-4 text-sm">
-                  <span>自动: <span class="font-bold" :class="scoreColor(case_item.auto_score)" x-text="case_item.auto_score?.toFixed(1)"></span></span>
-                  <span>人工: <span class="font-bold text-gray-900 dark:text-white" x-text="case_item.human_score?.toFixed(1)"></span></span>
-                  <span x-show="case_item.delta != null" class="text-xs text-gray-500 dark:text-gray-400">差值: <span :class="Math.abs(case_item.delta) < 10 ? 'text-green-600' : 'text-red-600'" x-text="(case_item.delta > 0 ? '+' : '') + case_item.delta.toFixed(1)"></span></span>
+                  <span>自动: <span class="font-bold" :class="scoreColor(case_item.evaluator_total)" x-text="case_item.evaluator_total?.toFixed(1)"></span></span>
+                  <span>人工: <span class="font-bold text-gray-900 dark:text-white" x-text="case_item.gt_total?.toFixed(1)"></span></span>
+                  <span x-show="case_item.diff != null" class="text-xs text-gray-500 dark:text-gray-400">差值: <span :class="Math.abs(case_item.diff) < 10 ? 'text-green-600' : 'text-red-600'" x-text="(case_item.diff > 0 ? '+' : '') + case_item.diff.toFixed(1)"></span></span>
                 </div>
               </div>
             </template>

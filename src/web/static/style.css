@@ -65,6 +65,9 @@ html { transition: background-color 0.3s; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* Alpine.js cloak (hide until ready) */
+[x-cloak] { display: none !important; }
+
 /* Empty state illustrations */
 .empty-state svg { opacity: 0.4; }
 
