@@ -454,8 +454,8 @@ def create_app():
 def main():
     import argparse
     p = argparse.ArgumentParser()
-    p.add_argument("--host", default="127.0.0.1")
-    p.add_argument("--port", type=int, default=8765)
+    p.add_argument("--host", default="0.0.0.0")
+    p.add_argument("--port", type=int, default=int(os.environ.get("PORT", 8765)))
     args = p.parse_args()
     app = create_app()
     import uvicorn
