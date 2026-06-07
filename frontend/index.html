@@ -390,8 +390,8 @@ async function handleFileUpload(file) {
       body: buf,
     });
     if (!r.ok) {
-      let errMsg = r.statusText;
-      try { const errBody = await r.json(); errMsg = errBody.detail || errMsg; } catch (_) {}
+      let errMsg = `HTTP ${r.status}`;
+      try { const text = await r.clone().text(); errMsg += `: ${text.slice(0, 200)}`; } catch (_) {}
       throw new Error(errMsg);
     }
     const data = await r.json();
