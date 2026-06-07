@@ -152,7 +152,7 @@ async function initEval() {
     if (!Object.keys(window.PERSONA_META || {}).length && data.persona_meta) {
       window.PERSONA_META = data.persona_meta;
     }
-  } catch (e) {}
+  } catch (e) { console.error('initEval error:', e); }
 }
 
 const evalForm = {
