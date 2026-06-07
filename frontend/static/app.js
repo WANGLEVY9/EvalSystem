@@ -111,6 +111,14 @@ function confidenceColor(c) {
   return 'text-yellow-600 dark:text-yellow-400';
 }
 
+// ============ Status Helpers ============
+function statusDotClass(s) {
+  return { running: 'bg-primary-500 pulse-dot', finished: 'bg-green-500', failed: 'bg-red-500', pending: 'bg-gray-400' }[s] || 'bg-gray-400';
+}
+function statusBgClass(s) {
+  return { running: 'bg-primary-500', finished: 'bg-green-500', failed: 'bg-red-500', pending: 'bg-gray-400' }[s] || 'bg-gray-400';
+}
+
 // ============ Init ============
 document.addEventListener('DOMContentLoaded', () => {
   initDarkMode();
@@ -126,15 +134,15 @@ async function initDashboard() {
   try {
     const reports = await apiGet('/api/reports');
     document.getElementById('kpi-reports').textContent = reports.length;
-  } catch (e) {}
+  } catch (e) { console.error('initDashboard reports:', e); }
   try {
     const jobs = await apiGet('/api/jobs');
     document.getElementById('kpi-jobs').textContent = jobs.length;
-  } catch (e) {}
+  } catch (e) { console.error('initDashboard jobs:', e); }
   try {
     const reports = await apiGet('/api/reports');
     renderReportList(reports.slice(0, 6), 'recent-reports');
-  } catch (e) {}
+  } catch (e) { console.error('initDashboard recent:', e); }
 }
 
 // ============ Eval Form ============
@@ -216,7 +224,7 @@ async function initReports() {
   try {
     reportsCache = await apiGet('/api/reports');
     renderReportList(reportsCache, 'report-list');
-  } catch (e) {}
+  } catch (e) { console.error('initReports error:', e); }
 }
 function filterReports(kind) {
   const filtered = kind ? reportsCache.filter(r => r.kind === kind) : reportsCache;
@@ -231,13 +239,42 @@ async function initJobs() {
 async function refreshJobs() {
   try {
     const jobs = await apiGet('/api/jobs');
-    renderJobList(jobs);
+    const container = document.getElementById('job-list');
+    if (!container) return;
+    const sorted = [...jobs].sort((a, b) => b.started_at.localeCompare(a.started_at));
+    if (!sorted.length) {
+      container.innerHTML = '<div class="text-center py-10 text-gray-400 dark:text-gray-500 text-sm">尚无任务</div>';
+      return;
+    }
+    // Incremental update: only update status fields on existing cards
+    const seen = new Set();
+    sorted.forEach(j => {
+      seen.add(j.id);
+      const card = container.querySelector(`.job-card[data-job-id="${j.id}"]`);
+      if (card) {
+        const dot = card.querySelector('.status-dot');
+        if (dot) dot.className = `w-2.5 h-2.5 rounded-full flex-shrink-0 ${statusDotClass(j.status)}`;
+        const badge = card.querySelector('.status-badge');
+        if (badge) {
+          badge.textContent = j.status;
+          badge.className = `status-badge px-2 py-0.5 rounded-full text-xs font-medium text-white ${statusBgClass(j.status)}`;
+        }
+        const lc = card.querySelector('.line-count');
+        if (lc) lc.textContent = `${j.n_log_lines} lines`;
+      } else {
+        container.insertAdjacentHTML('afterbegin', buildJobCardHtml(j));
+      }
+    });
+    // Remove cards for jobs that disappeared
+    container.querySelectorAll('.job-card').forEach(card => {
+      if (!seen.has(card.dataset.jobId)) card.remove();
+    });
     // Update counters
     document.getElementById('jobs-total').textContent = jobs.length;
     document.getElementById('jobs-running').textContent = jobs.filter(j => j.status === 'running').length;
     document.getElementById('jobs-finished').textContent = jobs.filter(j => j.status === 'finished').length;
     document.getElementById('jobs-failed').textContent = jobs.filter(j => j.status === 'failed').length;
-  } catch (e) {}
+  } catch (e) { console.error('refreshJobs error:', e); }
 }
 async function loadLog(jobId) {
   try {
@@ -248,6 +285,7 @@ async function loadLog(jobId) {
       el.scrollTop = el.scrollHeight;
     }
   } catch (e) {
+    console.error('loadLog error:', e);
     const el = document.getElementById('log-' + jobId);
     if (el) el.textContent = '(加载失败)';
   }
@@ -255,11 +293,9 @@ async function loadLog(jobId) {
 async function autoRefreshLog(jobId) {
   await loadLog(jobId);
   setTimeout(() => {
-    document.querySelectorAll('.job-card').forEach(card => {
-      if (card.dataset.jobId === jobId && !card.classList.contains('hidden')) {
-        autoRefreshLog(jobId);
-      }
-    });
+    if (openJobLogs.has(jobId)) {
+      autoRefreshLog(jobId);
+    }
   }, 2500);
 }
 
@@ -329,43 +365,32 @@ function renderReportList(reports, containerId) {
   }).join('');
 }
 
-function renderJobList(jobs) {
-  const div = document.getElementById('job-list');
-  if (!div) return;
-  const sorted = [...jobs].sort((a, b) => b.started_at.localeCompare(a.started_at));
-  if (!sorted.length) {
-    div.innerHTML = '<div class="text-center py-10 text-gray-400 dark:text-gray-500 text-sm">尚无任务</div>';
-    return;
-  }
-  div.innerHTML = sorted.map(j => {
-    const statusDot = { running: 'bg-primary-500 pulse-dot', finished: 'bg-green-500', failed: 'bg-red-500', pending: 'bg-gray-400' }[j.status] || 'bg-gray-400';
-    const statusBg = { running: 'bg-primary-500', finished: 'bg-green-500', failed: 'bg-red-500', pending: 'bg-gray-400' }[j.status] || 'bg-gray-400';
-    return `<div class="job-card border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-3" data-job-id="${j.id}">
-      <div class="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" onclick="toggleJobLog('${j.id}')">
-        <span class="w-2.5 h-2.5 rounded-full flex-shrink-0 ${statusDot}"></span>
-        <span class="font-mono text-xs text-primary-600 dark:text-primary-400 font-medium">${j.id}</span>
-        <span class="px-2 py-0.5 rounded-full text-xs font-medium text-white ${statusBg}">${j.status}</span>
-        <span class="text-xs text-gray-500 dark:text-gray-400">${j.kind}</span>
-        <span class="text-xs text-gray-400">${formatTime(j.started_at)}</span>
-        <div class="ml-auto flex items-center gap-2">
-          <span class="text-xs text-gray-400">${j.n_log_lines} lines</span>
-          <svg class="w-4 h-4 text-gray-400 transition-transform log-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+function buildJobCardHtml(j) {
+  return `<div class="job-card border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden mb-3" data-job-id="${j.id}">
+    <div class="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" onclick="toggleJobLog('${j.id}')">
+      <span class="w-2.5 h-2.5 rounded-full flex-shrink-0 status-dot ${statusDotClass(j.status)}"></span>
+      <span class="font-mono text-xs text-primary-600 dark:text-primary-400 font-medium">${j.id}</span>
+      <span class="status-badge px-2 py-0.5 rounded-full text-xs font-medium text-white ${statusBgClass(j.status)}">${j.status}</span>
+      <span class="text-xs text-gray-500 dark:text-gray-400">${j.kind}</span>
+      <span class="text-xs text-gray-400">${formatTime(j.started_at)}</span>
+      <div class="ml-auto flex items-center gap-2">
+        <span class="text-xs text-gray-400 line-count">${j.n_log_lines} lines</span>
+        <svg class="w-4 h-4 text-gray-400 transition-transform log-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+    </div>
+    <div class="log-section hidden border-t border-gray-200 dark:border-gray-700">
+      <div class="bg-gray-900 px-4 py-3">
+        <div class="log-viewer max-h-80 overflow-y-auto text-gray-100" id="log-${j.id}">
+          <span class="text-gray-600">点击「加载日志」查看输出</span>
+        </div>
+        <div class="flex gap-2 mt-2">
+          <button onclick="event.stopPropagation(); loadLog('${j.id}')" class="text-xs px-3 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors">加载日志</button>
+          <button onclick="event.stopPropagation(); autoRefreshLog('${j.id}')" class="text-xs px-3 py-1 rounded bg-primary-900 text-primary-300 hover:bg-primary-800 transition-colors">自动刷新</button>
         </div>
       </div>
-      <div class="log-section hidden border-t border-gray-200 dark:border-gray-700">
-        <div class="bg-gray-900 px-4 py-3">
-          <div class="log-viewer max-h-80 overflow-y-auto text-gray-100" id="log-${j.id}">
-            <span class="text-gray-600">点击「加载日志」查看输出</span>
-          </div>
-          <div class="flex gap-2 mt-2">
-            <button onclick="event.stopPropagation(); loadLog('${j.id}')" class="text-xs px-3 py-1 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors">加载日志</button>
-            <button onclick="event.stopPropagation(); autoRefreshLog('${j.id}')" class="text-xs px-3 py-1 rounded bg-primary-900 text-primary-300 hover:bg-primary-800 transition-colors">自动刷新</button>
-          </div>
-        </div>
-      </div>
-      ${j.report_files?.html ? `<div class="px-4 py-2 bg-gray-50 dark:bg-gray-850 border-t border-gray-100 dark:border-gray-700"><a href="${API}/files/${j.report_files.html}" target="_blank" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">📄 查看报告</a></div>` : ''}
-    </div>`;
-  }).join('');
+    </div>
+    ${j.report_files?.html ? `<div class="px-4 py-2 bg-gray-50 dark:bg-gray-850 border-t border-gray-100 dark:border-gray-700"><a href="${API}/files/${j.report_files.html}" target="_blank" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">📄 查看报告</a></div>` : ''}
+  </div>`;
 }
 
 let openJobLogs = new Set();
@@ -376,7 +401,13 @@ function toggleJobLog(jobId) {
   const isOpen = !section.classList.contains('hidden');
   section.classList.toggle('hidden');
   if (chevron) chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
-  if (!isOpen) loadLog(jobId);
+  if (!isOpen) {
+    openJobLogs.add(jobId);
+    loadLog(jobId);
+    autoRefreshLog(jobId);
+  } else {
+    openJobLogs.delete(jobId);
+  }
 }
 
 function renderCalibrationResults(results, resultFiles) {
