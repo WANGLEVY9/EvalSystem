@@ -24,4 +24,4 @@ RUN mkdir -p output && chmod 777 output
 EXPOSE 8765
 
 # Run dashboard
-CMD python -m src.web_dashboard --host 0.0.0.0 --port ${PORT:-8765}
+CMD python -m src.web_dashboard --host 0.0.0.0
