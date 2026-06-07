@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir -r requirements.txt && \
 COPY . .
 
 # Create writable directories (output for reports, uploads for user-uploaded instructions)
-RUN mkdir -p output uploads && chmod 777 output uploads
+RUN mkdir -p output && chmod 777 output
 
 # Default port
 EXPOSE 8765
