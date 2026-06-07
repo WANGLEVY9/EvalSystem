@@ -395,9 +395,9 @@ async function handleFileUpload(file) {
     status.textContent = file.name + ' 上传成功';
     evalForm.instruction_path = data.path;
     // Refresh instruction list
-    const r = await apiGet('/api/instructions');
+    const instrData = await apiGet('/api/instructions');
     const sel = document.getElementById('instr-select');
-    sel.innerHTML = '<option value="">— 选择指令文件 —</option>' + r.instructions.map(i => `<option value="${i}" ${i === data.path ? 'selected' : ''}>${i.split('/').pop()}</option>`).join('');
+    sel.innerHTML = '<option value="">— 选择指令文件 —</option>' + instrData.instructions.map(i => `<option value="${i}" ${i === data.path ? 'selected' : ''}>${i.split('/').pop()}</option>`).join('');
     setTimeout(() => status.textContent = '', 3000);
   } catch (e) {
     status.className = 'mt-2 text-xs text-red-600';

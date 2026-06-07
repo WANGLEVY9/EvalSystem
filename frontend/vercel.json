@@ -3,6 +3,8 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://evalsystem.up.railway.app/api/$1" },
+    { "source": "/files/(.*)", "destination": "https://evalsystem.up.railway.app/files/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [

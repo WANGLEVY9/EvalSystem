@@ -115,10 +115,10 @@ function confidenceColor(c) {
 document.addEventListener('DOMContentLoaded', () => {
   initDarkMode();
   // Initialize dynamic content
-  if (document.getElementById('dashboard-page')) initDashboard();
-  if (document.getElementById('eval-page')) initEval();
-  if (document.getElementById('reports-page')) initReports();
-  if (document.getElementById('jobs-page')) initJobs();
+  if (document.getElementById('page-dashboard')) initDashboard();
+  if (document.getElementById('page-eval')) initEval();
+  if (document.getElementById('page-reports')) initReports();
+  if (document.getElementById('page-jobs')) initJobs();
 });
 
 // ============ Dashboard ============
